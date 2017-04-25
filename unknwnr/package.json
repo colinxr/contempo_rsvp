@@ -1,0 +1,11 @@
+{
+  "name": "unknowner",
+  "version": "0.1.0",
+  "description": "Contempo Unknown RSVPs",
+  "main": "index.php",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-uglify": "^1.0.1"
+  }
+}
