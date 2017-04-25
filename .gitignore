@@ -40,7 +40,7 @@ Thumbs.db
 
 # Files in Project  #
 #####################
-/_inc/config.php
-/_inc/config1and1.php
-/_inc/email/*.jpg
+_inc/config.php
+_inc/config1and1.php
+_inc/email/*.jpg
 
