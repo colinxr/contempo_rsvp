@@ -29,7 +29,7 @@
 
 			<div class="col right">
 
-			<form action="validate_v2.php" method="post" autocomplete="off">
+			<form action="validate.php" method="post" autocomplete="off">
 
 					<span class="input input--bfm">
 						<input class="input__field input__field--bfm" type="text" id="first-name"  name="first-name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
