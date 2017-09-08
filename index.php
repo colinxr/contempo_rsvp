@@ -1,7 +1,6 @@
 <!DOCTYPE>
 <html>
 <head>
-
 	<title><?php
 		include '_inc/config.php';
 		echo EVENT_NAME;
@@ -18,81 +17,69 @@
 </head>
 <body>
 	<div class="container">
-
 		<div class="wrapper">
-
 			<div class="col left info">
-
 				<?php include '_inc/event-info.php'; ?>
-
 			</div>
 
 			<div class="col right">
-
-			<form action="validate.php" method="post" autocomplete="off">
-
-					<span class="input input--bfm">
-						<input class="input__field input__field--bfm" type="text" id="first-name"  name="first-name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
-						<label class="input__label input__label--bfm input__label--bfm-color" for="first-name">
-							<span class="input__label-content input__label-content--bfm">First Name</span>
-						</label>
-					</span>
-					<span class="input input--bfm">
-						<input class="input__field input__field--bfm" type="text" id="last-name" name="last-name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
-						<label class="input__label input__label--bfm input__label--bfm-color" for="last-name">
-							<span class="input__label-content input__label-content--bfm">Last Name</span>
-						</label>
-					</span>
-					<span class="input input--bfm">
-						<input class="input__field input__field--bfm" type="email" id="email" name="email" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/ required>
-						<label class="input__label input__label--bfm input__label--bfm-color" for="email">
-							<span class="input__label-content input__label-content--bfm">Email</span>
-						</label>
-					</span>
-
-					<span class="input input--bfm">
-						<input class="input__field input__field--bfm" type="text" id="postal"  name="postal" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/ required>
-						<label class="input__label input__label--bfm input__label--bfm-color" for="postal">
-							<span class="input__label-content input__label-content--bfm">Postal Code</span>
-						</label>
-					</span>
-
-					<span class="input input--bfm input__check">
-						<label class="input__label input__label--plus-one" for="plus-one">Bringing a Guest?</label>
-						<input type="checkbox" name="plus-one" id="plus-one">
-					</span>
-
-					<div class="guests">
+				<form action="validate.php" method="post" autocomplete="off">
 						<span class="input input--bfm">
-							<input class="input__field input__field--bfm" type="text" id="guest-name" name="guest-name" />
-							<label class="input__label input__label--bfm input__label--bfm-color" for="guest-name">
-								<span class="input__label-content input__label-content--bfm">Guest Name</span>
+							<input class="input__field input__field--bfm" type="text" id="first-name"  name="first-name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
+							<label class="input__label input__label--bfm input__label--bfm-color" for="first-name">
+								<span class="input__label-content input__label-content--bfm">First Name</span>
 							</label>
 						</span>
 						<span class="input input--bfm">
-							<input class="input__field input__field--bfm" type="email" id="guest-email" name="guest-email" />
-							<label class="input__label input__label--bfm input__label--bfm-color" for="guest-email">
-								<span class="input__label-content input__label-content--bfm">Guest Email</span>
+							<input class="input__field input__field--bfm" type="text" id="last-name" name="last-name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
+							<label class="input__label input__label--bfm input__label--bfm-color" for="last-name">
+								<span class="input__label-content input__label-content--bfm">Last Name</span>
 							</label>
 						</span>
-					</div>
+						<span class="input input--bfm">
+							<input class="input__field input__field--bfm" type="email" id="email" name="email" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/ required>
+							<label class="input__label input__label--bfm input__label--bfm-color" for="email">
+								<span class="input__label-content input__label-content--bfm">Email</span>
+							</label>
+						</span>
 
-				<button class="btn btn-1 btn-1a" type="submit" name="submit" value="Submit">Submit</button>
+						<span class="input input--bfm">
+							<input class="input__field input__field--bfm" type="text" id="postal"  name="postal" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/ required>
+							<label class="input__label input__label--bfm input__label--bfm-color" for="postal">
+								<span class="input__label-content input__label-content--bfm">Postal Code</span>
+							</label>
+						</span>
 
-			</form>
+						<span class="input input--bfm input__check">
+							<label class="input__label input__label--plus-one" for="plus-one">Bringing a Guest?</label>
+							<input type="checkbox" name="plus-one" id="plus-one">
+						</span>
 
+						<div class="guests">
+							<span class="input input--bfm">
+								<input class="input__field input__field--bfm" type="text" id="guest-name" name="guest-name" />
+								<label class="input__label input__label--bfm input__label--bfm-color" for="guest-name">
+									<span class="input__label-content input__label-content--bfm">Guest Name</span>
+								</label>
+							</span>
+							<span class="input input--bfm">
+								<input class="input__field input__field--bfm" type="email" id="guest-email" name="guest-email" />
+								<label class="input__label input__label--bfm input__label--bfm-color" for="guest-email">
+									<span class="input__label-content input__label-content--bfm">Guest Email</span>
+								</label>
+							</span>
+						</div>
+
+						<button class="btn btn-1 btn-1a" type="submit" name="submit" value="Submit">Submit</button>
+
+					</form>
 			</div>
-
 		</div>
-
 	</div>
 
 	<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'></script>
-
 	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/webshim/1.15.10/dev/polyfiller.js'></script>
-
 	<script type='text/javascript' src='dist/js/all.min.js'></script>
-
 		<script>
 			(function() {
 				// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
@@ -130,10 +117,9 @@
 		</script>
 
 		<script>
-        webshim.activeLang('en');
-        webshims.polyfill('forms');
-        webshims.cfg.no$Switch = true;
+    	webshim.activeLang('en');
+      webshims.polyfill('forms');
+      webshims.cfg.no$Switch = true;
     </script>
-
 </body>
 </html>

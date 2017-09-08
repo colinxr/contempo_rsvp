@@ -6,8 +6,10 @@ error_reporting(E_ALL);
 <!DOCTYPE>
 <html>
 <head>
-
-	<title>Sharp Magazine's 10th Anniversary Party RSVP</title>
+	<title><?php
+	include '_inc/config.php';
+	echo EVENT_NAME;
+ 	?> RSVP</title>
 	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta name="theme-color" content="#4a4a4a">
@@ -17,26 +19,19 @@ error_reporting(E_ALL);
 	<link rel='stylesheet' href='css/style.css' type='text/css' media='all' />
 	<link href="http://addtocalendar.com/atc/1.5/atc-style-blue.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
 </head>
 <body>
 
 <div class="container">
-
 <div class="wrapper">
-
 	<div class="col left info">
-
 		<?php require '_inc/event-info.php'; ?>
-
 	</div>
 
 		<div class="col right confirmation">
-
 <?php
-
   require_once '_inc/config.php';
-       require '_inc/functions.php';
+       require 'src/functions.php';
 
   //Get form info
       $email = strtolower($_POST['email']); //formants data to match with Email Lower column in wtf.csv
@@ -58,7 +53,6 @@ error_reporting(E_ALL);
 
   // Put form info into array to pass into SQL Connect function
   if ($rsvpType = "open") {
-
     $row = 1;
     $emailMatch = true;
 
@@ -78,10 +72,8 @@ error_reporting(E_ALL);
       }
 
       if ($emailMatch) {
-
         //call Database Connect Function;
         dbConnect ( $sqlArgs );
-
       }
 
     } elseif ($rsvpType = "Match") {
@@ -104,44 +96,36 @@ error_reporting(E_ALL);
            $guestOf = $data[7];
 
         $emailMatch = true;
-
         }
       }
       fclose($handle);
     }
 
     if ($emailMatch) {
-
       $sqlArgs["gender"] = $gender;
     $sqlArgs["category"] = $category;
      $sqlArgs["company"] = $company;
      $sqlArgs["guestOf"] = $guestOf;
 
-        //call Database Connect Function;
-        dbConnect ( $sqlArgs );
-
-
+      //call Database Connect Function;
+    	dbConnect ( $sqlArgs );
     } else { /* If $emailMatch is false */
-
-        dbUnknwr( $sqlArgs );
-        // call Unknown Databse Conntect function
-  }
-
+      dbUnknwr( $sqlArgs );
+      // call Unknown Databse Conntect function
+  	}
 }// end of rsvpType = Match
 ;?>
-
-
 </div>
 
 <!-- script for add to calendar -->
 <script type="text/javascript">(function () {
-            if (window.addtocalendar)if(typeof window.addtocalendar.start == "function")return;
-            if (window.ifaddtocalendar == undefined) { window.ifaddtocalendar = 1;
-                var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
-                s.type = 'text/javascript';s.charset = 'UTF-8';s.async = true;
-                s.src = ('https:' == window.location.protocol ? 'https' : 'http')+'://addtocalendar.com/atc/1.5/atc.min.js';
-                var h = d[g]('body')[0];h.appendChild(s); }})();
-    </script>
+	if (window.addtocalendar)if(typeof window.addtocalendar.start == "function")return;
+	if (window.ifaddtocalendar == undefined) { window.ifaddtocalendar = 1;
+	    var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+	    s.type = 'text/javascript';s.charset = 'UTF-8';s.async = true;
+	    s.src = ('https:' == window.location.protocol ? 'https' : 'http')+'://addtocalendar.com/atc/1.5/atc.min.js';
+	    var h = d[g]('body')[0];h.appendChild(s); }})();
+</script>
 
 </body>
 </html>
