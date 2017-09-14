@@ -46,13 +46,13 @@
 
             $sql = "INSERT INTO " . DB_TABLE . " ( email, firstName, lastName, postal, gender, category, company, guestOf, guestName, guestEmail )
             VALUES (
-              '$email', '$firstName','$lastName','$postal', '$gender', '$category', '$company', '$guestOf', '$guestName', '$guestEmail')";
+              `$email`, `$firstName`,`$lastName`,`$postal`, `$gender`, `$category`, `$company`, `$guestOf`, `$guestName`, `$guestEmail`)";
 
           } else {
 
             $sql = "INSERT INTO" . " " . DB_TABLE . " " . "(
                 email, firstName, lastName,  postal, gender, category, company, guestOf )
-            VALUES ('$email', '$firstName', '$lastName', '$postal', '$gender', '$category', '$company', '$guestOf')";
+            VALUES (`$email`, `$firstName`, `$lastName`, `$postal`, `$gender`, `$category`, `$company`, `$guestOf`)";
           }
 
       if ( $conn->query($sql) === TRUE ) {
@@ -134,7 +134,7 @@
     }
 
       // CHECK IF EMAIL ALREADY IN DB
-      $unknownResult = $unknownConn->query("SELECT id FROM " . UNKNWNR . " WHERE EMAIL = '$email'");
+      $unknownResult = $unknownConn->query("SELECT id FROM " . UNKNWNR . " WHERE EMAIL = `$email`");
 
         if ($unknownResult === false) {
 
@@ -146,12 +146,12 @@
             if ( $hasGuest ) {
 
               $sql = "INSERT INTO " . UNKNWNR . " ( email, firstName, lastName,  postal, guestName, guestEmail )
-              VALUES ('$email', '$firstName','$lastName','$postal','$guestName','$guestEmail')";
+              VALUES (`$email`, `$firstName`, `$lastName`, `$postal`, `$guestName`, `$guestEmail`)";
 
             } else {
 
               $sql = "INSERT INTO " . UNKNWNR . " ( email, firstName, lastName,  postal )
-              VALUES ('$email', '$firstName', '$lastName', '$postal')";
+              VALUES (`$email`, `$firstName`, `$lastName`, `$postal`)";
             }
 
         if ( $unknownConn->query($sql) === TRUE ) {
@@ -194,7 +194,7 @@
 function delete_unknown($conn, $email){
 
 	// Make sure entry is in unknown DB
-	$delete = $conn->query("SELECT ID FROM " . UNKNWNR . " WHERE EMAIL = '$email'");
+	$delete = $conn->query("SELECT ID FROM " . UNKNWNR . " WHERE EMAIL = `$email`");
 
 		if ($delete === false) {
 
@@ -202,7 +202,7 @@ function delete_unknown($conn, $email){
 
 		} else if ($delete->num_rows > 0) {
 
-			$sql = "DELETE FROM " . UNKNWNR . " WHERE EMAIL = '$email'";
+			$sql = "DELETE FROM " . UNKNWNR . " WHERE EMAIL = `$email`";
 
 		}
 
