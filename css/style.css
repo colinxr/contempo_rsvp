@@ -7,19 +7,19 @@
 }
 
 body {
-	background-color: #4a4a4a;
+	background-color: #fff;
 	background-image: url('../imgs/dude2.jpg');
 	background-position: left top;
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
 
-	color: #fff;
+	color: #4a4a4a;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  	font-weight: 300;
-  	font-style: normal;
-  	font-size: 27px;
-  	line-height: 41px;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 28px;
 
 
 }
@@ -29,12 +29,15 @@ body {
 	padding: 20.5px 0 0 82px;
 }
 
-.logo {
-	width: 64%;
-	margin-bottom: 20.5px;
-	margin-top: 20.5px;
-	max-width: 420px;
-	min-width: 300px;
+.logos {
+	display: block;
+	margin: 0 auto;
+	width: 60%;
+}
+
+.givenchy {
+	width: 100%;
+	margin: 18px 0;
 }
 
 .wrapper {
@@ -47,11 +50,11 @@ body {
 }
 
 .left {
-	min-width: 300px;
+	padding: 0 35px 0 35px;
 }
 
 .right {
-	padding-top: 246px;
+	padding-top: 121px;
 }
 
 .confirmation {
@@ -62,7 +65,7 @@ body {
 	padding: 0 20.5px 20.5px 20.5px;
 	position: relative;
 	height: 328px ;
-	margin-top: 164px;
+	margin-top: 81px;
 }
 
 .confirmation--footer {
@@ -94,7 +97,7 @@ form { width: 85%; }
 	border: none;
 	border-radius: 0;
 	background: #f0f0f0;
-	color: #fff;
+	color: #4a4a4a;
 	font-weight: bold;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	-webkit-appearance: none; /* for box shadows to show on iOS */
@@ -109,9 +112,9 @@ form { width: 85%; }
 	float: right;
 	padding: 0 1em;
 	width: 40%;
-	color: #fff;
+	color: #4a4a4a;
 	font-weight: bold;
-	font-size: 90.25%;
+	font-size: 14px;
 
 	-webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -128,7 +131,7 @@ form { width: 85%; }
 	display: block;
 	padding: 33px 0 0;
 	width: 100%;
-	font-size: 27pt;
+	font-size: 18px;
 }
 
 /* bfm */
@@ -138,8 +141,8 @@ form { width: 85%; }
 
 .input__field--bfm {
 	background: transparent;
-	color: #fff;
-	font-size: 27pt;
+	color: #4a4a4a;
+	font-size: 18px;
 	letter-spacing: 1px;
 	padding: 34px 5px 10.5px;
 	width: 100%;
@@ -320,50 +323,48 @@ form { width: 85%; }
 }
 
 h1, h2, h3, h4, h5, h6 {
-	color: #fff;
+	color: #4a4a4a;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-weight: 400;
+	font-weight: 600;
 	/* text-shadow: 3px 3px 2px #333;*/
+	text-transform: uppercase;
 }
 
 h1 {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 83pt;
-    line-height: 88pt;
-    letter-spacing: 5pt;
+    font-size: 83px;
+    line-height: 88px;
     margin-top: 20.5px;
     margin-bottom: 0px;
 }
 
 h2 {
-    letter-spacing: 4px;
     font-family: inherit;
   	font-weight: 600;
   	font-style: inherit;
-  	font-size: 13.5pt;
-  	line-height: 20.5pt;
-		text-transform: uppercase;
+  	font-size: 28px;
+  	line-height: 41px;
+		margin-top: 28px;
 }
 
 h3 {
-	font-weight: 400;
-  	font-size: 27pt;
-  	line-height: 28.5pt;
-  	margin-top: 20.5px;
-  	margin-bottom: 0;
+	font-weight: 600;
+  font-size: 18px;
+  line-height: 36px;
+	margin-top: 28px;
 }
 
 h4 {
-  	font-size: 40px;
+  	font-size: 14px;
 		font-weight: 600;
-		letter-spacing: 1px;
-		line-height: 41px;
+		line-height: 28px;
+		margin-top: 28px;
 }
 
 h5 {
-  	font-size: 27px;
+  	font-size: 14px;
   	line-height: 41px;
-  	margin-bottom: 30px;
+  	margin-top: 0;
 }
 
 p {
@@ -397,7 +398,7 @@ p {
 		width: 67%;
 	}
 
-	.right { padding-top: 184px; }
+	.right { padding-top: 81px; }
 
 	form { width: 100%; }
 
@@ -420,22 +421,14 @@ p {
 
 @media only screen and (max-width: 860px) {
 
-	.container{
-		padding: 41px 0 0;
-		width: 95%; }
-
-	.wrapper {
-		display: block;
-		padding: 0 10px;
-	 }
-
-	.col {width: 67%; }
-
-	.right { padding-top: 40.5px; }
+	.container {
+		margin: 21px auto;
+		width: 95%;
+	}
 
 	.input {
 		margin-left: 0;
-		width: 100%;
+		width: 80%;
 	}
 
 	.input__label--plus-one { width: 50%;}
@@ -447,6 +440,13 @@ p {
 	}
 }
 
+	@media only screen and (max-width: 700px) {
+
+		.left { padding: 0; }
+		.right { padding-left: 35px;}
+
+		h4 {line-height: 21px;}
+	}
 
 	@media only screen and (max-width: 640px) {
 
@@ -454,8 +454,6 @@ p {
 			background-image: url('../imgs/dude2-mobile.jpg');
 			background-position: center top;
 		}
-
-	.col { width: 100%; }
 
 	.confirmation {
 		max-width: 85%;
@@ -467,5 +465,21 @@ p {
 		position: relative;
 		text-align: left;
 	}
+}
 
+@media only screen and (max-width: 580px) {
+	.container { padding-left: 0; }
+	.wrapper { display: block; }
+
+	.col {
+		margin: 0 auto;
+		width: 85%;
+	}
+	.right {
+		padding-top: 15px;
+		text-align: center;
+	}
+	.confirmation {
+		margin-top: 15px;
+	}
 }
