@@ -17,68 +17,45 @@
 </head>
 
 <body>
-
 	<header class="navbar navbar-default">
-
 		<div class="container-fluid">
-
 			<div class="navbar-header">
-
 					<img src="http://www.contempomedia.ca/sharp/bfm/imgs/sharp_logo_black.svg" class="navbar-brand">
-
 				</div>
-
 		</div>
-
 	</header>
 
 	<div class="container">
-
 		<div class="alert alert-success fade in" role="alert" style="display: none;">
-
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		  	<strong>Cool!</strong> You did it. An email has been sent which they will get shortly.
-
 		</div>
 
 	<div class="title">
-
 		<h1>Book For Men Spring/Summer 2017 Unknown RSVPs</h1>
-
 		<h3>Here are the Unknown RSVPs</h3>
-
     <section>
-
       <a href="/rsvps">See RSVPs here</a>
-
     </section>
 	</div>
 
 		<?php
-
 			require("../_inc/config.php");
 
 			// Create connection
+			$conn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
 
-			$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-
-			// Check connection
-
+      // Check connection
 			if ( $conn->connect_error ) {
 				die ("Connection failed: " . $conn->connect_error );
 			}
 
 			// Check if there are any unknown RSVPs
-
-			$result = $conn->query( "SELECT * FROM " . UNKNWNR);
+			$result = $conn->query( "SELECT * FROM " . UNKNWNR );
 
 				if ( $result === false ) {
-
 					echo "Error";
-
-				// Display unknown RSVPS
-
-				} else if( $result->num_rows > 0 ) { ?>
+				} else if( $result->num_rows > 0 ) { // Display unknown RSVPS ?>
 
 					<table class='table table-striped' id='rsvp-table'>
 						<thead>
@@ -96,12 +73,8 @@
 						<tbody>
 
 					<? $counter = 0;
-
 						while( $data = mysqli_fetch_array( $result ) ){
-
-
 							$counter++;
-
 							echo "<tr id='". $counter . "'>";
 
 							echo "<td>" . $counter . "</td>";
@@ -117,27 +90,16 @@
               echo "<input type='button' class='btn btn-link deny' value='Deny' /></td>";
 
 							echo "</tr>";
-
 						}
 
 						echo "</tbody></table>";
-
-
-					// If table has no unknown RSVPs display a message
-
-					} else {
-
+					} else {// If table has no unknown RSVPs display a message
 						echo "No unknown RSVPs right now. Check back later.";
-
 					}
-
 		;?>
-
 	</div>
 
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript" src="js/build/production.js"></script>
-
 </body>
-
 </html>

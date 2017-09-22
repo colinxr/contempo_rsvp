@@ -1,0 +1,174 @@
+
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: $bg-color;
+	background-image: url('../imgs/dude2.jpg');
+	background-position: left top;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+.container {
+	width: 98%;
+	padding: 30.5px 0 0 30.5px;
+	max-width: 1240px;
+
+  @include big-desktop {
+    width: 90%;
+  }
+
+  @include desktop {
+    width: 95%;
+  }
+}
+
+.logos {
+	display: block;
+	margin: 0 auto;
+	width: 60%;
+}
+
+.wrapper {
+	display: flex;
+
+  @include sm-tablet {
+    display: block;
+		max-width: 450px;
+	}
+}
+
+.col {
+	flex: 1;
+	width: 45%;
+
+  @include tablet {
+    width: auto;
+  }
+}
+
+header {
+  img { width: 100%; }
+}
+
+.launch-event {
+	margin-top: 13px;
+	width: 100%; }
+
+.left {
+	margin-right: 55px;
+	min-width: 500px;
+
+  @include reg-desktop {
+    margin-right: 55px;
+		min-width: 450px;
+  }
+
+  @include desktop {
+    margin-right: 35px;
+  }
+
+  @include tablet {
+    min-width: 400px;
+  }
+
+  @include sm-tablet {
+	   min-width: 100%;
+	}
+}
+
+.right {
+	padding-top: 121px;
+
+  @include big-desktop {
+    padding-top: 81px;
+  }
+
+  @include sm-tablet {
+    padding: 20px 35px;
+     width: 100%;
+	}
+}
+
+.confirmation {
+	background-color: #f2f2f2;
+	border-radius: 3px;
+	opacity: .85;
+	color: $font-color;
+	padding: 0 20.5px 20.5px 20.5px;
+	position: relative;
+	height: 328px ;
+	margin-top: 81px;
+
+  @include big-desktop {
+    padding-top: 0px;
+  }
+
+  @include tablet {
+    margin: 41px 0 41px;
+		padding-top: 1px;
+		max-width: 40%;
+	}
+
+  @include sm-tablet {
+	   height: auto;
+	   max-width: 100%;
+	}
+
+  @include big-phone {
+    max-width: 85%;
+  }
+
+  @include phone {
+    margin-top: 15px;
+  }
+}
+
+.confirmation--footer {
+	position: absolute;
+	bottom: 25px;
+	text-align: center;
+
+  @include big-phone {
+		bottom: 0;
+		margin-top: 13.5px;
+		position: relative;
+		text-align: left;
+  }
+}
+
+.confirmation--footer {
+  img { height: 30px; margin: 0 10px; }
+}
+
+
+.sponsors {
+	text-align: center;
+}
+
+.main {
+  img { width: 25%; }
+}
+
+.lower {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	width: 100%;
+}
+
+.lower {
+  img {
+	   width: 100px;
+	   margin: 10px;
+  }
+}
+
+.brand { flex: 1; }

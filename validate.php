@@ -15,10 +15,9 @@ error_reporting(E_ALL);
 	<meta name="theme-color" content="#4a4a4a">
 	<link rel="icon" href="imgs/favicon.png" type="image/x-icon" />
 
-	<link rel='stylesheet' href='css/normalize.css' type='text/css' media='all' />
-	<link rel='stylesheet' href='css/style.css' type='text/css' media='all' />
+	<!--<link rel='stylesheet' href='css/normalize.css' type='text/css' media='all' />-->
+	<link rel='stylesheet' href='css/main.css' type='text/css' media='all' />
 	<link href="http://addtocalendar.com/atc/1.5/atc-style-blue.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -31,7 +30,8 @@ error_reporting(E_ALL);
 		<div class="col right confirmation">
 <?php
   require_once '_inc/config.php';
-       require 'src/functions.php';
+       require 'src/database.php';
+			 require 'src/email.php';
 
   //Get form info
       $email = strtolower($_POST['email']); //formants data to match with Email Lower column in wtf.csv
@@ -47,36 +47,38 @@ error_reporting(E_ALL);
   }
 
   if ($hasGuest) {
-    $guestName = ucwords(strtolower($_POST['guest-name']));// Formats data for any stray capitals in user form
+    $guestFirstName = ucwords(strtolower($_POST['guest-firstName']));// Formats data for any stray capitals in user form
+		$guestLastName = ucwords(strtolower($_POST['guest-lastName']));// Formats data for any stray capitals in user form
    $guestEmail = $_POST['guest-email'];
   }
 
+	$sqlArgs = array (
+				"email" => $email,
+		"firstName" => $firstName,
+		 "lastName" => $lastName,
+			 "postal" => $postal
+		);
+
+		if ($hasGuest) {
+			$sqlArgs["hasGuest"] = $hasGuest;
+			$sqlArgs["guestFirstName"] = $guestFirstName;
+			$sqlArgs["guestLastName"] = $guestLastName;
+			$sqlArgs["guestEmail"] = $guestEmail;
+		}
+
   // Put form info into array to pass into SQL Connect function
-  if ($rsvpType = "open") {
+  if ($rsvpType === "open") {
     $row = 1;
     $emailMatch = true;
 
     $emailLower = strtolower($email);
-
-    $sqlArgs = array (
-          "email" => $email,
-      "firstName" => $firstName,
-       "lastName" => $lastName,
-         "postal" => $postal
-      );
-
-      if ($hasGuest) {
-        $sqlArgs["hasGuest"] = $hasGuest;
-        $sqlArgs["guestName"] = $guestName;
-        $sqlArgs["guestEmail"] = $guestEmail;
-      }
 
       if ($emailMatch) {
         //call Database Connect Function;
         dbConnect ( $sqlArgs );
       }
 
-    } elseif ($rsvpType = "Match") {
+    } elseif ($rsvpType === "Match") {
 
     //Check email and compare to list, if match, grab ancillary information
     $row = 1;
@@ -107,13 +109,12 @@ error_reporting(E_ALL);
      $sqlArgs["company"] = $company;
      $sqlArgs["guestOf"] = $guestOf;
 
-      //call Database Connect Function;
+    	//call Database Connect Function;
     	dbConnect ( $sqlArgs );
-    } else { /* If $emailMatch is false */
-      dbUnknwr( $sqlArgs );
-      // call Unknown Databse Conntect function
+  	} else { /* If $emailMatch is false */
+      dbUnknwr( $sqlArgs ); // call Unknown Databse Conntect function
   	}
-}// end of rsvpType = Match
+	}// end of rsvpType = Match
 ;?>
 </div>
 

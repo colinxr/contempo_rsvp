@@ -10,9 +10,8 @@
 	<meta name="theme-color" content="#4a4a4a">
 	<link rel="icon" href="imgs/favicon.png" type="image/x-icon" />
 
-	<link rel='stylesheet' href='css/normalize.css' type='text/css' media='all' />
-	<link rel='stylesheet' href='css/style.css' type='text/css' media='all' />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<!--<link rel='stylesheet' href='css/normalize.css' type='text/css' media='all' />-->
+	<link rel='stylesheet' href='css/main.css' type='text/css' media='all' />
 
 </head>
 <body>
@@ -57,9 +56,15 @@
 
 						<div class="guests">
 							<span class="input input--bfm">
-								<input class="input__field input__field--bfm" type="text" id="guest-name" name="guest-name" />
-								<label class="input__label input__label--bfm input__label--bfm-color" for="guest-name">
-									<span class="input__label-content input__label-content--bfm">Guest Name</span>
+								<input class="input__field input__field--bfm" type="text" id="guest-firstName" name="guest-firstName" />
+								<label class="input__label input__label--bfm input__label--bfm-color" for="guest-firstName">
+									<span class="input__label-content input__label-content--bfm">Guest's First Name</span>
+								</label>
+							</span>
+							<span class="input input--bfm">
+								<input class="input__field input__field--bfm" type="text" id="guest-lastName" name="guest-lastName" />
+								<label class="input__label input__label--bfm input__label--bfm-color" for="guest-lastName">
+									<span class="input__label-content input__label-content--bfm">Guest's Last Name</span>
 								</label>
 							</span>
 							<span class="input input--bfm">

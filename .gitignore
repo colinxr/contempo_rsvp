@@ -41,4 +41,9 @@ Thumbs.db
 _inc/config.php
 _inc/config-1ana1.php
 _inc/email/*.jpg
+*.csv
+
+node_modules
+unknwnr/node_modules
+
 
