@@ -24,7 +24,7 @@
 
 body {
   color: $font-color;
-  font-family: "Gotham-light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: $font-stack;
   font-weight: 400;
   font-style: normal;
   font-size: 18px;
@@ -34,7 +34,7 @@ body {
   .input__field {
   	color: $font-color;
   	font-weight: bold;
-  	font-family: "Gotham", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  	font-family: $font-stack;
   	-webkit-appearance: none; /* for box shadows to show on iOS */
 }
 
@@ -71,14 +71,14 @@ h4,
 h5,
 h6 {
   color: $font-color;
-	font-family: "Gotham", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: $font-stack;
 	font-weight: 600;
 	/* text-shadow: 3px 3px 2px #333;*/
 	text-transform: uppercase;
 }
 
 h1 {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: $font-stack;
   font-size: 83px;
   line-height: 88px;
   margin-top: 20.5px;

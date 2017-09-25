@@ -6,7 +6,7 @@ var jshint = require('gulp-jshint');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
-  var sass = require('gulp-sass');
+var   sass = require('gulp-sass');
 
 // Lint Task
 gulp.task('lint', function() {
