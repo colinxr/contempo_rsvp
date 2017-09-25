@@ -14,21 +14,21 @@
 			 require 'src/email.php';
 
   //Get form info
-      $email = strtolower($_POST['email']); //formants data to match with Email Lower column in wtf.csv
-  $firstName = ucwords(strtolower($_POST['first-name'])); // Formats data for any stray capitals in user form
-   $lastName = ucwords(strtolower($_POST['last-name'])); // Formats data for any stray capitals in user form
-     $postal = strtoupper($_POST['postal']); // Formats data proper Postal Code form
+      $email = strtolower( $_POST['email'] ); //formants data to match with Email Lower column in wtf.csv
+  $firstName = ucwords(strtolower( $_POST['first-name'] ) ); // Formats data for any stray capitals in user form
+   $lastName = ucwords(strtolower( $_POST['last-name'] ) ); // Formats data for any stray capitals in user form
+     $postal = strtoupper( $_POST['postal'] ); // Formats data proper Postal Code form
      $submit = $_POST['submit'];
 
-  if ( isset($_POST['plus-one']) ) { // handles plus one inputs, used to set sql query
+  if ( isset( $_POST['plus-one'] ) ) { // handles plus one inputs, used to set sql query
     $hasGuest = true;
   } else {
     $hasGuest = false;
   }
 
-  if ($hasGuest) {
-    $guestFirstName = ucwords(strtolower($_POST['guest-firstName']));// Formats data for any stray capitals in user form
-		$guestLastName = ucwords(strtolower($_POST['guest-lastName']));// Formats data for any stray capitals in user form
+  if ( $hasGuest ) {
+    $guestFirstName = ucwords( strtolower( $_POST['guest-firstName'] ) );// Formats data for any stray capitals in user form
+		$guestLastName = ucwords( strtolower( $_POST['guest-lastName'] ) );// Formats data for any stray capitals in user form
    $guestEmail = $_POST['guest-email'];
   }
 
@@ -39,7 +39,7 @@
 			 "postal" => $postal
 		);
 
-		if ($hasGuest) {
+		if ( $hasGuest ) {
 			$sqlArgs["hasGuest"] = $hasGuest;
 			$sqlArgs["guestFirstName"] = $guestFirstName;
 			$sqlArgs["guestLastName"] = $guestLastName;
@@ -47,30 +47,30 @@
 		}
 
   // Put form info into array to pass into SQL Connect function
-  if ($rsvpType === "open") {
+  if ( $rsvpType === "open" ) {
     $row = 1;
     $emailMatch = true;
 
-    $emailLower = strtolower($email);
+    $emailLower = strtolower( $email );
 
-      if ($emailMatch) {
+      if ( $emailMatch ) {
         //call Database Connect Function;
         dbConnect ( $sqlArgs );
       }
 
-    } elseif ($rsvpType === "Match") {
+    } elseif ( $rsvpType === "Match" ) {
 
     //Check email and compare to list, if match, grab ancillary information
     $row = 1;
     $emailMatch = false;
 
     // convert email string to all lowercase to make sure variable capitalization doesn't miss the email in wtf.csv
-    $emailLower = strtolower($email);
+    $emailLower = strtolower( $email );
 
-    if (($handle = fopen("wtf.csv", "r")) !== FALSE) {
-      while (($data = fgetcsv($handle, 1500, ",")) !== FALSE) {
+    if ( ( $handle = fopen( "wtf.csv", "r" ) ) !== FALSE ) {
+      while ( ( $data = fgetcsv( $handle, 1500, "," ) ) !== FALSE ) {
         $row++;
-        if ($data[3] == $emailLower) {
+        if ( $data[3] == $emailLower ) {
 
             $gender = $data[4];
           $category = $data[5];
@@ -80,10 +80,10 @@
         $emailMatch = true;
         }
       }
-      fclose($handle);
+      fclose( $handle );
     }
 
-    if ($emailMatch) {
+    if ( $emailMatch ) {
       $sqlArgs["gender"] = $gender;
     $sqlArgs["category"] = $category;
      $sqlArgs["company"] = $company;

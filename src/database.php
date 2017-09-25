@@ -51,24 +51,9 @@
       }
 
       if ( $conn->query($sql) === TRUE ) {
-        echo "<p><strong>". $firstName .", thank you for your RSVP.</strong></p>
-            <p>We've added you to the guest list and you will be receiving your confirmation email shortly.</p><br/>";
-
-         // Calendar Event Info
-         echo '<span class="addtocalendar atc-style-blue">
-              <var class="atc_event">
-                <var class="atc_date_start">2017-05-4 18:00:00</var>
-                <var class="atc_date_end">2017-04-9 22:00:00</var>
-                <var class="atc_timezone">America/Toronto</var>
-                <var class="atc_title">Sharp The Book For Men SS17 Launch Event </var>
-                <var class="atc_location">505 Richmond St West</var>
-                <var class="atc_organizer">Sharp Magazine</var>
-                <var class="atc_organizer_email">event@sharpmagazine.com.com</var>
-             </var>
-          </span>';
-
-          echo "<div class='confirmation--footer'><img src='imgs/sharp_logo_black.svg'>
-              </div>";
+        $path = '/_inc/alerts/conf-msg.html';
+        $alert = file_get_contents( BASEPATH . $path );
+        echo $alert;
 
         //	On successful add to db, send email
         $emailArgs = array (
@@ -82,10 +67,9 @@
       echo "Error: " . $sql . "<br>" . $conn->error;
     } // end of $conn->query($sql) === TRUE
   } else { // if email is alreayd in the DB (user has already registered)
-    echo "<p><strong>Sorry ". $firstName .", it looks like you've already registered. Please check your inbox for your confirmation email.</strong></p>
-      <p>If you have any questions, you can contact <a href='mailto:event@sharpmagazine.com'>event@sharpmagazine.com</a>.</p>";
-    echo "<div class='confirmation--footer'><img src='imgs/sharp_logo_black.svg'>
-          </div>";
+    $path = '/_inc/alerts/reg-msg.html';
+    $alert = file_get_contents( BASEPATH . $path );
+    echo $alert;
   }
   $conn->close();
 } // end of dbConnect();
@@ -135,11 +119,9 @@
         }
 
         if ( $unknownConn->query($sql) === TRUE ) {
-          echo "<p><strong>Thank you for submitting your RSVP.</strong></p>
-            <p>You'll be receiving a confirmation email shortly.</p>
-            <p>If you have any questions, please contact <a href='mailto:event@sharpmagazine.com'>event@sharpmagazine.com</a>.</p>";
-          echo "<div class='confirmation--footer'><img src='imgs/sharp_logo_black.svg'>
-            </div>";
+          $path = '../_inc/alerts/unknown-msg.html';
+          $alert = file_get_contents( BASEPATH . $path );
+          echo $alert;
 
         //	On unknown entry, send staff email
         $staffArgs = array (
@@ -155,10 +137,9 @@
         echo "Error: " . $sql . "<br>" . $unknownConn->error;
       }
     } else {
-      echo "<p><strong>Sorry ". $firstName .", it looks like you've already registered. Please check your inbox for your confirmation email.</strong></p>
-      <p>If you have any questions, you can contact <a href='mailto:event@sharpmagazine.com'>event@sharpmagazine.com</a>.</p>";
-      echo "<div class='confirmation--footer'><img src='imgs/sharp_logo_black.svg'>
-          </div>";
+      $path = '/_inc/alerts/reg-msg.html';
+      $alert = file_get_contents( BASEPATH . $path );
+      echo $alert;
     }
     $unknownConn->close();
   } // end of dbUnknwr();
