@@ -1,4 +1,4 @@
-#Contempo_RSVP
+# Contempo_RSVP
 
 ## an easy event management rsvp tool for Contempo Media.
 
@@ -17,7 +17,9 @@ This is a simple event tool
 
 #### 1. Clone the repo
 
-#### 2. Rename the sql files. Replace the **** with corresponding event name, e.g. rsvp_coach_0917. Import into phpMyAdmin.
+#### 2. Rename the sql files 
+- Replace the **** with corresponding event name, e.g. rsvp_coach_0917. 
+- Import into phpMyAdmin.
 
 #### 3. Update the config-sample.php file found in the _inc directory
 - Add the appropriate database info
@@ -26,7 +28,8 @@ This is a simple event tool
 - Rpdate event confirmation emails, subject lines, hosts, emails, etc.
 - rename config.php
 
-#### 4. Open event-info.php
+#### 4. Edit Event Info
+- Open _inc/event-info.php
 - Add pertinent event info based off of invite design
 - Coordinate with art if required. Some times it's easier to include some of this info as an svg rather than html.
 
