@@ -67,7 +67,7 @@
              </var>
           </span>';
 
-          echo "<div class='confirmation--footer'> <a href='http://www.sharpmagazine.com' target='_top'><img src='imgs/sharp_logo_black.svg'></a>
+          echo "<div class='confirmation--footer'><img src='imgs/sharp_logo_black.svg'>
               </div>";
 
         //	On successful add to db, send email
@@ -84,7 +84,7 @@
   } else { // if email is alreayd in the DB (user has already registered)
     echo "<p><strong>Sorry ". $firstName .", it looks like you've already registered. Please check your inbox for your confirmation email.</strong></p>
       <p>If you have any questions, you can contact <a href='mailto:event@sharpmagazine.com'>event@sharpmagazine.com</a>.</p>";
-    echo "<div class='confirmation--footer'> <a href='http://www.sharpmagazine.com' target='_top'><img src='imgs/sharp_logo_black.svg'></a>
+    echo "<div class='confirmation--footer'><img src='imgs/sharp_logo_black.svg'>
           </div>";
   }
   $conn->close();
@@ -138,7 +138,7 @@
           echo "<p><strong>Thank you for submitting your RSVP.</strong></p>
             <p>You'll be receiving a confirmation email shortly.</p>
             <p>If you have any questions, please contact <a href='mailto:event@sharpmagazine.com'>event@sharpmagazine.com</a>.</p>";
-          echo "<div class='confirmation--footer'> <a href='http://www.sharpmagazine.com' target='_top'><img src='imgs/sharp_logo_black.svg'></a>
+          echo "<div class='confirmation--footer'><img src='imgs/sharp_logo_black.svg'>
             </div>";
 
         //	On unknown entry, send staff email
@@ -157,7 +157,7 @@
     } else {
       echo "<p><strong>Sorry ". $firstName .", it looks like you've already registered. Please check your inbox for your confirmation email.</strong></p>
       <p>If you have any questions, you can contact <a href='mailto:event@sharpmagazine.com'>event@sharpmagazine.com</a>.</p>";
-      echo "<div class='confirmation--footer'> <a href='http://www.sharpmagazine.com' target='_top'><img src='imgs/sharp_logo_black.svg'></a>
+      echo "<div class='confirmation--footer'><img src='imgs/sharp_logo_black.svg'>
           </div>";
     }
     $unknownConn->close();

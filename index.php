@@ -1,19 +1,4 @@
-<!DOCTYPE>
-<html>
-<head>
-	<title><?php
-		include '_inc/config.php';
-		echo EVENT_NAME;
-	 ?> RSVP</title>
-	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<meta name="theme-color" content="#4a4a4a">
-	<link rel="icon" href="imgs/favicon.png" type="image/x-icon" />
-
-	<!--<link rel='stylesheet' href='css/normalize.css' type='text/css' media='all' />-->
-	<link rel='stylesheet' href='css/main.css' type='text/css' media='all' />
-
-</head>
+<?php require_once 'header.php' ;?>
 <body>
 	<div class="container">
 		<div class="wrapper">
