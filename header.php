@@ -24,4 +24,5 @@ error_reporting(E_ALL);
 
 	<link rel="icon" href="imgs/favicon.png" type="image/x-icon" />
 	<link rel='stylesheet' href='css/main.css' type='text/css' media='all' />
+	<link href="http://addtocalendar.com/atc/1.5/atc-style-blue.css" rel="stylesheet" type="text/css">
 </head>
