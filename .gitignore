@@ -42,6 +42,7 @@ _inc/config-1ana1.php
 _inc/email/*.jpg
 *.csv
 
+vendor
 node_modules
 unknwnr/node_modules
 

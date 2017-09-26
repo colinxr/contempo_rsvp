@@ -1,4 +1,21 @@
 <?php
+
+require_once('./vendor/autoload.php');
+use Postmark\PostmarkClient;
+
+function sendConfirmPm( $emailArgs ) {
+
+  $client = new PostmarkClient( CLIENT_API );
+
+  // Send an email:
+  $sendResult = $client->sendEmail(
+    'event@sharpmagazine.com',
+    $emailArgs['email'],
+    'Hello from Postmark!',
+    'This is just a friendly "hello" from your friends at Postmark.'
+  );
+}
+
 function sendEmail( $emailArgs ) {
   $subject = '=?UTF-8?B?'.base64_encode(utf8_encode(SUBJECT_LINE)).'?=';
 

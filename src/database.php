@@ -62,7 +62,7 @@
            "lastName" => $lastName
         );
 
-        sendEmail( $emailArgs );
+        sendConfirmPm( $emailArgs );
     } else {
       echo "Error: " . $sql . "<br>" . $conn->error;
     } // end of $conn->query($sql) === TRUE

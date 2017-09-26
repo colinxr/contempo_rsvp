@@ -15,11 +15,14 @@
 	define( 'DB_TABLE', 'rsvp_test');
 	define( 'UNKNWNR', 'unkonwn_test');
 
+	define( 'BASEPATH', $_SERVER[DOCUMENT_ROOT] .'/test' );
+
 	// ** Event Hosts
 	define('EVENT_HOSTS', "Colin Rabyniuk");
 	define('EVENT_NAME', "Colin's Test");
 
 	// ** Email confirmation settings
+	define( 'CLIENT_API', '*********' ); //refer to postmark account
 	define('EMAIL_FROM', "colinxr@gmail.com"); 	// confirmation from email address
 	define('STAFF_EMAIL_FROM', "colinxr@gmail.com"); // Staff email from address
 	define('SUBJECT_LINE', "Colin's Test Confirmation");
