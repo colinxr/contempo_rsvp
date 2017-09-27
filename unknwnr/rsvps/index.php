@@ -20,7 +20,7 @@
 <header class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<img src="../imgs/s-.svg" class="navbar-brand">
+			<img src="../../imgs/sharp_logo_black.svg" class="navbar-brand">
 		</div>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="http://www.contempomedia.com/sharp/bfm">Landing Page</a></li>
@@ -32,15 +32,21 @@
 <div class="container">
 
 <header>
-  <h1>Book For Men Spring/Summer 2017 RSVPs</h1>
+  <h1>S/Volume & BFM F/W 2017 RSVPs</h1>
 
   <h3>Here are the RSVPs and Plus Ones.</h3>
 
-  <!--<section>
+  <section>
 
-    <a href="download.php" class="btn">Download RSVPs</a>
+    <div>
+      <div class="form-group">
+        <div class="col-md-4">
+          <a href="http://contempomedia.ca/test/unknwnr/rsvps/download.php" download> <button type="submit" name="export" class="btn btn-success" value="export RSVPs"/>Export</button></a>
+        </div>
+      </div>
+    </div>
 
-  </section> -->
+  </section>
 </header>
 
 <?php

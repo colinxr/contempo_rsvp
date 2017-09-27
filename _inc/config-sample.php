@@ -23,7 +23,7 @@
 
 	// ** Email confirmation settings
 	define( 'CLIENT_API', '*********' ); //refer to postmark account
-	define('EMAIL_FROM', "colinxr@gmail.com"); 	// confirmation from email address
+	define('EMAIL_FROM', 'colinxr@gmail.com'); 	// confirmation from email address
 	define('STAFF_EMAIL_FROM', "colinxr@gmail.com"); // Staff email from address
 	define('SUBJECT_LINE', "Colin's Test Confirmation");
 	define('STAFF_SUBJECT', "Colin's Test: Unknown RSVP");

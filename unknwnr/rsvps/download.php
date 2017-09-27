@@ -1,47 +1,46 @@
 <?php
-require ("../../_inc/config.php");
-
-$dbConn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+require("../../_inc/config.php");
 
 //Check connection
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
-if ($dbConn->connect_error){
-  die ("Connection failed: " . $dbConn->connect_error);
+if ( $conn->connect_error ) {
+  die( "Connection failed:" . $conn->connect_error );
 }
 
-// Select all entries from DB table
-  $result = $dbConn->query( "SELECT * FROM " . DB_TABLE );
+$query = "SELECT * from " . DB_TABLE . " ORDER BY ID DESC";
 
-    if ( $result === false ) {
+$result = $conn->query( $query );
 
-      echo "Error";
-
-  } else if( $result->num_rows > 0 ) {
-
-
+if ( $result === false ) {
+  die('Could not fetch records');
+} else {
   $num_fields = mysqli_num_fields($result);
-
 
   $headers = array();
 
-  for ($i = 0; $i < $num_fields; $i++) {
-    $headers[] = mysqli_fetch_field($result , $i);
+  while ( $field_info = mysqli_fetch_field( $result ) ){
+    $headers[] = $field_info->name;
   }
 
-  $fp = fopen('php://output', 'w');
+  $output = fopen('php://output', 'w');
 
-  if ($fp && $result) {
-    header('Content-Type: text/csv');
-    header('Content-Disposition: attachment; filename="export.csv"');
-    header('Pragma: no-cache');
-    header('Expires: 0');
-    fputcsv($fp, $headers);
+  if ( $output && $result ){
+    header("Cache-Control: private");
+    header("Content-Description: File Transfer");
+    header("Content-Type: application/force-download");
+    header("Content-Transfer-Encoding: binary");
+    header("Content-Type: binary/octet-stream");
+    header("Content-Type: text/csv; charset=utf-8");
+    header("Content-Disposition: attachment; filename=export.csv");
+
+    fputcsv($output, $headers);
 
     while ($row = $result->fetch_array(MYSQLI_NUM)) {
-      fputcsv($fp, array_values($row));
+      fputcsv($output, array_values($row));
     }
 
-    die;
+    fclose($output);
   }
 }
-; ?>
+?>

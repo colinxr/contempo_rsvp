@@ -5,15 +5,21 @@ use Postmark\PostmarkClient;
 
 function sendConfirmPm( $emailArgs ) {
 
+  $subject = '=?UTF-8?B?'.base64_encode(utf8_encode(SUBJECT_LINE)).'?=';
+
+  $html_body = file_get_contents( BASEPATH . '/_inc/emails/email.html' );
+
+  $message = [
+    'To' => $emailArgs['email'],
+    'From' => EMAIL_FROM,
+    'Subject' => $subject,
+    'HtmlBody' => $html_body
+  ];
+
   $client = new PostmarkClient( CLIENT_API );
 
   // Send an email:
-  $sendResult = $client->sendEmail(
-    'event@sharpmagazine.com',
-    $emailArgs['email'],
-    'Hello from Postmark!',
-    'This is just a friendly "hello" from your friends at Postmark.'
-  );
+  $sendResult = $client->sendEmailBatch([$message]);
 }
 
 function sendEmail( $emailArgs ) {

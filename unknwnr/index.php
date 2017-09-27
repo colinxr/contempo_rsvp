@@ -35,7 +35,7 @@
 		<h1>Book For Men Spring/Summer 2017 Unknown RSVPs</h1>
 		<h3>Here are the Unknown RSVPs</h3>
     <section>
-      <a href="/rsvps">See RSVPs here</a>
+      <a href="./rsvps">See RSVPs here</a>
     </section>
 	</div>
 
