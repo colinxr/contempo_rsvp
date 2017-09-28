@@ -58,7 +58,7 @@
         dbConnect ( $sqlArgs );
       }
 
-    } elseif ( $rsvpType === "Match" ) {
+    } elseif ( $rsvpType === "match" ) {
 
     //Check email and compare to list, if match, grab ancillary information
     $row = 1;
@@ -92,7 +92,7 @@
     	//call Database Connect Function;
     	dbConnect ( $sqlArgs );
   	} else { /* If $emailMatch is false */
-      dbUnknwr( $sqlArgs ); // call Unknown Databse Conntect function
+      dbUnknwnr( $sqlArgs ); // call Unknown Databse Conntect function
   	}
 	}// end of rsvpType = Match
 ;?>
