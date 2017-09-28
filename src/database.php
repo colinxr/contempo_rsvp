@@ -1,29 +1,6 @@
 <?php
 
   function dbConnect ( $sqlArgs ) {
-
-    // break out $sqlArgs array into more readable variables
-         $email = $sqlArgs["email"];
-     $firstName = $sqlArgs["firstName"];
-      $lastName = $sqlArgs["lastName"];
-        $postal = $sqlArgs["postal"];
-
-        // if key value pair exists, set variable as the value
-        $gender = isset( $sqlArgs["gender"] ) ? $sqlArgs["gender"] : 'null';
-      $category = isset( $sqlArgs["category"] ) ? $sqlArgs["category"] : 'null';
-       $company = isset( $sqlArgs["company"] ) ? $sqlArgs["company"] : 'null';
-       $guestOf = isset( $sqlArgs["guestOf"] ) ? $sqlArgs["guestOf"] : 'null';
-
-      $hasGuest = false;
-
-      // Is the Entry bringing a guest? Create those variables if the key value pair exists
-      if ( isset( $sqlArgs["hasGuest"] ) ) {
-              $hasGuest = true;
-        $guestFirstName = $sqlArgs["guestFirstName"];
-         $guestLastName = $sqlArgs["guestLastName"];
-            $guestEmail = $sqlArgs["guestEmail"];
-        }
-
     // Create connection
 
     $conn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
@@ -33,6 +10,29 @@
     if ( $conn->connect_error ) {
       die( "Connection failed: " . $conn->connect_error );
     }
+
+    // break out $sqlArgs array into more readable variables
+         $email = $conn->real_escape_string($sqlArgs["email"]);
+     $firstName = $conn->real_escape_string($sqlArgs["firstName"]);
+      $lastName = $conn->real_escape_string($sqlArgs["lastName"]);
+        $postal = $conn->real_escape_string($sqlArgs["postal"]);
+
+        // if key value pair exists, set variable as the value
+        $gender = isset( $sqlArgs["gender"] ) ? $conn->real_escape_string($sqlArgs["gender"]) : 'null';
+      $category = isset( $sqlArgs["category"] ) ? $conn->real_escape_string($sqlArgs["category"]) : 'null';
+       $company = isset( $sqlArgs["company"] ) ? $conn->real_escape_string($sqlArgs["company"]) : 'null';
+       $guestOf = isset( $sqlArgs["guestOf"] ) ? $conn->real_escape_string($sqlArgs["guestOf"]) : 'null';
+
+      $hasGuest = false;
+
+      // Is the Entry bringing a guest? Create those variables if the key value pair exists
+      if ( isset( $sqlArgs["hasGuest"] ) ) {
+              $hasGuest = true;
+        $guestFirstName = $conn->real_escape_string($sqlArgs["guestFirstName"]);
+         $guestLastName = $conn->real_escape_string($sqlArgs["guestLastName"]);
+            $guestEmail = $conn->real_escape_string($sqlArgs["guestEmail"]);
+        }
+
 
     // CHECK IF EMAIL IS IN DB
     $result = $conn->query( "SELECT id FROM " . DB_TABLE . " WHERE EMAIL = '$email'" );
@@ -46,7 +46,7 @@
         VALUES (
         '$email', '$firstName','$lastName','$postal', '$gender', '$category', '$company', '$guestOf', '$guestFirstName', '$guestLastName', '$guestEmail')";
       } else {
-        $sql = "INSERT INTO" . " " . DB_TABLE . " " . "( email, firstName, lastName,  postal, gender, category, company, guestOf )
+        $sql = "INSERT INTO " . DB_TABLE . " ( email, firstName, lastName,  postal, gender, category, company, guestOf )
         VALUES ( '$email', '$firstName', '$lastName', '$postal', '$gender', '$category', '$company', '$guestOf' )";
       }
 
@@ -75,26 +75,6 @@
 } // end of dbConnect();
 
   function dbUnknwr( $sqlArgs ) {
-    // break out $sqlArgs array into more readable variables
-         $email = $sqlArgs["email"];
-     $firstName = $sqlArgs["firstName"];
-      $lastName = $sqlArgs["lastName"];
-        $postal = $sqlArgs["postal"];
-
-      $hasGuest = false;
-
-      // Is the Entry bringing a guest? Create those variables if the key value pair exists
-      if ( isset( $sqlArgs["hasGuest"] ) ) {
-              $hasGuest = true;
-        $guestFirstName = $sqlArgs["guestFirstName"];
-         $guestLastName = $sqlArgs["guestLastName"];
-            $guestEmail = $sqlArgs["guestEmail"];
-
-         // if entry is bringing a guest, set the key pair value in the array staffArgs() on line 170.
-          $staffArgs["guestFirstName"] = $guestFirstName;
-           $staffArgs["guestLastName"] = $guestLastName;
-              $staffArgs["guestEmail"] = $guestEmail;
-      }
 
     $unknownConn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
 
@@ -102,6 +82,27 @@
     if ( $unknownConn->connect_error ) {
       die( "Connection failed: " . $unknownConn->connect_error );
     }
+
+    // break out $sqlArgs array into more readable variables
+         $email = $unknownConn->real_escape_string($sqlArgs["email"]);
+     $firstName = $unknownConn->real_escape_string($sqlArgs["firstName"]);
+      $lastName = $unknownConn->real_escape_string($sqlArgs["lastName"]);
+        $postal = $unknownConn->real_escape_string($sqlArgs["postal"]);
+
+      $hasGuest = false;
+
+      // Is the Entry bringing a guest? Create those variables if the key value pair exists
+      if ( isset( $sqlArgs["hasGuest"] ) ) {
+              $hasGuest = true;
+        $guestFirstName = $unknownConn->real_escape_string($sqlArgs["guestFirstName"]);
+         $guestLastName = $unknownConn->real_escape_string($sqlArgs["guestLastName"]);
+            $guestEmail = $unknownConn->real_escape_string($sqlArgs["guestEmail"]);
+
+         // if entry is bringing a guest, set the key pair value in the array staffArgs() on line 170.
+          $staffArgs["guestFirstName"] = $guestFirstName;
+           $staffArgs["guestLastName"] = $guestLastName;
+              $staffArgs["guestEmail"] = $guestEmail;
+      }
 
     // CHECK IF EMAIL ALREADY IN DB
     $unknownResult = $unknownConn->query( "SELECT id FROM " . UNKNWNR . " WHERE EMAIL = '$email'" );
