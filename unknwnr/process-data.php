@@ -64,6 +64,9 @@
 	        );
 
 	        sendEmail( $emailArgs );
+				} else {
+					echo json_encode($str_json->action);
+					echo "failure";
 				}
 		} else if ($verdict === "delete") {
 			echo json_encode($str_json->action);
@@ -72,6 +75,9 @@
 			echo "deleted";
 		}
 		$conn->close();
+	} else {
+		echo json_encode($str_json->action);
+		echo "email already in db";
 	}
 }
 ;?>
