@@ -55,7 +55,7 @@
 
       if ( $emailMatch ) {
         //call Database Connect Function;
-        dbConnect ( $sqlArgs );
+        dbInsert ( $sqlArgs );
       }
 
     } elseif ( $rsvpType === "match" ) {
@@ -90,7 +90,7 @@
      $sqlArgs["guestOf"] = $guestOf;
 
     	//call Database Connect Function;
-    	dbConnect ( $sqlArgs );
+    	dbInsert ( $sqlArgs );
   	} else { /* If $emailMatch is false */
       dbUnknwnr( $sqlArgs ); // call Unknown Databse Conntect function
   	}

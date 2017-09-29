@@ -1,13 +1,16 @@
 <?php
 
-  function dbConnect ( $sqlArgs ) {
-    // Create connection
-    $conn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
+  function dbConnect() {
+    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
-    // Check connection
-    if ( $conn->connect_error ) {
-      die( "Connection failed: " . $conn->connect_error );
+    if($mysqli->connect_error) {
+      die('Connect Error (' . mysqli_connect_errno() . ') '. mysqli_connect_error());
     }
+
+    return $mysqli;
+  }
+
+  function dbInsert ( $sqlArgs ) {
 
     // break out $sqlArgs array into more readable variables
          $email = $sqlArgs["email"];
@@ -31,6 +34,10 @@
             $guestEmail = $sqlArgs["guestEmail"];
         }
 
+    // Create connection
+    $conn = dbConnect();
+    
+    // Query to check if email exists in Db Table
     $query = "SELECT id FROM " . DB_TABLE . " WHERE EMAIL=?";
 
     if ($stmt = $conn->prepare($query)) {
@@ -39,28 +46,29 @@
 
       if (!$stmt->store_result()){
         echo "Error Result = false";
-      } else if ( $stmt->num_rows == 0 ) {
+      } else if ( $stmt->num_rows == 0 ) { // if email is not in Db table
         if ($hasGuest) {
-          printf('we\'re got a guest people!');
           // prepared SQL stmt to inster guest and plus one
-          // new stmt->bind hasguest params
           $guest_query = "INSERT INTO " . DB_TABLE . "( email, firstName, lastName, postal, gender, category, company, guestOf, guestFirstName, guestLastName, guestEmail )
           VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+
           $rsvp_stmt = $conn->prepare($guest_query);
+
           $rsvp_stmt->bind_param('sssssssssss', $email, $firstName, $lastName, $postal, $gender, $category, $company, $guestOf, $guestFirstName, $guestLastName, $guestEmail);
         } else {
-          printf('Somebody\'s riding solloooooo');
           // prepared SQL stmt to insert guest
           $single_query = "INSERT INTO " . DB_TABLE . "( email, firstName, lastName, postal, gender, category, company, guestOf)
           VALUES (?,?,?,?,?,?,?,?)";
+
           $rsvp_stmt = $conn->prepare($single_query);
+
           $rsvp_stmt->bind_param('ssssssss', $email, $firstName, $lastName, $postal, $gender, $category, $company, $guestOf);
         }
 
         $rsvp_stmt->execute();
 
         if ($rsvp_stmt->store_result()){
-          $path = '/_inc/alerts/conf-msg.html';
+          $path = '/_inc/alerts/conf-msg.html'; //
           $alert = file_get_contents( BASEPATH . $path );
           echo $alert;
 
@@ -91,16 +99,7 @@
 
   function dbUnknwnr( $sqlArgs ) {
 
-    printf('wtf success?');
-
-    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
-    $conn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
-
-    // Check connection
-    if ( $conn->connect_error ) {
-      die( "Connection failed: " . $conn->connect_error );
-    }
+    $conn = dbConnect();
 
     // break out $sqlArgs array into more readable variables
          $email = $sqlArgs["email"];
@@ -132,23 +131,27 @@
 
       if (!$stmt->store_result()){
         echo "Error Result = false";
-      } else if ( $stmt->num_rows == 0 ) {
+      } else if ($stmt->num_rows == 0) {
         if ($hasGuest){
           $unknown_query = "INSERT INTO " . UNKNWNR . " ( email, firstName, lastName, postal, guestFirstName, guestLastName, guestEmail )
           VALUES (?,?,?,?,?,?,?)";
+
           $unknown_stmt = $conn->prepare($unknown_query);
+
           $unknown_stmt->bind_param('sssssss', $email, $firstName, $lastName, $postal, $guestFirstName, $guestLastName, $guestEmail);
         } else {
           $unknown_query= "INSERT INTO " . UNKNWNR . " ( email, firstName, lastName, postal )
           VALUES (?,?,?,?)";
+
           $unknown_stmt = $conn->prepare($unknown_query);
+
           $unknown_stmt->bind_param('ssss', $email, $firstName, $lastName, $postal);
         }
 
       $unknown_stmt->execute();
 
       if ($unknown_stmt->store_result()){
-        $path = '/_inc/alerts/unknown-msg.html';
+        $path = '/_inc/alerts/unknown-msg.html'; // confirmation message
         $alert = file_get_contents( BASEPATH . $path );
         echo $alert;
 
@@ -194,7 +197,7 @@ function delete_unknown( $conn, $email ){
       $del_stmt = $conn->prepare($del_query);
       $del_stmt->bind_param('s', $email);
     } else {
-      echo "not in unknow db";
+      echo "not in unknown db";
     }
   } else {
     echo "error " . $del_stmt->error;

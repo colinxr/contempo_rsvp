@@ -29,49 +29,67 @@
 		}
 
 		//Create DB connection
-		$conn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
+		$conn = dbConnect();
 
-		//Check connection
-		if ( $conn->connect_error ){
-			die ( "Connection failed: " . $conn->connect_error) ;
-		}
+		$query = "SELECT id FROM " . DB_TABLE . " WHERE EMAIL=?";
 
-		// CHECK IF EMAIL ALREADY IN DB
-		$result = $conn->query( "SELECT id FROM " . DB_TABLE . " WHERE EMAIL = '$email'" ) ;
+		if ($stmt = $conn->prepare($query)){
+			$stmt->bind_param('s', $email);
+			$stmt->execute();
 
-		if ($result === false){
-			echo "Error";
-		} else if( $result->num_rows == 0 ){
-			//If BTN action = approved
-			if ( $verdict == "approve" ){
-				//Add to mysql database
-				if ( $hasGuest ){
-					$sql = "INSERT INTO " . DB_TABLE . " ( email, firstName, lastName, postal, guestFirstName, guestLastName, guestEmail )
-					VALUES ( '$email', '$firstName', '$lastName', '$postal', '$guestFirstName', '$guestLastName', '$guestEmail' )";
-				} else {
-					$sql = "INSERT INTO " . DB_TABLE . " ( email, firstName, lastName, postal )
-					VALUES ( '$email', '$firstName', '$lastName', '$postal' )";
-				}
+			if (!$stmt->store_result()){
+        echo "Error Result = false";
+      } else if ($stmt->num_rows == 0){
+				if ($verdict == 'approve'){
+					if ($hasGuest) {
+	          // prepared SQL stmt to inster guest and plus one
+	          $guest_query = "INSERT INTO " . DB_TABLE . "( email, firstName, lastName, postal,  guestFirstName, guestLastName, guestEmail )
+	          VALUES (?,?,?,?,?,?,?)";
 
-				if ($conn->query($sql) === TRUE){
+	          $rsvp_stmt = $conn->prepare($guest_query);
+
+	          $rsvp_stmt->bind_param('sssssss', $email, $firstName, $lastName, $postal, $guestFirstName, $guestLastName, $guestEmail);
+	        } else {
+	          // prepared SQL stmt to insert guest
+	          $single_query = "INSERT INTO " . DB_TABLE . "( email, firstName, lastName, postal)
+	          VALUES (?,?,?,?)";
+
+	          $rsvp_stmt = $conn->prepare($single_query);
+
+	          $rsvp_stmt->bind_param('ssss', $email, $firstName, $lastName, $postal);
+	        }
+
+					$rsvp_stmt->execute();
+
+					if ($rsvp_stmt->store_result()){
+						echo json_encode($str_json->action);
+						echo "success";
+						delete_unknown($conn, $email);
+
+						$emailArgs = array (
+									"email" => $email,
+		        	"firstName" => $firstName,
+		           "lastName" => $lastName
+		        );
+
+		        sendConfirmPm( $emailArgs );
+
+						$rsvp_stmt->close();
+					}
+				} else if ($verdict === "delete") {
 					echo json_encode($str_json->action);
-					echo "success";
 					delete_unknown($conn, $email);
-					$emailArgs = array (
-								"email" => $email,
-	        	"firstName" => $firstName,
-	           "lastName" => $lastName
-	        );
-
-	        sendEmail( $emailArgs );
+					rejectEmail( $email, $firstName, $lastName );
+					echo "deleted";
 				}
-		} else if ($verdict === "delete") {
-			echo json_encode($str_json->action);
-			delete_unknown($conn, $email);
-			rejectEmail( $email, $firstName, $lastName );
-			echo "deleted";
-		}
-		$conn->close();
-	}
+			} else {
+				echo json_encode($str_json->action);
+				echo "email already in db";
+			} // end of num_rows
+
+			$stmt->close();
+		} // end of $stmt = $conn->prepare($query)
+
+		$conn-close();
 }
 ;?>
