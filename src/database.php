@@ -1,5 +1,36 @@
 <?php
 
+  function checkEmail($email) {
+    //Check email and compare to list, if match, grab ancillary information
+    $row = 1;
+    $emailMatch = false;
+
+    global $gender;
+    global $category;
+    global $company;
+    global $guestOf;
+
+    // convert email string to all lowercase to make sure variable capitalization doesn't miss the email in wtf.csv
+    $emailLower = strtolower( $email );
+
+    if ( ( $handle = fopen( BASEPATH . '/wtf.csv', 'r') ) !== FALSE ) {
+      while ( ( $data = fgetcsv( $handle, 1500, ',' ) ) !== FALSE ) {
+        $row++;
+        if ( $data[3] == $emailLower ) {
+
+            $gender = $data[4];
+          $category = $data[5];
+           $company = $data[6];
+           $guestOf = $data[7];
+
+        $emailMatch = true;
+        }
+      }
+      fclose( $handle );
+      return true;
+    }
+  } // end of checkEmail();
+
   function dbConnect() {
     $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
@@ -34,9 +65,30 @@
             $guestEmail = $sqlArgs["guestEmail"];
         }
 
+        // break out $sqlArgs array into more readable variables
+             $email = $sqlArgs["email"];
+         $firstName = $sqlArgs["firstName"];
+          $lastName = $sqlArgs["lastName"];
+            $postal = $sqlArgs["postal"];
+
+          $hasGuest = false;
+
+          // Is the Entry bringing a guest? Create those variables if the key value pair exists
+          if ( isset( $sqlArgs["hasGuest"] ) ) {
+                  $hasGuest = true;
+            $guestFirstName = $sqlArgs["guestFirstName"];
+             $guestLastName = $sqlArgs["guestLastName"];
+                $guestEmail = $sqlArgs["guestEmail"];
+
+             // if entry is bringing a guest, set the key pair value in the array staffArgs() on line 170.
+              $staffArgs["guestFirstName"] = $guestFirstName;
+               $staffArgs["guestLastName"] = $guestLastName;
+                  $staffArgs["guestEmail"] = $guestEmail;
+          }
+
     // Create connection
     $conn = dbConnect();
-    
+
     // Query to check if email exists in Db Table
     $query = "SELECT id FROM " . DB_TABLE . " WHERE EMAIL=?";
 
@@ -99,8 +151,6 @@
 
   function dbUnknwnr( $sqlArgs ) {
 
-    $conn = dbConnect();
-
     // break out $sqlArgs array into more readable variables
          $email = $sqlArgs["email"];
      $firstName = $sqlArgs["firstName"];
@@ -121,6 +171,8 @@
            $staffArgs["guestLastName"] = $guestLastName;
               $staffArgs["guestEmail"] = $guestEmail;
       }
+
+    $conn = dbConnect();
 
     // CHECK IF EMAIL ALREADY IN DB
     $query = "SELECT id FROM " . DB_TABLE . " WHERE EMAIL=?";

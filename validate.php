@@ -7,11 +7,10 @@
 		<?php require '_inc/event-info.php'; ?>
 	</div>
 
-		<div class="col right confirmation">
+	<div class="col right confirmation">
 <?php
   require_once '_inc/config.php';
        require 'src/database.php';
-			 require 'src/email.php';
 
   //Get form info
       $email = strtolower( $_POST['email'] ); //formants data to match with Email Lower column in wtf.csv
@@ -39,61 +38,39 @@
 			 "postal" => $postal
 		);
 
-		if ( $hasGuest ) {
-			$sqlArgs["hasGuest"] = $hasGuest;
-			$sqlArgs["guestFirstName"] = $guestFirstName;
-			$sqlArgs["guestLastName"] = $guestLastName;
-			$sqlArgs["guestEmail"] = $guestEmail;
-		}
+	if ( $hasGuest ) {
+		$sqlArgs["hasGuest"] = $hasGuest;
+		$sqlArgs["guestFirstName"] = $guestFirstName;
+		$sqlArgs["guestLastName"] = $guestLastName;
+		$sqlArgs["guestEmail"] = $guestEmail;
+	}
 
   // Put form info into array to pass into SQL Connect function
   if ( $rsvpType === "open" ) {
-    $row = 1;
-    $emailMatch = true;
-
     $emailLower = strtolower( $email );
 
-      if ( $emailMatch ) {
-        //call Database Connect Function;
-        dbInsert ( $sqlArgs );
-      }
-
-    } elseif ( $rsvpType === "match" ) {
-
-    //Check email and compare to list, if match, grab ancillary information
-    $row = 1;
-    $emailMatch = false;
-
-    // convert email string to all lowercase to make sure variable capitalization doesn't miss the email in wtf.csv
-    $emailLower = strtolower( $email );
-
-    if ( ( $handle = fopen( "wtf.csv", "r" ) ) !== FALSE ) {
-      while ( ( $data = fgetcsv( $handle, 1500, "," ) ) !== FALSE ) {
-        $row++;
-        if ( $data[3] == $emailLower ) {
-
-            $gender = $data[4];
-          $category = $data[5];
-           $company = $data[6];
-           $guestOf = $data[7];
-
-        $emailMatch = true;
-        }
-      }
-      fclose( $handle );
+  	if ( $submit ) {
+      //call Database Connect Function;
+      dbInsert ( $sqlArgs );
     }
+  } elseif ( $rsvpType === "match" ) {
 
-    if ( $emailMatch ) {
-      $sqlArgs["gender"] = $gender;
-    $sqlArgs["category"] = $category;
-     $sqlArgs["company"] = $company;
-     $sqlArgs["guestOf"] = $guestOf;
+		$gender = '';
+		$category = '';
+		$company = '';
+		$guestOf = '';
+
+		if (checkEmail($email)) {
+			$sqlArgs["gender"] = $gender;
+		$sqlArgs["category"] = $category;
+		 $sqlArgs["company"] = $company;
+		 $sqlArgs["guestOf"] = $guestOf;
 
     	//call Database Connect Function;
     	dbInsert ( $sqlArgs );
-  	} else { /* If $emailMatch is false */
-      dbUnknwnr( $sqlArgs ); // call Unknown Databse Conntect function
-  	}
+		} else {
+			dbUnknwnr( $sqlArgs );
+		}
 	}// end of rsvpType = Match
 ;?>
 </div>
