@@ -53,14 +53,14 @@
       //call Database Connect Function;
       dbInsert ( $sqlArgs );
     }
-  } elseif ( $rsvpType === "match" ) {
+  } elseif ( $rsvpType === "match" || $rsvpType === "capacity" ) {
 
 		$gender = '';
 		$category = '';
 		$company = '';
 		$guestOf = '';
 
-		if (checkEmail($email)) {
+		if ( checkEmail($email) ) {
 			$sqlArgs["gender"] = $gender;
 		$sqlArgs["category"] = $category;
 		 $sqlArgs["company"] = $company;

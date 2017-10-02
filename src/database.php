@@ -120,18 +120,34 @@
         $rsvp_stmt->execute();
 
         if ($rsvp_stmt->store_result()){
-          $path = '/_inc/alerts/conf-msg.html'; //
-          $alert = file_get_contents( BASEPATH . $path );
-          echo $alert;
+          if ($rsvpType === 'match'){
+            $path = '/_inc/alerts/conf-msg.html'; //
+            $alert = file_get_contents( BASEPATH . $path );
+            echo $alert;
 
-          //	On successful add to db, send email
-          $emailArgs = array (
-                "email" => $email,
-            "firstName" => $firstName,
-             "lastName" => $lastName
-          );
+            //	On successful add to db, send email
+            $emailArgs = array (
+                  "email" => $email,
+              "firstName" => $firstName,
+               "lastName" => $lastName
+            );
 
-          sendConfirmPm( $emailArgs );
+            sendConfirmPm( $emailArgs );
+          } else if ($rsvpType === 'capacity'){
+            $path = '/_inc/alerts/capacity-msg.html'; //
+            $alert = file_get_contents( BASEPATH . $path );
+            echo $alert;
+
+            //	On successful add to db, send email
+            $staffArgs = array (
+                  "email" => $email,
+              "firstName" => $firstName,
+               "lastName" => $lastName,
+                 "postal" => $postal
+            );
+
+            sendStaffEmail( $staffArgs );
+          }
 
           $rsvp_stmt->close();
         } else {

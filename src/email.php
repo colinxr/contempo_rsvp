@@ -3,7 +3,7 @@
 require_once( BASEPATH . '/vendor/autoload.php');
 use Postmark\PostmarkClient;
 
-function sendConfirmPm( $emailArgs ) {
+function sendConfirmPm( $emailArgs ) {//PostMark Email API
 
   $subject = '=?UTF-8?B?'.base64_encode(utf8_encode(SUBJECT_LINE)).'?=';
 
@@ -12,6 +12,40 @@ function sendConfirmPm( $emailArgs ) {
   $message = [
     'To' => $emailArgs['email'],
     'From' => EMAIL_FROM,
+    'Subject' => $subject,
+    'HtmlBody' => $html_body
+  ];
+
+  $client = new PostmarkClient( CLIENT_API );
+
+  // Send an email:
+  $sendResult = $client->sendEmailBatch([$message]);
+}
+
+sendStaffPM( $staffArgs ) {//PostMark Email API
+  $subject = '=?UTF-8?B?'.base64_encode(utf8_encode(STAFF_SUBJECT)).'?=';
+
+  $html_body = '
+		<html>
+		<head>
+		  <title>Who is this person?</title>
+		</head>
+		<body>
+			<p>Privet Elena!</p>
+		    <p>Somebody who isn\'t on the invite list just RSVP\'d for the BFM Party. This is their info:</p><br/>
+
+		  	          <p>Name: '. $staffArgs["firstName"] . ' ' . $staffArgs["lastName"] .' </p>
+		  	         <p>Email: '. $staffArgs["email"] .'</p>
+		  	        <p>Postal: '. $staffArgs["postal"] .'</p>
+		  	      <p>Plus One: '. $staffArgs["guestFirstName"] .' ' . $staffArgs["guestLastName"] .'</p>
+
+		</body>
+		</html>
+	';
+
+  $message = [
+    'To' => EMAIL_FROM,
+    'From' => STAFF_EMAIL_FROM,
     'Subject' => $subject,
     'HtmlBody' => $html_body
   ];
@@ -108,7 +142,7 @@ function rejectEmail( $email, $firstName, $lastName ) {
   $message =
   "<html>
   <head>
-    <title>Who is this person?</title>
+    <title></title>
   </head>
   <body>
     <p>Unfortunately we have a strict guest list policy, and only those invited are given access to our the Sharp: The Book For Men and S/Volume Fall/Winter 2017 VIP launch event.</p>
