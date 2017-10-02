@@ -20,11 +20,11 @@
 <header class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<img src="../../imgs/sharp_logo_black.svg" class="navbar-brand">
+			<img src="../imgs/sharp_logo_black.svg" class="navbar-brand">
 		</div>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="http://www.contempomedia.com/sharp/bfm">Landing Page</a></li>
-			<li><a href="../">Unknown RSVPs</a></li>
+			<li><a href="<?php echo BASEPATH; ?>">Landing Page</a></li>
+			<li><a href="<?php echo BASEPATH . '/unknwnr'; ?>">Unknown RSVPs</a></li>
 		</ul>
 	</div>
 </header>
@@ -48,8 +48,8 @@
 </header>
 
 <?php
-  require_once("../../_inc/config.php");
-  require("../../src/database.php");
+  require_once("../_inc/config.php");
+  require("../src/database.php");
 
   $dbTable = DB_TABLE;
 
