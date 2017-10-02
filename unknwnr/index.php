@@ -1,3 +1,7 @@
+<?php
+  error_reporting(E_ALL);
+  ini_set('display_errors',1);
+?>
 <!DOCTYPE>
 <html lang="en">
 <head>
@@ -41,64 +45,14 @@
 
 		<?php
 			require("../_inc/config.php");
+      require("../src/database.php");
+      require("../src/select.php");
 
-			// Create connection
-			$conn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
+      $dbTable = UNKNWNR;
 
-      // Check connection
-			if ( $conn->connect_error ) {
-				die ("Connection failed: " . $conn->connect_error );
-			}
-
-			// Check if there are any unknown RSVPs
-			$result = $conn->query( "SELECT * FROM " . UNKNWNR );
-
-				if ( $result === false ) {
-					echo "Error";
-				} else if( $result->num_rows > 0 ) { // Display unknown RSVPS ?>
-
-					<table class='table table-striped' id='rsvp-table'>
-						<thead>
-							<tr>
-							    <th>ID</th>
-							    <th>First Name</th>
-							    <th>Last Name</th>
-							    <th>Email</th>
-							    <th>Postal</th>
-							    <th>Guest Name</th>
-							    <th>Guest Email</th>
-							    <th>Approve/Deny</th>
-					        </tr>
-						</thead>
-						<tbody>
-
-					<? $counter = 0;
-						while( $data = mysqli_fetch_array( $result ) ){
-							$counter++;
-							echo "<tr id='". $counter . "'>";
-
-							echo "<td>" . $counter . "</td>";
-							echo "<td id='firstName' class='value'>" . $data['firstName'] . "</td>";
-							echo "<td id='lastName' class='value'>" . $data['lastName'] . "</td>";
-							echo "<td id='email' class='value'>" . $data['email'] . "</td>";
-							echo "<td id='postal' class='value'>" . $data['postal'] . "</td>";
-							echo "<td id='guestName' class='value'>" . $data['guestName'] . "</td>";
-							echo "<td id='guestEmail' class='value'>" . $data['guestEmail'] . "</td>";
-
-							echo "<td><input type='button' id='". $counter ."' class='btn btn-link approve' value='Approve' />";
-
-              echo "<input type='button' class='btn btn-link deny' value='Deny' /></td>";
-
-							echo "</tr>";
-						}
-
-						echo "</tbody></table>";
-					} else {// If table has no unknown RSVPs display a message
-						echo "No unknown RSVPs right now. Check back later.";
-					}
-		;?>
-	</div>
-
+		  viewResults($dbTable);
+    ?>
+      </div>
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript" src="js/build/production.js"></script>
 </body>

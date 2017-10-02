@@ -37,7 +37,6 @@
   <h3>Here are the RSVPs and Plus Ones.</h3>
 
   <section>
-
     <div>
       <div class="form-group">
         <div class="col-md-4">
@@ -45,78 +44,20 @@
         </div>
       </div>
     </div>
-
   </section>
 </header>
 
 <?php
+  require_once("../../_inc/config.php");
+  require("../../src/database.php");
 
-		include("../../_inc/config.php");
+  $dbTable = DB_TABLE;
 
+  viewResults($dbTable);
 
-			// Create connection
-
-				$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-
-			// Check connection
-
-				if ( $conn->connect_error ) {
-				    die ("Connection failed: " . $conn->connect_error );
-				}
-
-			// CHECK IF EMAIL ALREADY IN DB
-				$result = $conn->query( "SELECT * FROM " . DB_TABLE );
-
-					if ( $result === false ) {
-
-						echo "Error";
-
-				} else if( $result->num_rows > 0 ) {
-
-					echo "<table class='table table-striped' id='rsvp-table'>
-						    <thead>
-						      <tr>
-						      	<th>ID</th>
-						        <th>First Name</th>
-						        <th>Last Name</th>
-						        <th>Email</th>
-						        <th>Guest Name</th>
-						        <th>Guest Email</th>
-						      </tr>
-						    </thead>
-						    <tbody>";
-
-				$counter = 0;
-
-				while( $data = mysqli_fetch_array( $result ) ){
-
-					$counter++;
-
-					echo "<tr>";
-
-					echo "<td>" . $counter . "</td>";
-					echo "<td>" . $data['firstName'] . "</td>";
-					echo "<td>" . $data['lastName'] . "</td>";
-					echo "<td>" . $data['email'] . "</td>";
-					echo "<td>" . $data['guestName'] . "</td>";
-					echo "<td>" . $data['guestEmail'] . "</td>";
-
-					echo "</tr>";
-
-				}
-
-				echo "</tbody></table>";
-
-			} else {
-				echo "No one has RSVP'd yet. Check back in a little while. Or maybe something's gone wrong. I don't know.";
-			}
-
-
-;?>
+?>
 
 </div>
-
-
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>

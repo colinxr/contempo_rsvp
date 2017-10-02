@@ -10,8 +10,6 @@ $(document).ready(function() {
 		$('input[name="guest-email"]').attr("required", true);
 	});
 
-	
-
 	$('form').submit(function(e){
       submitForm();
   });
