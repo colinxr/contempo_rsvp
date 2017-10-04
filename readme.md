@@ -16,8 +16,8 @@ This is a simple event tool
 ## How to Use
 
 #### 1. Clone the repo & intall dependencies
-- ~~~npm install~~~
-- ~~~composer install~~~
+- `npm install`
+- `composer install`
 
 #### 2. Rename the sql files 
 - Replace the **** with corresponding event name, e.g. rsvp_coach_0917. 
