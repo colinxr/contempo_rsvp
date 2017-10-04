@@ -16,6 +16,7 @@ This is a simple event tool
 ## How to Use
 
 #### 1. Clone the repo & intall dependencies
+In Terminal, `cd` into the directory and run the following commands: 
 - `npm install`
 - `composer install`
 
