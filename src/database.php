@@ -122,7 +122,7 @@
         $rsvp_stmt->execute();
 
         if ($rsvp_stmt->store_result()){
-          if ($rsvpType === 'match'){
+          if ($rsvpType === 'match' || $rsvpType === 'open'){
             $path = '/_inc/alerts/conf-msg.html'; //
             $alert = file_get_contents( BASEPATH . $path );
             echo $alert;
