@@ -43,7 +43,7 @@ function sendConfirmPm( $emailArgs ) {//PostMark Email API
   $sendResult = $client->sendEmailBatch([$message]);
 }
 
-sendStaffPM( $staffArgs ) {//PostMark Email API
+function sendStaffPM( $staffArgs ) {//PostMark Email API
   $subject = '=?UTF-8?B?'.base64_encode(utf8_encode(STAFF_SUBJECT)).'?=';
 
   $html_body = '
