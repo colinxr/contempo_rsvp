@@ -188,3 +188,39 @@ function rejectEmail( $email, $firstName, $lastName ) {
 	// Mail it
 	mail($email, $subject, $message_wrap, $headers);
 }
+
+function rejectEmailPm( $email ) {//PostMark Email API
+
+  $subject = '=?UTF-8?B?'.base64_encode(utf8_encode(SUBJECT_LINE)).'?=';
+
+  //$html_body = file_get_contents( BASEPATH . '/_inc/emails/email.html' );
+
+  $body = '
+  <html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <p>Unfortunately we have a strict guest list policy, and only those invited are given access to our event.</p>
+    <p>Thank you for your understanding.</p>
+    </br>
+    <p>Contempo Media
+
+  </body>
+  </html>
+  ';
+
+  $html_body = utf8_encode($body);
+
+  $message = [
+    'To' => $email,
+    'From' => EMAIL_FROM,
+    'Subject' => $subject,
+    'HtmlBody' => $html_body
+  ];
+
+  $client = new PostmarkClient( CLIENT_API );
+
+  // Send an email:
+  $sendResult = $client->sendEmailBatch([$message]);
+}

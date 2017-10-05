@@ -79,7 +79,7 @@
 				} else if ($verdict === "delete") {
 					echo json_encode($str_json->action);
 					delete_unknown($conn, $email);
-					rejectEmail( $email, $firstName, $lastName );
+					rejectEmailPM( $email );
 					echo "deleted";
 				}
 			} else {
