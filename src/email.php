@@ -7,7 +7,28 @@ function sendConfirmPm( $emailArgs ) {//PostMark Email API
 
   $subject = '=?UTF-8?B?'.base64_encode(utf8_encode(SUBJECT_LINE)).'?=';
 
-  $html_body = file_get_contents( BASEPATH . '/_inc/emails/email.html' );
+  //$html_body = file_get_contents( BASEPATH . '/_inc/emails/email.html' );
+
+  $body = '
+  <html>
+    <head>
+      <title>Your Land Rover Event RSVP Confirmation</title>
+    </head>
+    <body>
+      <p>Hi '. $emailArgs["firstName"] .',</p>
+        <p>Thank you for your RSVP to our Land Rover event.</p>
+        <p>If you would like to make changes to your RSVP please email <a href="mailto:event@sharpmagazine.com">event@sharpmagazine.com</a>.</p>
+      <br />
+      <p>Best,
+      <br/>Peter Saltsman
+      <br/>Editor In Chief
+      <br/>Sharp Magazine, Sharp: The Book For Men
+    </body>
+    </html>
+  ';
+
+  $html_body = utf8_encode($body);
+
 
   $message = [
     'To' => $emailArgs['email'],
