@@ -55,7 +55,7 @@
 							<span class="input input--bfm">
 								<input class="input__field input__field--bfm" type="email" id="guest-email" name="guest-email" />
 								<label class="input__label input__label--bfm input__label--bfm-color" for="guest-email">
-									<span class="input__label-content input__label-content--bfm">Guest Email</span>
+									<span class="input__label-content input__label-content--bfm">Guest's Email</span>
 								</label>
 							</span>
 						</div>
