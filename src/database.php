@@ -43,6 +43,8 @@
 
   function dbInsert ( $sqlArgs ) {
 
+    global $rsvpType;
+
     // break out $sqlArgs array into more readable variables
          $email = $sqlArgs["email"];
      $firstName = $sqlArgs["firstName"];
