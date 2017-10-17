@@ -1,5 +1,9 @@
 <?php
 
+// *****
+// Approves Email, if RSVP Type is 'Match'
+// *****
+
   function checkEmail($email) {
     //Check email and compare to list, if match, grab ancillary information
     $row = 1;
@@ -29,7 +33,11 @@
       fclose( $handle );
       return true;
     }
-  } // end of checkEmail();
+  }
+
+// *****
+// Connects to Database
+// *****
 
   function dbConnect() {
     $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -40,6 +48,10 @@
 
     return $mysqli;
   }
+
+// *****
+// Inserts rsvp into Database
+// *****
 
   function dbInsert ( $sqlArgs ) {
 
@@ -163,9 +175,12 @@
       //already registered message
       $stmt->close();
     }
+  $conn->close();
+}// end of dbConnect();
 
-    $conn->close();
-  }// end of dbConnect();
+// *****
+// Inserts Unknown RSVP into Unknown Table
+// *****
 
   function dbUnknwnr( $sqlArgs ) {
 
@@ -241,105 +256,113 @@
       }
     } else {
       // if email is alreayd in the DB (user has already registered)
-        $path = '/_inc/alerts/reg-msg.html';
-        $alert = file_get_contents( BASEPATH . $path );
-        echo $alert;
+      $path = '/_inc/alerts/reg-msg.html';
+      $alert = file_get_contents( BASEPATH . $path );
+      echo $alert;
     }
     //already registered message
     $stmt->close();
-  }
+    }
   $conn->close();
 }// end of dbConnect();
 
-function delete_unknown( $conn, $email ){
-	// Make sure entry is in unknown DB
+// *****
+// Removes unknown RSVP from unknown table
+// *****
 
-  $query = "SELECT ID FROM " . UNKNWNR . " WHERE EMAIL =?";
+  function delete_unknown( $conn, $email ){
+  	// Make sure entry is in unknown DB
 
-  $stmt = $conn->prepare($query);
-  $stmt->bind_param('s', $email);
-  $stmt->execute();
+    $query = "SELECT ID FROM " . UNKNWNR . " WHERE EMAIL =?";
 
-  if ($stmt->store_result()){
-    if ($stmt->num_rows > 0){
-      $del_query = "DELETE FROM " . UNKNWNR . " WHERE EMAIL=?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
 
-      $del_stmt = $conn->prepare($del_query);
-      $del_stmt->bind_param('s', $email);
-    } else {
-      echo "not in unknown db";
-    }
-  } else {
-    echo "error " . $del_stmt->error;
-  }
+    if ($stmt->store_result()){
+      if ($stmt->num_rows > 0){
+        $del_query = "DELETE FROM " . UNKNWNR . " WHERE EMAIL=?";
 
-  $del_stmt->execute();
-
-  if ($del_stmt->store_result()){
-    echo "deleted from Unknown RSVPS";
-
-    $del_stmt->close();
-  }
-
-  $stmt->close();
-} // End of delete_unknown();
-
-function viewResults($dbTable) {
-  // Create connection
-  $conn = dbConnect();
-
-  $query = "SELECT id, firstName, lastName, email, postal, guestFirstName, guestLastName, guestEmail FROM " . $dbTable;
-
-  if ($stmt = $conn->prepare($query)) {
-    $stmt->execute() or trigger_error($stmt->error, E_USER_ERROR);
-
-    $stmt->store_result();
-
-    $stmt->bind_result($id, $firstName, $lastName, $email, $postal, $guestFirstName, $guestLastName, $guestEmail);
-
-    if ($stmt->num_rows > 0) { ?>
-      <table class='table table-striped' id='rsvp-table'>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Postal</th>
-            <th>Guest Name</th>
-            <th>Guest Email</th>
-            <?php if ($dbTable === UNKNWNR) { ?>
-              <th>Approve/Deny</th>
-            <? } ?>
-          </tr>
-        </thead>
-        <tbody>
-
-      <?php
-        while ($stmt->fetch()) {
-          echo "<tr id='". $id . "'>";
-
-          echo "<td>" . $id . "</td>";
-          echo "<td id='firstName' class='value'>" . $firstName . "</td>";
-          echo "<td id='lastName' class='value'>" . $lastName . "</td>";
-          echo "<td id='email' class='value'>" . $email . "</td>";
-          echo "<td id='postal' class='value'>" . $postal . "</td>";
-          echo "<td id='guestName' class='value'>" . $guestFirstName . ' ' . $guestLastName . "</td>";
-          echo "<td id='guestEmail' class='value'>" . $guestEmail . "</td>";
-
-          if ($dbTable === UNKNWNR) {
-            echo "<td><input type='button' id='". $id ."' class='btn btn-link approve' value='Approve' />";
-            echo "<input type='button' class='btn btn-link deny' value='Deny' /></td>";
-          }
-        echo "</tr>";
+        $del_stmt = $conn->prepare($del_query);
+        $del_stmt->bind_param('s', $email);
+      } else {
+        echo "not in unknown db";
       }
-      echo "</tbody></table>";
-    } else {// If table has no unknown RSVPs display a message
-      echo "No unknown RSVPs right now. Check back later.";
+    } else {
+      echo "error " . $del_stmt->error;
     }
+
+    $del_stmt->execute();
+
+    if ($del_stmt->store_result()){
+      echo "deleted from Unknown RSVPS";
+
+      $del_stmt->close();
+    }
+
     $stmt->close();
+  } // End of delete_unknown();
+
+// *****
+// Show Entries in table, either RSVPs or Unknown RSVPS
+// *****
+
+  function viewResults( $dbTable ) {
+    // Create connection
+    $conn = dbConnect();
+
+    $query = "SELECT id, firstName, lastName, email, postal, guestFirstName, guestLastName, guestEmail FROM " . $dbTable;
+
+    if ($stmt = $conn->prepare($query)) {
+      $stmt->execute() or trigger_error($stmt->error, E_USER_ERROR);
+
+      $stmt->store_result();
+
+      $stmt->bind_result($id, $firstName, $lastName, $email, $postal, $guestFirstName, $guestLastName, $guestEmail);
+
+      if ($stmt->num_rows > 0) { ?>
+        <table class='table table-striped' id='rsvp-table'>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Postal</th>
+              <th>Guest Name</th>
+              <th>Guest Email</th>
+              <?php if ($dbTable === UNKNWNR) { ?>
+                <th>Approve/Deny</th>
+              <? } ?>
+            </tr>
+          </thead>
+          <tbody>
+
+        <?php
+          while ($stmt->fetch()) {
+            echo "<tr id='". $id . "'>";
+
+            echo "<td>" . $id . "</td>";
+            echo "<td id='firstName' class='value'>" . $firstName . "</td>";
+            echo "<td id='lastName' class='value'>" . $lastName . "</td>";
+            echo "<td id='email' class='value'>" . $email . "</td>";
+            echo "<td id='postal' class='value'>" . $postal . "</td>";
+            echo "<td id='guestName' class='value'>" . $guestFirstName . ' ' . $guestLastName . "</td>";
+            echo "<td id='guestEmail' class='value'>" . $guestEmail . "</td>";
+
+            if ($dbTable === UNKNWNR) {
+              echo "<td><input type='button' id='". $id ."' class='btn btn-link approve' value='Approve' />";
+              echo "<input type='button' class='btn btn-link deny' value='Deny' /></td>";
+            }
+          echo "</tr>";
+        }
+        echo "</tbody></table>";
+      } else {// If table has no unknown RSVPs display a message
+        echo "No unknown RSVPs right now. Check back later.";
+      }
+      $stmt->close();
+    }
+    $conn->close();
   }
-  $conn->close();
-}
 
 ;?>
