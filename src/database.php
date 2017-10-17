@@ -367,4 +367,42 @@
     $conn->close();
   }
 
+  function download_results(){
+    $conn = dbConnect();
+
+    $query = 'SELECT * from ' . DB_TABLE . ' ORDER BY ID DESC';
+
+    $result = $conn->query($query);
+
+    if ($result === false) {
+      die('Could not fetch records');
+    } else {
+      $num_fields = mysqli_num_fields($result);
+
+      $headers = array();
+
+      while ($field_info = mysqli_fetch_field($result)){
+        $headers[] = $field_info->name;
+      }
+
+      $output = fopen('php://output', 'w');
+
+      if ( $output && $result ){
+
+        fputcsv($output, $headers);
+
+        while ($row = $result->fetch_array(MYSQLI_NUM)) {
+          fputcsv($output, array_values($row));
+        }
+
+        fclose($output);
+
+        readfile($output);
+        unlink($output);
+        exit();
+      }
+    }
+
+  }
+
 ;?>
