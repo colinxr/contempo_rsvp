@@ -1,9 +1,13 @@
+<?php
+  require_once('../config/config.php');
+?>
+
 <!DOCTYPE>
 <html lang="en">
 <head>
   <meta charset="utf-8">
 
-	<title>Unknown RSVP Confirmations</title>
+	<title>Event RSVP Confirmations</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="../css/bootstrap-responsive.min.css" type="text/css" media="all" />
@@ -32,7 +36,7 @@
 <div class="container">
 
 <header>
-  <h1>S/Volume & BFM F/W 2017 RSVPs</h1>
+  <h1><?php echo EVENT_NAME; ?> RSVPs</h1>
 
   <h3>Here are the RSVPs and Plus Ones.</h3>
 
@@ -40,7 +44,11 @@
     <div>
       <div class="form-group">
         <div class="col-md-4">
-          <a href="http://contempomedia.ca/test/unknwnr/rsvps/download.php" download> <button type="submit" name="export" class="btn btn-success" value="export RSVPs"/>Export</button></a>
+
+          <form method='post' action='download.php'>
+          <input type='submit' value='Export' name='Export'>
+
+          <a href="/test/list/download.php" download target="_blank"> <button type="submit" name="export" class="btn btn-success" value="export RSVPs"/>Export</button></a>
         </div>
       </div>
     </div>
@@ -48,7 +56,6 @@
 </header>
 
 <?php
-  require_once('../config/config.php');
   require('../src/database.php');
 
   $dbTable = DB_TABLE;
