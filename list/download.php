@@ -1,4 +1,14 @@
 <?php
+header('Content-Type: text/csv; charset=utf-8');
+header('Content-Description: File Transfer');
+header('Content-Type: application/octet-stream');
+header("Content-Transfer-Encoding: Binary");
+header('Expires: 0');
+header('Cache-Control: must-revalidate');
+header('Pragma: public');
+header('Content-Type: application/force-download');
+header('Content-Disposition: attachment; filename="rsvps_' .date('j-m-y') . '.csv"');
+
 require('../config/config.php');
 require('../src/database.php');
 
@@ -19,16 +29,6 @@ if ($result === false) {
   while ($field_info = mysqli_fetch_field($result)){
     $headers[] = $field_info->name;
   }
-
-  //header('Content-Type: text/csv; charset=utf-8');
-  header('Content-Description: File Transfer');
-  header('Content-Type: application/octet-stream');
-  header("Content-Transfer-Encoding: Binary");
-  header('Expires: 0');
-  header('Cache-Control: must-revalidate');
-  header('Pragma: public');
-  header('Content-Type: application/force-download');
-  header('Content-Disposition: attachment; filename="rsvps_' .date('j-m-y') . '.csv"');
 
   $output = fopen('php://output', 'w');
 
