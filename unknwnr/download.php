@@ -12,7 +12,7 @@
   require('../config/config.php');
   require('../src/database.php');
 
-  $dbTable = DB_TABLE;
+  $dbTable = UNKNWNR;
 
   download_results($dbTable);
 ?>

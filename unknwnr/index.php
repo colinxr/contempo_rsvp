@@ -36,15 +36,24 @@
 
 	<div class="title">
 		<h1><?php echo EVENT_NAME;?> Unknown RSVPs</h1>
-		<h3>Here are the Unknown RSVPs</h3>
+
     <section>
-      <a href="/test/unknwnr/rsvps">See RSVPs here</a>
+      <div>
+        <div class="form-group">
+          <div class="col-md-4">
+            <h4>Download this List</h4>
+            <form method='post' action='download.php'>
+            <input type='submit' value='Export' name='Export'>
+            </form>
+
+          </div>
+        </div>
+      </div>
     </section>
 	</div>
 
 		<?php
       require('../src/database.php');
-      require('../src/select.php');
 
       $dbTable = UNKNWNR;
 

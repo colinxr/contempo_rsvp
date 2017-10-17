@@ -44,11 +44,11 @@
     <div>
       <div class="form-group">
         <div class="col-md-4">
-
+          <h4>Download this List</h4>
           <form method='post' action='download.php'>
           <input type='submit' value='Export' name='Export'>
+          </form>
 
-          <a href="/test/list/download.php" download target="_blank"> <button type="submit" name="export" class="btn btn-success" value="export RSVPs"/>Export</button></a>
         </div>
       </div>
     </div>
