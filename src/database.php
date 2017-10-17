@@ -40,7 +40,7 @@
 // *****
 
   function dbConnect() {
-    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
     if($mysqli->connect_error) {
       die('Connect Error (' . mysqli_connect_errno() . ') '. mysqli_connect_error());
@@ -58,73 +58,73 @@
     global $rsvpType;
 
     // break out $sqlArgs array into more readable variables
-         $email = $sqlArgs["email"];
-     $firstName = $sqlArgs["firstName"];
-      $lastName = $sqlArgs["lastName"];
-        $postal = $sqlArgs["postal"];
+         $email = $sqlArgs['email'];
+     $firstName = $sqlArgs['firstName'];
+      $lastName = $sqlArgs['lastName'];
+        $postal = $sqlArgs['postal'];
 
         // if key value pair exists, set variable as the value
-        $gender = isset( $sqlArgs["gender"] ) ? $sqlArgs["gender"] : 'null';
-      $category = isset( $sqlArgs["category"] ) ? $sqlArgs["category"] : 'null';
-       $company = isset( $sqlArgs["company"] ) ? $sqlArgs["company"] : 'null';
-       $guestOf = isset( $sqlArgs["guestOf"] ) ? $sqlArgs["guestOf"] : 'null';
+        $gender = isset( $sqlArgs['gender'] ) ? $sqlArgs['gender'] : 'null';
+      $category = isset( $sqlArgs['category'] ) ? $sqlArgs['category'] : 'null';
+       $company = isset( $sqlArgs['company'] ) ? $sqlArgs['company'] : 'null';
+       $guestOf = isset( $sqlArgs['guestOf'] ) ? $sqlArgs['guestOf'] : 'null';
 
       $hasGuest = false;
 
       // Is the Entry bringing a guest? Create those variables if the key value pair exists
-      if ( isset( $sqlArgs["hasGuest"] ) ) {
+      if ( isset( $sqlArgs['hasGuest'] ) ) {
             $hasGuest = true;
-      $guestFirstName = $sqlArgs["guestFirstName"];
-       $guestLastName = $sqlArgs["guestLastName"];
-          $guestEmail = $sqlArgs["guestEmail"];
+      $guestFirstName = $sqlArgs['guestFirstName'];
+       $guestLastName = $sqlArgs['guestLastName'];
+          $guestEmail = $sqlArgs['guestEmail'];
       }
 
       // break out $sqlArgs array into more readable variables
-          $email = $sqlArgs["email"];
-      $firstName = $sqlArgs["firstName"];
-       $lastName = $sqlArgs["lastName"];
-         $postal = $sqlArgs["postal"];
+          $email = $sqlArgs['email'];
+      $firstName = $sqlArgs['firstName'];
+       $lastName = $sqlArgs['lastName'];
+         $postal = $sqlArgs['postal'];
 
        $hasGuest = false;
 
       // Is the Entry bringing a guest? Create those variables if the key value pair exists
-      if ( isset( $sqlArgs["hasGuest"] ) ) {
+      if ( isset( $sqlArgs['hasGuest'] ) ) {
             $hasGuest = true;
-      $guestFirstName = $sqlArgs["guestFirstName"];
-       $guestLastName = $sqlArgs["guestLastName"];
-          $guestEmail = $sqlArgs["guestEmail"];
+      $guestFirstName = $sqlArgs['guestFirstName'];
+       $guestLastName = $sqlArgs['guestLastName'];
+          $guestEmail = $sqlArgs['guestEmail'];
 
        // if entry is bringing a guest, set the key pair value in the array staffArgs() on line 170.
-       $staffArgs["guestFirstName"] = $guestFirstName;
-        $staffArgs["guestLastName"] = $guestLastName;
-           $staffArgs["guestEmail"] = $guestEmail;
+       $staffArgs['guestFirstName'] = $guestFirstName;
+        $staffArgs['guestLastName'] = $guestLastName;
+           $staffArgs['guestEmail'] = $guestEmail;
       }
 
     // Create connection
     $conn = dbConnect();
 
     // Query to check if email exists in Db Table
-    $query = "SELECT id FROM " . DB_TABLE . " WHERE EMAIL=?";
+    $query = 'SELECT id FROM ' . DB_TABLE . ' WHERE EMAIL=?';
 
     if ($stmt = $conn->prepare($query)) {
       $stmt->bind_param('s', $email);
       $stmt->execute();
 
       if (!$stmt->store_result()){
-        echo "Error Result = false";
+        echo 'Error Result = false';
       } else if ( $stmt->num_rows == 0 ) { // if email is not in Db table
         if ($hasGuest) {
           // prepared SQL stmt to inster guest and plus one
-          $guest_query = "INSERT INTO " . DB_TABLE . "( email, firstName, lastName, postal, gender, category, company, guestOf, guestFirstName, guestLastName, guestEmail )
-          VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+          $guest_query = 'INSERT INTO ' . DB_TABLE . '( email, firstName, lastName, postal, gender, category, company, guestOf, guestFirstName, guestLastName, guestEmail )
+          VALUES (?,?,?,?,?,?,?,?,?,?,?)';
 
           $rsvp_stmt = $conn->prepare($guest_query);
 
           $rsvp_stmt->bind_param('sssssssssss', $email, $firstName, $lastName, $postal, $gender, $category, $company, $guestOf, $guestFirstName, $guestLastName, $guestEmail);
         } else {
           // prepared SQL stmt to insert guest
-          $single_query = "INSERT INTO " . DB_TABLE . "( email, firstName, lastName, postal, gender, category, company, guestOf)
-          VALUES (?,?,?,?,?,?,?,?)";
+          $single_query = 'INSERT INTO ' . DB_TABLE . '( email, firstName, lastName, postal, gender, category, company, guestOf)
+          VALUES (?,?,?,?,?,?,?,?)';
 
           $rsvp_stmt = $conn->prepare($single_query);
 
@@ -141,9 +141,9 @@
 
             //	On successful add to db, send email
             $emailArgs = array (
-                  "email" => $email,
-              "firstName" => $firstName,
-               "lastName" => $lastName
+                  'email' => $email,
+              'firstName' => $firstName,
+               'lastName' => $lastName
             );
 
             sendConfirmPm( $emailArgs );
@@ -154,18 +154,18 @@
 
             //	On successful add to db, send email
             $staffArgs = array (
-                  "email" => $email,
-              "firstName" => $firstName,
-               "lastName" => $lastName,
-                 "postal" => $postal
+                  'email' => $email,
+              'firstName' => $firstName,
+               'lastName' => $lastName,
+                 'postal' => $postal
             );
 
-            sendStaffEmail( $staffArgs );
+            sendStaffEmailPM( $staffArgs );
           }
 
           $rsvp_stmt->close();
         } else {
-          echo "Error: " . $rsvp_stmt->error . "<br>" . $conn->error;
+          echo 'Error: ' . $rsvp_stmt->error . '<br>' . $conn->error;
         } // end of $conn->query($sql) === TRUE
       } else { // if email is alreayd in the DB (user has already registered)
         $path = '/_inc/alerts/reg-msg.html';
@@ -185,48 +185,48 @@
   function dbUnknwnr( $sqlArgs ) {
 
     // break out $sqlArgs array into more readable variables
-         $email = $sqlArgs["email"];
-     $firstName = $sqlArgs["firstName"];
-      $lastName = $sqlArgs["lastName"];
-        $postal = $sqlArgs["postal"];
+         $email = $sqlArgs['email'];
+     $firstName = $sqlArgs['firstName'];
+      $lastName = $sqlArgs['lastName'];
+        $postal = $sqlArgs['postal'];
 
       $hasGuest = false;
 
       // Is the Entry bringing a guest? Create those variables if the key value pair exists
-      if ( isset( $sqlArgs["hasGuest"] ) ) {
+      if ( isset( $sqlArgs['hasGuest'] ) ) {
               $hasGuest = true;
-        $guestFirstName = $sqlArgs["guestFirstName"];
-         $guestLastName = $sqlArgs["guestLastName"];
-            $guestEmail = $sqlArgs["guestEmail"];
+        $guestFirstName = $sqlArgs['guestFirstName'];
+         $guestLastName = $sqlArgs['guestLastName'];
+            $guestEmail = $sqlArgs['guestEmail'];
 
          // if entry is bringing a guest, set the key pair value in the array staffArgs() on line 170.
-          $staffArgs["guestFirstName"] = $guestFirstName;
-           $staffArgs["guestLastName"] = $guestLastName;
-              $staffArgs["guestEmail"] = $guestEmail;
+          $staffArgs['guestFirstName'] = $guestFirstName;
+           $staffArgs['guestLastName'] = $guestLastName;
+              $staffArgs['guestEmail'] = $guestEmail;
       }
 
     $conn = dbConnect();
 
     // CHECK IF EMAIL ALREADY IN DB
-    $query = "SELECT id FROM " . DB_TABLE . " WHERE EMAIL=?";
+    $query = 'SELECT id FROM ' . DB_TABLE . ' WHERE EMAIL=?';
 
     if ($stmt = $conn->prepare($query)) {
       $stmt->bind_param('s', $email);
       $stmt->execute();
 
       if (!$stmt->store_result()){
-        echo "Error Result = false";
+        echo 'Error Result = false';
       } else if ($stmt->num_rows == 0) {
         if ($hasGuest){
-          $unknown_query = "INSERT INTO " . UNKNWNR . " ( email, firstName, lastName, postal, guestFirstName, guestLastName, guestEmail )
-          VALUES (?,?,?,?,?,?,?)";
+          $unknown_query = 'INSERT INTO ' . UNKNWNR . ' ( email, firstName, lastName, postal, guestFirstName, guestLastName, guestEmail )
+          VALUES (?,?,?,?,?,?,?)';
 
           $unknown_stmt = $conn->prepare($unknown_query);
 
           $unknown_stmt->bind_param('sssssss', $email, $firstName, $lastName, $postal, $guestFirstName, $guestLastName, $guestEmail);
         } else {
-          $unknown_query= "INSERT INTO " . UNKNWNR . " ( email, firstName, lastName, postal )
-          VALUES (?,?,?,?)";
+          $unknown_query= 'INSERT INTO ' . UNKNWNR . ' ( email, firstName, lastName, postal )
+          VALUES (?,?,?,?)';
 
           $unknown_stmt = $conn->prepare($unknown_query);
 
@@ -242,17 +242,17 @@
 
         //	On successful add to db, send email
         $staffArgs = array (
-              "email" => $email,
-          "firstName" => $firstName,
-           "lastName" => $lastName,
-             "postal" => $postal
+              'email' => $email,
+          'firstName' => $firstName,
+           'lastName' => $lastName,
+             'postal' => $postal
         );
 
-        sendStaffEmail( $staffArgs );
+        sendStaffEmailPM( $staffArgs );
 
         $unknown_stmt->close();
       } else {
-        echo "Error: " . $unknown_stmt->error . "<br>" . $conn->error;
+        echo 'Error: ' . $unknown_stmt->error . '<br>' . $conn->error;
       }
     } else {
       // if email is alreayd in the DB (user has already registered)
@@ -273,7 +273,7 @@
   function delete_unknown( $conn, $email ){
   	// Make sure entry is in unknown DB
 
-    $query = "SELECT ID FROM " . UNKNWNR . " WHERE EMAIL =?";
+    $query = 'SELECT ID FROM ' . UNKNWNR . ' WHERE EMAIL =?';
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param('s', $email);
@@ -281,21 +281,23 @@
 
     if ($stmt->store_result()){
       if ($stmt->num_rows > 0){
-        $del_query = "DELETE FROM " . UNKNWNR . " WHERE EMAIL=?";
+        $del_query = 'DELETE FROM ' . UNKNWNR . ' WHERE EMAIL=?';
 
         $del_stmt = $conn->prepare($del_query);
         $del_stmt->bind_param('s', $email);
       } else {
-        echo "not in unknown db";
+        echo 'not in unknown db';
       }
     } else {
-      echo "error " . $del_stmt->error;
+      echo 'error ' . $del_stmt->error;
     }
 
     $del_stmt->execute();
 
     if ($del_stmt->store_result()){
-      echo "deleted from Unknown RSVPS";
+      echo 'deleted from Unknown RSVPS';
+
+      rejectEmailPm($email);
 
       $del_stmt->close();
     }
@@ -311,7 +313,7 @@
     // Create connection
     $conn = dbConnect();
 
-    $query = "SELECT id, firstName, lastName, email, postal, guestFirstName, guestLastName, guestEmail FROM " . $dbTable;
+    $query = 'SELECT id, firstName, lastName, email, postal, guestFirstName, guestLastName, guestEmail FROM ' . $dbTable;
 
     if ($stmt = $conn->prepare($query)) {
       $stmt->execute() or trigger_error($stmt->error, E_USER_ERROR);
@@ -321,7 +323,7 @@
       $stmt->bind_result($id, $firstName, $lastName, $email, $postal, $guestFirstName, $guestLastName, $guestEmail);
 
       if ($stmt->num_rows > 0) { ?>
-        <table class='table table-striped' id='rsvp-table'>
+        <table class="table table-striped" id="rsvp-table">
           <thead>
             <tr>
               <th>ID</th>
@@ -340,25 +342,25 @@
 
         <?php
           while ($stmt->fetch()) {
-            echo "<tr id='". $id . "'>";
+            echo '<tr id="'. $id . '">';
 
-            echo "<td>" . $id . "</td>";
-            echo "<td id='firstName' class='value'>" . $firstName . "</td>";
-            echo "<td id='lastName' class='value'>" . $lastName . "</td>";
-            echo "<td id='email' class='value'>" . $email . "</td>";
-            echo "<td id='postal' class='value'>" . $postal . "</td>";
-            echo "<td id='guestName' class='value'>" . $guestFirstName . ' ' . $guestLastName . "</td>";
-            echo "<td id='guestEmail' class='value'>" . $guestEmail . "</td>";
+            echo '<td>' . $id . '</td>';
+            echo '<td id="firstName" class="value">' . $firstName . "</td>";
+            echo '<td id="lastName" class="value">' . $lastName . '</td>';
+            echo '<td id="email" class="value">' . $email . '</td>';
+            echo '<td id="postal" class="value">' . $postal . '</td>';
+            echo '<td id="guestName" class="value">' . $guestFirstName . ' ' . $guestLastName . '</td>';
+            echo '<td id="guestEmail" class="value">' . $guestEmail . '</td>';
 
             if ($dbTable === UNKNWNR) {
-              echo "<td><input type='button' id='". $id ."' class='btn btn-link approve' value='Approve' />";
-              echo "<input type='button' class='btn btn-link deny' value='Deny' /></td>";
+              echo '<td><input type="button" id="'. $id .'" class="btn btn-link approve" value="Approve" />';
+              echo '<input type="button" class="btn btn-link deny" value="Deny" /></td>';
             }
-          echo "</tr>";
+          echo '</tr>';
         }
-        echo "</tbody></table>";
+        echo '</tbody></table>';
       } else {// If table has no unknown RSVPs display a message
-        echo "No unknown RSVPs right now. Check back later.";
+        echo 'No unknown RSVPs right now. Check back later.';
       }
       $stmt->close();
     }

@@ -37,8 +37,8 @@ Thumbs.db
 
 # Files in Project  #
 #####################
-_inc/config.php
-_inc/config-1ana1.php
+config/config.php
+config/config-1ana1.php
 _inc/email/*.jpg
 *.csv
 

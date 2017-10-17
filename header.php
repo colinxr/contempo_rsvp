@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 <html>
 <head>
 	<title><?php
-		include '_inc/config.php';
+		include 'config/config.php';
 		echo EVENT_NAME;
 	 ?> RSVP</title>
 	 <!-- Preload & Prefetch Images and Fonts -≥ fast loading -->

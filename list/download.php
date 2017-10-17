@@ -1,14 +1,14 @@
 <?php
-require("../../_inc/config.php");
+require('../../config/config.php');
 
 //Check connection
-$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
 if ( $conn->connect_error ) {
-  die( "Connection failed:" . $conn->connect_error );
+  die( 'Connection failed:' . $conn->connect_error );
 }
 
-$query = "SELECT * from " . DB_TABLE . " ORDER BY ID DESC";
+$query = 'SELECT * from ' . DB_TABLE . ' ORDER BY ID DESC';
 
 $result = $conn->query( $query );
 
@@ -26,13 +26,13 @@ if ( $result === false ) {
   $output = fopen('php://output', 'w');
 
   if ( $output && $result ){
-    header("Cache-Control: private");
-    header("Content-Description: File Transfer");
-    header("Content-Type: application/force-download");
-    header("Content-Transfer-Encoding: binary");
-    header("Content-Type: binary/octet-stream");
-    header("Content-Type: text/csv; charset=utf-8");
-    header("Content-Disposition: attachment; filename=export.csv");
+    header('Cache-Control: private');
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/force-download');
+    header('Content-Transfer-Encoding: binary');
+    header('Content-Type: binary/octet-stream');
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename=export.csv');
 
     fputcsv($output, $headers);
 

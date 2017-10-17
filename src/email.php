@@ -129,7 +129,7 @@ function sendStaffEmail( $staffArgs ) {
 		</head>
 		<body>
 			<p>Privet Elena!</p>
-		    <p>Somebody who isn\'t on the invite list just RSVP\'d for the BFM Party. This is their info:</p><br/>
+		    <p>Somebody who isn\'t on the invite list just RSVP\'d for the party. This is their info:</p><br/>
 
 		  	          <p>Name: '. $staffArgs["firstName"] . ' ' . $staffArgs["lastName"] .' </p>
 		  	         <p>Email: '. $staffArgs["email"] .'</p>

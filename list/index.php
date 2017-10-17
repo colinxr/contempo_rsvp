@@ -5,8 +5,8 @@
 
 	<title>Unknown RSVP Confirmations</title>
 
-	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' type='text/css' media='all' />
-	<link rel='stylesheet' href='../css/bootstrap-responsive.min.css' type='text/css' media='all' />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="../css/bootstrap-responsive.min.css" type="text/css" media="all" />
 
 	<link href="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -48,8 +48,8 @@
 </header>
 
 <?php
-  require_once("../_inc/config.php");
-  require("../src/database.php");
+  require_once('../config/config.php');
+  require('../src/database.php');
 
   $dbTable = DB_TABLE;
 

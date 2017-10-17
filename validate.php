@@ -9,9 +9,9 @@
 
 	<div class="col right confirmation">
 <?php
-  require_once '_inc/config.php';
+  require_once 'config/config.php';
        require 'src/database.php';
-			 require 'src/email.php';
+			 require 'src/email-postmark.php';
 
   //Get form info
       $email = strtolower( $_POST['email'] ); //formants data to match with Email Lower column in wtf.csv

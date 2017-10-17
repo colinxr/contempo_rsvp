@@ -44,9 +44,9 @@
 	</div>
 
 		<?php
-			require("../_inc/config.php");
-      require("../src/database.php");
-      require("../src/select.php");
+			require('../config/config.php');
+      require('../src/database.php');
+      require('../src/select.php');
 
       $dbTable = UNKNWNR;
 
