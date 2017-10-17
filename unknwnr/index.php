@@ -1,13 +1,12 @@
 <?php
-  error_reporting(E_ALL);
-  ini_set('display_errors',1);
+  require('../config/config.php');
 ?>
 <!DOCTYPE>
 <html lang="en">
 <head>
   <meta charset="utf-8">
 
-	<title>BFM SS17 Unknown RSVP Confirmations</title>
+	<title><?php echo EVENT_NAME;?> Unknown RSVP Confirmations</title>
 
 	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' type='text/css' media='all' />
 	<link rel='stylesheet' href='css/bootstrap-responsive.min.css' type='text/css' media='all' />
@@ -36,7 +35,7 @@
 		</div>
 
 	<div class="title">
-		<h1>Book For Men Spring/Summer 2017 Unknown RSVPs</h1>
+		<h1><?php echo EVENT_NAME;?> Unknown RSVPs</h1>
 		<h3>Here are the Unknown RSVPs</h3>
     <section>
       <a href="/test/unknwnr/rsvps">See RSVPs here</a>
@@ -44,7 +43,6 @@
 	</div>
 
 		<?php
-			require('../config/config.php');
       require('../src/database.php');
       require('../src/select.php');
 

@@ -367,10 +367,14 @@
     $conn->close();
   }
 
-  function download_results(){
+  // *****
+  // Generate CSV file from DB
+  // *****
+
+  function download_results($dbTable){
     $conn = dbConnect();
 
-    $query = 'SELECT * from ' . DB_TABLE . ' ORDER BY ID DESC';
+    $query = 'SELECT * from ' . $dbTable . ' ORDER BY ID DESC';
 
     $result = $conn->query($query);
 
