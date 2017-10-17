@@ -7,7 +7,7 @@
   header('Cache-Control: must-revalidate');
   header('Pragma: public');
   header('Content-Type: application/force-download');
-  header('Content-Disposition: attachment; filename="rsvps_' .date('j-m-y') . '.csv"');
+  header('Content-Disposition: attachment; filename="unknown_rsvps_' .date('j-m-y') . '.csv"');
 
   require('../config/config.php');
   require('../src/database.php');
