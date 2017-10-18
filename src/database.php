@@ -4,7 +4,7 @@
 // Approves Email, if RSVP Type is 'Match'
 // *****
 
-  function checkEmail($email) {
+  function checkEmail($email){
     //Check email and compare to list, if match, grab ancillary information
     $row = 1;
     $emailMatch = false;
@@ -17,10 +17,10 @@
     // convert email string to all lowercase to make sure variable capitalization doesn't miss the email in wtf.csv
     $emailLower = strtolower( $email );
 
-    if ( ( $handle = fopen( BASEPATH . '/wtf.csv', 'r') ) !== FALSE ) {
-      while ( ( $data = fgetcsv( $handle, 1500, ',' ) ) !== FALSE ) {
+    if ( ( $handle = fopen( BASEPATH . '/wtf.csv', 'r') ) !== FALSE ){
+      while ( ( $data = fgetcsv( $handle, 1500, ',' ) ) !== FALSE ){
         $row++;
-        if ( $data[3] == $emailLower ) {
+        if ( $data[3] == $emailLower ){
           $gender = $data[4];
           $category = $data[5];
           $company = $data[6];
@@ -38,10 +38,10 @@
 // Connects to Database
 // *****
 
-  function dbConnect() {
+  function dbConnect(){
     $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-    if($mysqli->connect_error) {
+    if($mysqli->connect_error){
       die('Connect Error (' . mysqli_connect_errno() . ') '. mysqli_connect_error());
     }
 
@@ -52,7 +52,7 @@
 // Inserts rsvp into Database
 // *****
 
-  function dbInsert ( $sqlArgs ) {
+  function dbInsert ($sqlArgs){
 
     global $rsvpType;
 
@@ -63,15 +63,15 @@
     $postal = $sqlArgs['postal'];
 
     // if key value pair exists, set variable as the value
-    $gender = isset( $sqlArgs['gender'] ) ? $sqlArgs['gender'] : 'null';
-    $category = isset( $sqlArgs['category'] ) ? $sqlArgs['category'] : 'null';
-    $company = isset( $sqlArgs['company'] ) ? $sqlArgs['company'] : 'null';
-    $guestOf = isset( $sqlArgs['guestOf'] ) ? $sqlArgs['guestOf'] : 'null';
+    $gender = isset($sqlArgs['gender']) ? $sqlArgs['gender'] : 'null';
+    $category = isset($sqlArgs['category']) ? $sqlArgs['category'] : 'null';
+    $company = isset($sqlArgs['company']) ? $sqlArgs['company'] : 'null';
+    $guestOf = isset($sqlArgs['guestOf']) ? $sqlArgs['guestOf'] : 'null';
 
     $hasGuest = false;
 
       // Is the Entry bringing a guest? Create those variables if the key value pair exists
-      if ( isset( $sqlArgs['hasGuest'] ) ) {
+      if (isset($sqlArgs['hasGuest'])){
         $hasGuest = true;
         $guestFirstName = $sqlArgs['guestFirstName'];
         $guestLastName = $sqlArgs['guestLastName'];
@@ -87,7 +87,7 @@
       $hasGuest = false;
 
       // Is the Entry bringing a guest? Create those variables if the key value pair exists
-      if ( isset( $sqlArgs['hasGuest'] ) ) {
+      if (isset($sqlArgs['hasGuest'])){
         $hasGuest = true;
         $guestFirstName = $sqlArgs['guestFirstName'];
         $guestLastName = $sqlArgs['guestLastName'];
@@ -105,14 +105,14 @@
     // Query to check if email exists in Db Table
     $query = 'SELECT id FROM ' . DB_TABLE . ' WHERE EMAIL=?';
 
-    if ($stmt = $conn->prepare($query)) {
+    if ($stmt = $conn->prepare($query)){
       $stmt->bind_param('s', $email);
       $stmt->execute();
 
       if (!$stmt->store_result()){
         echo 'Error Result = false';
-      } else if ( $stmt->num_rows == 0 ) { // if email is not in Db table
-        if ($hasGuest) {
+      } else if ($stmt->num_rows == 0){ // if email is not in Db table
+        if ($hasGuest){
           // prepared SQL stmt to inster guest and plus one
           $guest_query = 'INSERT INTO ' . DB_TABLE . '( email, firstName, lastName, postal, gender, category, company, guestOf, guestFirstName, guestLastName, guestEmail )
           VALUES (?,?,?,?,?,?,?,?,?,?,?)';
@@ -145,10 +145,10 @@
               'lastName' => $lastName
             );
 
-            sendConfirmPm( $emailArgs );
+            sendConfirmPm($emailArgs);
           } else if ($rsvpType === 'capacity'){
             $path = '/_inc/alerts/capacity-msg.html'; //
-            $alert = file_get_contents( BASEPATH . $path );
+            $alert = file_get_contents(BASEPATH . $path);
             echo $alert;
 
             //	On successful add to db, send email
@@ -168,7 +168,7 @@
         } // end of $conn->query($sql) === TRUE
       } else { // if email is alreayd in the DB (user has already registered)
         $path = '/_inc/alerts/reg-msg.html';
-        $alert = file_get_contents( BASEPATH . $path );
+        $alert = file_get_contents(BASEPATH . $path);
         echo $alert;
       }
       //already registered message
@@ -181,7 +181,7 @@
 // Inserts Unknown RSVP into Unknown Table
 // *****
 
-  function dbUnknwnr( $sqlArgs ) {
+  function dbUnknwnr($sqlArgs){
 
     // break out $sqlArgs array into more readable variables
     $email = $sqlArgs['email'];
@@ -192,7 +192,7 @@
     $hasGuest = false;
 
     // Is the Entry bringing a guest? Create those variables if the key value pair exists
-    if ( isset( $sqlArgs['hasGuest'] ) ) {
+    if ( isset( $sqlArgs['hasGuest'] ) ){
       $hasGuest = true;
       $guestFirstName = $sqlArgs['guestFirstName'];
       $guestLastName = $sqlArgs['guestLastName'];
@@ -209,22 +209,22 @@
     // CHECK IF EMAIL ALREADY IN DB
     $query = 'SELECT id FROM ' . DB_TABLE . ' WHERE EMAIL=?';
 
-    if ($stmt = $conn->prepare($query)) {
+    if ($stmt = $conn->prepare($query)){
       $stmt->bind_param('s', $email);
       $stmt->execute();
 
       if (!$stmt->store_result()){
         echo 'Error Result = false';
-      } else if ($stmt->num_rows == 0) {
+      } else if ($stmt->num_rows == 0){
         if ($hasGuest){
-          $unknown_query = 'INSERT INTO ' . UNKNWNR . ' ( email, firstName, lastName, postal, guestFirstName, guestLastName, guestEmail )
+          $unknown_query = 'INSERT INTO ' . UNKNWNR . ' (email, firstName, lastName, postal, guestFirstName, guestLastName, guestEmail)
           VALUES (?,?,?,?,?,?,?)';
 
           $unknown_stmt = $conn->prepare($unknown_query);
 
           $unknown_stmt->bind_param('sssssss', $email, $firstName, $lastName, $postal, $guestFirstName, $guestLastName, $guestEmail);
         } else {
-          $unknown_query= 'INSERT INTO ' . UNKNWNR . ' ( email, firstName, lastName, postal )
+          $unknown_query= 'INSERT INTO ' . UNKNWNR . ' (email, firstName, lastName, postal)
           VALUES (?,?,?,?)';
 
           $unknown_stmt = $conn->prepare($unknown_query);
@@ -236,7 +236,7 @@
 
       if ($unknown_stmt->store_result()){
         $path = '/_inc/alerts/unknown-msg.html'; // confirmation message
-        $alert = file_get_contents( BASEPATH . $path );
+        $alert = file_get_contents(BASEPATH . $path);
         echo $alert;
 
         //	On successful add to db, send email
@@ -247,7 +247,7 @@
           'postal' => $postal
         );
 
-        sendStaffEmailPM( $staffArgs );
+        sendStaffEmailPM($staffArgs);
 
         $unknown_stmt->close();
       } else {
@@ -256,7 +256,7 @@
     } else {
       // if email is alreayd in the DB (user has already registered)
       $path = '/_inc/alerts/reg-msg.html';
-      $alert = file_get_contents( BASEPATH . $path );
+      $alert = file_get_contents(BASEPATH . $path);
       echo $alert;
     }
     //already registered message
@@ -269,7 +269,7 @@
 // Removes unknown RSVP from unknown table
 // *****
 
-  function delete_unknown( $conn, $email ){
+  function delete_unknown($conn, $email){
   	// Make sure entry is in unknown DB
 
     $query = 'SELECT ID FROM ' . UNKNWNR . ' WHERE EMAIL =?';
@@ -308,20 +308,20 @@
 // Show Entries in table, either RSVPs or Unknown RSVPS
 // *****
 
-  function viewResults( $dbTable ) {
+  function viewResults($dbTable){
     // Create connection
     $conn = dbConnect();
 
     $query = 'SELECT id, firstName, lastName, email, postal, guestFirstName, guestLastName, guestEmail FROM ' . $dbTable;
 
-    if ($stmt = $conn->prepare($query)) {
+    if ($stmt = $conn->prepare($query)){
       $stmt->execute() or trigger_error($stmt->error, E_USER_ERROR);
 
       $stmt->store_result();
 
       $stmt->bind_result($id, $firstName, $lastName, $email, $postal, $guestFirstName, $guestLastName, $guestEmail);
 
-      if ($stmt->num_rows > 0) { ?>
+      if ($stmt->num_rows > 0){ ?>
         <table class="table table-striped" id="rsvp-table">
           <thead>
             <tr>
@@ -332,7 +332,7 @@
               <th>Postal</th>
               <th>Guest Name</th>
               <th>Guest Email</th>
-              <?php if ($dbTable === UNKNWNR) { ?>
+              <?php if ($dbTable === UNKNWNR){ ?>
                 <th>Approve/Deny</th>
               <? } ?>
             </tr>
@@ -340,7 +340,7 @@
           <tbody>
 
             <?php
-            while ($stmt->fetch()) { ?>
+            while ($stmt->fetch()){ ?>
               <tr id="<?php echo $id ;?>">
                 <td><?php echo $id ;?></td>
                 <td id="firstName" class="value"><?php echo $id; ?></td>
@@ -350,7 +350,7 @@
                 <td id="guestName" class="value"><?php echo $guestFirstName . ' ' . $guestLastName; ?></td>
                 <td id="guestEmail" class="value"><?php echo $guestEmail; ?></td>
 
-              <?php if ($dbTable === UNKNWNR) { ?>
+              <?php if ($dbTable === UNKNWNR){ ?>
                 <td><input type="button" id="<?php echo $id; ?>" class="btn btn-link approve" value="Approve" />
                 <input type="button" class="btn btn-link deny" value="Deny" /></td>
               <?php } ?>
@@ -374,7 +374,7 @@
     $query = 'SELECT * from ' . $dbTable . ' ORDER BY ID DESC';
     $result = $conn->query($query);
 
-    if ($result === false) {
+    if ($result === false){
       die('Could not fetch records');
     } else {
       $num_fields = mysqli_num_fields($result);
@@ -389,7 +389,7 @@
       if ( $output && $result ){
         fputcsv($output, $headers);
 
-        while ($row = $result->fetch_array(MYSQLI_NUM)) {
+        while ($row = $result->fetch_array(MYSQLI_NUM)){
           fputcsv($output, array_values($row));
         }
 
