@@ -14,11 +14,11 @@
 			 require 'src/email-postmark.php';
 
   //Get form info
-      $email = strtolower( $_POST['email'] ); //formants data to match with Email Lower column in wtf.csv
+  $email = strtolower( $_POST['email'] ); //formants data to match with Email Lower column in wtf.csv
   $firstName = ucwords(strtolower( $_POST['first-name'] ) ); // Formats data for any stray capitals in user form
-   $lastName = ucwords(strtolower( $_POST['last-name'] ) ); // Formats data for any stray capitals in user form
-     $postal = strtoupper( $_POST['postal'] ); // Formats data proper Postal Code form
-     $submit = $_POST['submit'];
+  $lastName = ucwords(strtolower( $_POST['last-name'] ) ); // Formats data for any stray capitals in user form
+  $postal = strtoupper( $_POST['postal'] ); // Formats data proper Postal Code form
+  $submit = $_POST['submit'];
 
   if ( isset( $_POST['plus-one'] ) ) { // handles plus one inputs, used to set sql query
     $hasGuest = true;
@@ -27,17 +27,17 @@
   }
 
   if ( $hasGuest ) {
-    $guestFirstName = ucwords( strtolower( $_POST['guest-firstName'] ) );// Formats data for any stray capitals in user form
+  	$guestFirstName = ucwords( strtolower( $_POST['guest-firstName'] ) );// Formats data for any stray capitals in user form
 		$guestLastName = ucwords( strtolower( $_POST['guest-lastName'] ) );// Formats data for any stray capitals in user form
-   $guestEmail = $_POST['guest-email'];
+  	$guestEmail = $_POST['guest-email'];
   }
 
 	$sqlArgs = array (
-				"email" => $email,
+		"email" => $email,
 		"firstName" => $firstName,
-		 "lastName" => $lastName,
-			 "postal" => $postal
-		);
+		"lastName" => $lastName,
+		"postal" => $postal
+	);
 
 	if ( $hasGuest ) {
 		$sqlArgs["hasGuest"] = $hasGuest;
@@ -63,9 +63,9 @@
 
 		if ( checkEmail($email) ) {
 			$sqlArgs["gender"] = $gender;
-		$sqlArgs["category"] = $category;
-		 $sqlArgs["company"] = $company;
-		 $sqlArgs["guestOf"] = $guestOf;
+			$sqlArgs["category"] = $category;
+		 	$sqlArgs["company"] = $company;
+		 	$sqlArgs["guestOf"] = $guestOf;
 
     	//call Database Connect Function;
     	dbInsert ( $sqlArgs );

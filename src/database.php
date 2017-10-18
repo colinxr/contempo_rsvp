@@ -21,13 +21,12 @@
       while ( ( $data = fgetcsv( $handle, 1500, ',' ) ) !== FALSE ) {
         $row++;
         if ( $data[3] == $emailLower ) {
-
-            $gender = $data[4];
+          $gender = $data[4];
           $category = $data[5];
-           $company = $data[6];
-           $guestOf = $data[7];
+          $company = $data[6];
+          $guestOf = $data[7];
 
-        $emailMatch = true;
+          $emailMatch = true;
         }
       }
       fclose( $handle );
@@ -58,46 +57,46 @@
     global $rsvpType;
 
     // break out $sqlArgs array into more readable variables
-         $email = $sqlArgs['email'];
-     $firstName = $sqlArgs['firstName'];
-      $lastName = $sqlArgs['lastName'];
-        $postal = $sqlArgs['postal'];
+    $email = $sqlArgs['email'];
+    $firstName = $sqlArgs['firstName'];
+    $lastName = $sqlArgs['lastName'];
+    $postal = $sqlArgs['postal'];
 
-        // if key value pair exists, set variable as the value
-        $gender = isset( $sqlArgs['gender'] ) ? $sqlArgs['gender'] : 'null';
-      $category = isset( $sqlArgs['category'] ) ? $sqlArgs['category'] : 'null';
-       $company = isset( $sqlArgs['company'] ) ? $sqlArgs['company'] : 'null';
-       $guestOf = isset( $sqlArgs['guestOf'] ) ? $sqlArgs['guestOf'] : 'null';
+    // if key value pair exists, set variable as the value
+    $gender = isset( $sqlArgs['gender'] ) ? $sqlArgs['gender'] : 'null';
+    $category = isset( $sqlArgs['category'] ) ? $sqlArgs['category'] : 'null';
+    $company = isset( $sqlArgs['company'] ) ? $sqlArgs['company'] : 'null';
+    $guestOf = isset( $sqlArgs['guestOf'] ) ? $sqlArgs['guestOf'] : 'null';
+
+    $hasGuest = false;
+
+      // Is the Entry bringing a guest? Create those variables if the key value pair exists
+      if ( isset( $sqlArgs['hasGuest'] ) ) {
+        $hasGuest = true;
+        $guestFirstName = $sqlArgs['guestFirstName'];
+        $guestLastName = $sqlArgs['guestLastName'];
+        $guestEmail = $sqlArgs['guestEmail'];
+      }
+
+      // break out $sqlArgs array into more readable variables
+      $email = $sqlArgs['email'];
+      $firstName = $sqlArgs['firstName'];
+      $lastName = $sqlArgs['lastName'];
+      $postal = $sqlArgs['postal'];
 
       $hasGuest = false;
 
       // Is the Entry bringing a guest? Create those variables if the key value pair exists
       if ( isset( $sqlArgs['hasGuest'] ) ) {
-            $hasGuest = true;
-      $guestFirstName = $sqlArgs['guestFirstName'];
-       $guestLastName = $sqlArgs['guestLastName'];
-          $guestEmail = $sqlArgs['guestEmail'];
-      }
+        $hasGuest = true;
+        $guestFirstName = $sqlArgs['guestFirstName'];
+        $guestLastName = $sqlArgs['guestLastName'];
+        $guestEmail = $sqlArgs['guestEmail'];
 
-      // break out $sqlArgs array into more readable variables
-          $email = $sqlArgs['email'];
-      $firstName = $sqlArgs['firstName'];
-       $lastName = $sqlArgs['lastName'];
-         $postal = $sqlArgs['postal'];
-
-       $hasGuest = false;
-
-      // Is the Entry bringing a guest? Create those variables if the key value pair exists
-      if ( isset( $sqlArgs['hasGuest'] ) ) {
-            $hasGuest = true;
-      $guestFirstName = $sqlArgs['guestFirstName'];
-       $guestLastName = $sqlArgs['guestLastName'];
-          $guestEmail = $sqlArgs['guestEmail'];
-
-       // if entry is bringing a guest, set the key pair value in the array staffArgs() on line 170.
-       $staffArgs['guestFirstName'] = $guestFirstName;
+        // if entry is bringing a guest, set the key pair value in the array staffArgs() on line 170.
+        $staffArgs['guestFirstName'] = $guestFirstName;
         $staffArgs['guestLastName'] = $guestLastName;
-           $staffArgs['guestEmail'] = $guestEmail;
+        $staffArgs['guestEmail'] = $guestEmail;
       }
 
     // Create connection
@@ -141,9 +140,9 @@
 
             //	On successful add to db, send email
             $emailArgs = array (
-                  'email' => $email,
+              'email' => $email,
               'firstName' => $firstName,
-               'lastName' => $lastName
+              'lastName' => $lastName
             );
 
             sendConfirmPm( $emailArgs );
@@ -154,10 +153,10 @@
 
             //	On successful add to db, send email
             $staffArgs = array (
-                  'email' => $email,
+              'email' => $email,
               'firstName' => $firstName,
-               'lastName' => $lastName,
-                 'postal' => $postal
+              'lastName' => $lastName,
+              'postal' => $postal
             );
 
             sendStaffEmailPM( $staffArgs );
@@ -185,25 +184,25 @@
   function dbUnknwnr( $sqlArgs ) {
 
     // break out $sqlArgs array into more readable variables
-         $email = $sqlArgs['email'];
-     $firstName = $sqlArgs['firstName'];
-      $lastName = $sqlArgs['lastName'];
-        $postal = $sqlArgs['postal'];
+    $email = $sqlArgs['email'];
+    $firstName = $sqlArgs['firstName'];
+    $lastName = $sqlArgs['lastName'];
+    $postal = $sqlArgs['postal'];
 
-      $hasGuest = false;
+    $hasGuest = false;
 
-      // Is the Entry bringing a guest? Create those variables if the key value pair exists
-      if ( isset( $sqlArgs['hasGuest'] ) ) {
-              $hasGuest = true;
-        $guestFirstName = $sqlArgs['guestFirstName'];
-         $guestLastName = $sqlArgs['guestLastName'];
-            $guestEmail = $sqlArgs['guestEmail'];
+    // Is the Entry bringing a guest? Create those variables if the key value pair exists
+    if ( isset( $sqlArgs['hasGuest'] ) ) {
+      $hasGuest = true;
+      $guestFirstName = $sqlArgs['guestFirstName'];
+      $guestLastName = $sqlArgs['guestLastName'];
+      $guestEmail = $sqlArgs['guestEmail'];
 
-         // if entry is bringing a guest, set the key pair value in the array staffArgs() on line 170.
-          $staffArgs['guestFirstName'] = $guestFirstName;
-           $staffArgs['guestLastName'] = $guestLastName;
-              $staffArgs['guestEmail'] = $guestEmail;
-      }
+      // if entry is bringing a guest, set the key pair value in the array staffArgs() on line 170.
+      $staffArgs['guestFirstName'] = $guestFirstName;
+      $staffArgs['guestLastName'] = $guestLastName;
+      $staffArgs['guestEmail'] = $guestEmail;
+    }
 
     $conn = dbConnect();
 
@@ -242,10 +241,10 @@
 
         //	On successful add to db, send email
         $staffArgs = array (
-              'email' => $email,
+          'email' => $email,
           'firstName' => $firstName,
-           'lastName' => $lastName,
-             'postal' => $postal
+          'lastName' => $lastName,
+          'postal' => $postal
         );
 
         sendStaffEmailPM( $staffArgs );
@@ -340,26 +339,25 @@
           </thead>
           <tbody>
 
-        <?php
-          while ($stmt->fetch()) {
-            echo '<tr id="'. $id . '">';
+            <?php
+            while ($stmt->fetch()) { ?>
+              <tr id="<?php echo $id ;?>">
+                <td><?php echo $id ;?></td>
+                <td id="firstName" class="value"><?php echo $id; ?></td>
+                <td id="lastName" class="value"><?php echo $lastName; ?></td>
+                <td id="email" class="value"><?php echo $email; ?></td>
+                <td id="postal" class="value"><?php echo $postal; ?></td>
+                <td id="guestName" class="value"><?php echo $guestFirstName . ' ' . $guestLastName; ?></td>
+                <td id="guestEmail" class="value"><?php echo $guestEmail; ?></td>
 
-            echo '<td>' . $id . '</td>';
-            echo '<td id="firstName" class="value">' . $firstName . "</td>";
-            echo '<td id="lastName" class="value">' . $lastName . '</td>';
-            echo '<td id="email" class="value">' . $email . '</td>';
-            echo '<td id="postal" class="value">' . $postal . '</td>';
-            echo '<td id="guestName" class="value">' . $guestFirstName . ' ' . $guestLastName . '</td>';
-            echo '<td id="guestEmail" class="value">' . $guestEmail . '</td>';
-
-            if ($dbTable === UNKNWNR) {
-              echo '<td><input type="button" id="'. $id .'" class="btn btn-link approve" value="Approve" />';
-              echo '<input type="button" class="btn btn-link deny" value="Deny" /></td>';
-            }
-          echo '</tr>';
-        }
-        echo '</tbody></table>';
-      } else {// If table has no unknown RSVPs display a message
+              <?php if ($dbTable === UNKNWNR) { ?>
+                <td><input type="button" id="<?php echo $id; ?>" class="btn btn-link approve" value="Approve" />
+                <input type="button" class="btn btn-link deny" value="Deny" /></td>
+              <?php } ?>
+            </tr>
+            <?php } ?>
+            </tbody></table>
+      <?php } else {// If table has no unknown RSVPs display a message
         echo 'No unknown RSVPs right now. Check back later.';
       }
       $stmt->close();
@@ -373,16 +371,13 @@
 
   function download_results($dbTable){
     $conn = dbConnect();
-
     $query = 'SELECT * from ' . $dbTable . ' ORDER BY ID DESC';
-
     $result = $conn->query($query);
 
     if ($result === false) {
       die('Could not fetch records');
     } else {
       $num_fields = mysqli_num_fields($result);
-
       $headers = array();
 
       while ($field_info = mysqli_fetch_field($result)){
@@ -392,7 +387,6 @@
       $output = fopen('php://output', 'w');
 
       if ( $output && $result ){
-
         fputcsv($output, $headers);
 
         while ($row = $result->fetch_array(MYSQLI_NUM)) {
@@ -400,13 +394,10 @@
         }
 
         fclose($output);
-
         readfile($output);
         unlink($output);
         exit();
       }
     }
-
   }
-
 ;?>
