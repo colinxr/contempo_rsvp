@@ -52,7 +52,7 @@
 // Inserts rsvp into Database
 // *****
 
-  function dbInsert ($sqlArgs){
+  function dbInsert($sqlArgs){
 
     global $rsvpType;
 
@@ -78,26 +78,18 @@
         $guestEmail = $sqlArgs['guestEmail'];
       }
 
-      // break out $sqlArgs array into more readable variables
-      $email = $sqlArgs['email'];
-      $firstName = $sqlArgs['firstName'];
-      $lastName = $sqlArgs['lastName'];
-      $postal = $sqlArgs['postal'];
+    // Is the Entry bringing a guest? Create those variables if the key value pair exists
+    if (isset($sqlArgs['hasGuest'])){
+      $hasGuest = true;
+      $guestFirstName = $sqlArgs['guestFirstName'];
+      $guestLastName = $sqlArgs['guestLastName'];
+      $guestEmail = $sqlArgs['guestEmail'];
 
-      $hasGuest = false;
-
-      // Is the Entry bringing a guest? Create those variables if the key value pair exists
-      if (isset($sqlArgs['hasGuest'])){
-        $hasGuest = true;
-        $guestFirstName = $sqlArgs['guestFirstName'];
-        $guestLastName = $sqlArgs['guestLastName'];
-        $guestEmail = $sqlArgs['guestEmail'];
-
-        // if entry is bringing a guest, set the key pair value in the array staffArgs() on line 170.
-        $staffArgs['guestFirstName'] = $guestFirstName;
-        $staffArgs['guestLastName'] = $guestLastName;
-        $staffArgs['guestEmail'] = $guestEmail;
-      }
+      // if entry is bringing a guest, set the key pair value in the array staffArgs() on line 170.
+      $staffArgs['guestFirstName'] = $guestFirstName;
+      $staffArgs['guestLastName'] = $guestLastName;
+      $staffArgs['guestEmail'] = $guestEmail;
+    }
 
     // Create connection
     $conn = dbConnect();
@@ -114,7 +106,7 @@
       } else if ($stmt->num_rows == 0){ // if email is not in Db table
         if ($hasGuest){
           // prepared SQL stmt to inster guest and plus one
-          $guest_query = 'INSERT INTO ' . DB_TABLE . '( email, firstName, lastName, postal, gender, category, company, guestOf, guestFirstName, guestLastName, guestEmail )
+          $guest_query = 'INSERT INTO ' . DB_TABLE . '(email, firstName, lastName, postal, gender, category, company, guestOf, guestFirstName, guestLastName, guestEmail)
           VALUES (?,?,?,?,?,?,?,?,?,?,?)';
 
           $rsvp_stmt = $conn->prepare($guest_query);
@@ -122,7 +114,7 @@
           $rsvp_stmt->bind_param('sssssssssss', $email, $firstName, $lastName, $postal, $gender, $category, $company, $guestOf, $guestFirstName, $guestLastName, $guestEmail);
         } else {
           // prepared SQL stmt to insert guest
-          $single_query = 'INSERT INTO ' . DB_TABLE . '( email, firstName, lastName, postal, gender, category, company, guestOf)
+          $single_query = 'INSERT INTO ' . DB_TABLE . '(email, firstName, lastName, postal, gender, category, company, guestOf)
           VALUES (?,?,?,?,?,?,?,?)';
 
           $rsvp_stmt = $conn->prepare($single_query);

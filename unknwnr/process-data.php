@@ -2,7 +2,7 @@
 
 	require('../config/config.php');
 	require('../src/database.php');
-	require('../src/email.php');
+	require('../src/email-postmark.php');
 
 	if (isset($_POST['rsvp'])){
 
@@ -40,7 +40,7 @@
 			if (!$stmt->store_result()){
         echo 'Error Result = false';
       } else if ($stmt->num_rows == 0){
-				if ($verdict == 'approve'){
+				if ($verdict === 'approve'){
 					if ($hasGuest){
 	          // prepared SQL stmt to inster guest and plus one
 	          $guest_query = 'INSERT INTO ' . DB_TABLE . '(email, firstName, lastName, postal,  guestFirstName, guestLastName, guestEmail)

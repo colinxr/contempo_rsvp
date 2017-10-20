@@ -12,6 +12,7 @@
   require_once 'config/config.php';
        require 'src/database.php';
 			 require 'src/email-postmark.php';
+			 require 'src/rsvp-class.php';
 
   //Get form info
   $email = strtolower( $_POST['email'] ); //formants data to match with Email Lower column in wtf.csv
