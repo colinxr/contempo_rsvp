@@ -1,18 +1,64 @@
 <?php
 
 class Rsvp {
-  public $email;
-  public $firstName;
-  public $lastName;
-  public $postal;
+  private $email;
+  private $firstName;
+  private $lastName;
+  private $postal;
+  private $gender;
+  private $category;
+  private $company;
+  private $guestOf;
+  private $guestFirstName;
+  private $guestLastName;
+  private $guestEmail;
+  private $action;
+  private $hasGuest = false;
 
-  public $hasGuest = false;
-  public $guestFirstName;
-  public $guestLastName;
-  public $guesteEmail;
+  public function &__get($prop){
+    if (property_exists($this, $prop)){
+      return $this->$prop;
+    }
+  }
 
-  public function __construct($email, $firstName, )
+  public function __set($prop, $value){
+    if (property_exists($this, $prop)){
+      $this->$prop = $value;
+    }
+  }
+
+  public function checkEmail($email){
+    //Check email and compare to list, if match, grab ancillary information
+    $row = 1;
+    $emailMatch = false;
+
+    global $gender;
+    global $category;
+    global $company;
+    global $guestOf;
+
+    // convert email string to all lowercase to make sure variable capitalization doesn't miss the email in wtf.csv
+    $emailLower = strtolower($email);
+
+    if (($handle = fopen(BASEPATH . '/wtf.csv', 'r')) !== FALSE){
+      while (($data = fgetcsv($handle, 1500, ',')) !== FALSE){
+        $row++;
+        if ($data[3] == $emailLower){
+          $gender = $data[4];
+          $category = $data[5];
+          $company = $data[6];
+          $guestOf = $data[7];
+
+          $emailMatch = true;
+          fclose($handle);
+          return true;
+        }
+      }
+      printf('method Running ' . $gender);
+    } else {
+      return false;
+    }
+  }
 }
-
 
 ;?>

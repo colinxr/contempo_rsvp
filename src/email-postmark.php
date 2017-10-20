@@ -3,7 +3,7 @@
 require_once(BASEPATH . '/vendor/autoload.php');
 use Postmark\PostmarkClient;
 
-function sendConfirmPm($emailArgs){//PostMark Email API
+function sendConfirmPm($rsvp){//PostMark Email API
 
   $subject = '=?UTF-8?B?'.base64_encode(utf8_encode(SUBJECT_LINE)).'?=';
 
@@ -15,7 +15,7 @@ function sendConfirmPm($emailArgs){//PostMark Email API
         <title>Your Land Rover Event RSVP Confirmation</title>
       </head>
       <body>
-        <p>Hi '. $emailArgs["firstName"] .',</p>
+        <p>Hi '. $rsvp->firstName .',</p>
         <p>Thank you for your RSVP to our Land Rover event.</p>
         <p>If you would like to make changes to your RSVP please email <a href="mailto:event@sharpmagazine.com">event@sharpmagazine.com</a>.</p>
         <br />
@@ -30,7 +30,7 @@ function sendConfirmPm($emailArgs){//PostMark Email API
 
 
   $message = [
-    'To' => $emailArgs['email'],
+    'To' => $rsvp->email,
     'From' => EMAIL_FROM,
     'Subject' => $subject,
     'HtmlBody' => $html_body
@@ -42,7 +42,7 @@ function sendConfirmPm($emailArgs){//PostMark Email API
   $sendResult = $client->sendEmailBatch([$message]);
 }
 
-function sendStaffPM($staffArgs){//PostMark Email API
+function sendStaffPM($rsvp){//PostMark Email API
   $subject = '=?UTF-8?B?'.base64_encode(utf8_encode(STAFF_SUBJECT)).'?=';
 
   $html_body = '
@@ -54,10 +54,10 @@ function sendStaffPM($staffArgs){//PostMark Email API
 			<p>Privet Elena!</p>
 		  <p>Somebody who isn\'t on the invite list just RSVP\'d for the BFM Party. This is their info:</p><br/>
 
-		  <p>Name: '. $staffArgs["firstName"] . ' ' . $staffArgs["lastName"] .' </p>
-      <p>Email: '. $staffArgs["email"] .'</p>
-      <p>Postal: '. $staffArgs["postal"] .'</p>
-      <p>Plus One: '. $staffArgs["guestFirstName"] .' ' . $staffArgs["guestLastName"] .'</p>
+		  <p>Name: '. $rsvp->firstName . ' ' . $rsvp->lastName .' </p>
+      <p>Email: '. $rsvp->email .'</p>
+      <p>Postal: '. $rsvp->postal .'</p>
+      <p>Plus One: '. $rsvp->guestFirstName .' ' . $rsvp->guestLastName .'</p>
 
 		</body>
 		</html>';
@@ -75,7 +75,7 @@ function sendStaffPM($staffArgs){//PostMark Email API
   $sendResult = $client->sendEmailBatch([$message]);
 }
 
-function rejectEmailPm($email){//PostMark Email API
+function rejectEmailPm($rsvp){//PostMark Email API
 
   $subject = '=?UTF-8?B?'.base64_encode(utf8_encode(SUBJECT_LINE)).'?=';
 
@@ -99,7 +99,7 @@ function rejectEmailPm($email){//PostMark Email API
   $html_body = utf8_encode($body);
 
   $message = [
-    'To' => $email,
+    'To' => $rsvp->email,
     'From' => EMAIL_FROM,
     'Subject' => $subject,
     'HtmlBody' => $html_body
