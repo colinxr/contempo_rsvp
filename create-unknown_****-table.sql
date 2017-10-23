@@ -19,9 +19,9 @@ CREATE TABLE IF NOT EXISTS `unknown_test` (
   `lastName` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   `postal` varchar(7) COLLATE utf8_unicode_ci NOT NULL,
   `PLUSONE` int(11) NOT NULL DEFAULT '0',
-  `guestFirstName` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
-  `guestLastName` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
-  `guestEmail` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
+  `guestFirstName` varchar(256) COLLATE utf8_unicode_ci NULL,
+  `guestLastName` varchar(256) COLLATE utf8_unicode_ci NULL,
+  `guestEmail` varchar(256) COLLATE utf8_unicode_ci NULL,
   UNIQUE KEY `ID` (`ID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=143 ;
 

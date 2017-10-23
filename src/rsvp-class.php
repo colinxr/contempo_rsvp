@@ -54,7 +54,6 @@ class Rsvp {
           return true;
         }
       }
-      printf('method Running ' . $gender);
     } else {
       return false;
     }

@@ -10,9 +10,7 @@
 	<div class="col right confirmation">
 <?php
   require_once 'config/config.php';
-       require 'src/database.php';
-			 require 'src/new_insert.php';
-			 require 'src/email-postmark.php';
+       require 'src/database.php';;
 			 require 'src/rsvp-class.php';
 
   //Get form info

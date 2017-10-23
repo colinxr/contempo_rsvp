@@ -58,7 +58,7 @@ $(document).ready(function() {
 	    	method: 'post',
 	    	data: {'rsvp' : json},
 	    	success: function(data){
-	    		console.log(json);
+	    		console.log(data);
 	    	},
 	    	error: function(xhr, textStatus, errorThrown) {
 		    	console.log('ajax loading error...');

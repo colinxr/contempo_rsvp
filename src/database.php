@@ -1,4 +1,5 @@
 <?php
+include('email-postmark.php');
 
 // *****
 // Approves Email, if RSVP Type is 'Match'
@@ -48,148 +49,82 @@
     return $mysqli;
   }
 
-// *****
-// Inserts rsvp into Database
-// *****
+  // *****
+  // Check if email is already in DB table
+  // *****
 
-  function dbInsert($rsvp){
-
-    global $rsvpType;
-
-    // if key value pair exists, set variable as the value
-    $gender = property_exists('Rsvp', 'gender') ? $rsvp->gender : '';
-    $category = property_exists('Rsvp', 'category') ? $rsvp->category : '';
-    $company = property_exists('Rsvp', 'company') ? $rsvp->company : '';
-    $guestOf = property_exists('Rsvp', 'guestOf') ? $rsvp->guestOf : '';
-
-    // Create connection
-    $conn = dbConnect();
-
+  function emailExists($conn, $dbTable, $email){
     // Query to check if email exists in Db Table
     $query = 'SELECT id FROM ' . DB_TABLE . ' WHERE EMAIL=?';
 
     if ($stmt = $conn->prepare($query)){
-      $stmt->bind_param('s', $rsvp->email);
-      $stmt->execute();
-
-      if (!$stmt->store_result()){
-        echo 'Error Result = false';
-      } else if ($stmt->num_rows == 0){ // if email is not in Db table
-        if ($rsvp->hasGuest == true){
-          // prepared SQL stmt to inster guest and plus one
-          $guest_query = 'INSERT INTO ' . DB_TABLE . '(email, firstName, lastName, postal, gender, category, company, guestOf, guestFirstName, guestLastName, guestEmail)
-          VALUES (?,?,?,?,?,?,?,?,?,?,?)';
-
-          $rsvp_stmt = $conn->prepare($guest_query);
-
-          $rsvp_stmt->bind_param('sssssssssss', $rsvp->email, $rsvp->firstName, $rsvp->lastName, $rsvp->postal, $gender, $category, $company, $guestOf, $rsvp->guestFirstName, $rsvp->guestLastName, $rsvp->guestEmail);
-        } else {
-          // prepared SQL stmt to insert guest
-          $single_query = 'INSERT INTO ' . DB_TABLE . '(email, firstName, lastName, postal, gender, category, company, guestOf)
-          VALUES (?,?,?,?,?,?,?,?)';
-
-          $rsvp_stmt = $conn->prepare($single_query);
-
-          $rsvp_stmt->bind_param('ssssssss', $rsvp->email, $rsvp->firstName, $rsvp->lastName, $rsvp->postal, $gender, $category, $company, $guestOf);
-        }
-
-        $rsvp_stmt->execute();
-
-        if ($rsvp_stmt->store_result()){
-          if ($rsvpType === 'match' || $rsvpType === 'open'){
-            $path = '/_inc/alerts/conf-msg.html'; //
-            $alert = file_get_contents( BASEPATH . $path );
-            echo $alert;
-
-            //	On successful add to db, send email
-            sendConfirmPm($rsvp);
-          } else if ($rsvpType === 'capacity'){
-            $path = '/_inc/alerts/capacity-msg.html'; //
-            $alert = file_get_contents(BASEPATH . $path);
-            echo $alert;
-
-            //	On successful add to db, send email
-            sendStaffEmailPM($rsvp);
-          }
-
-          $rsvp_stmt->close();
-        } else {
-          echo 'Error: ' . $rsvp_stmt->error . '<br>' . $conn->error;
-        } // end of $conn->query($sql) === TRUE
-      } else { // if email is alreayd in the DB (user has already registered)
-        $path = '/_inc/alerts/reg-msg.html';
-        $alert = file_get_contents(BASEPATH . $path);
-        echo $alert;
-      }
-      //already registered message
-      $stmt->close();
-    }
-  $conn->close();
-}// end of dbConnect();
-
-// *****
-// Inserts Unknown RSVP into Unknown Table
-// *****
-
-  function dbUnknwnr($rsvp){
-    $conn = dbConnect();
-
-    // CHECK IF EMAIL ALREADY IN DB
-    $query = 'SELECT id FROM ' . DB_TABLE . ' WHERE EMAIL=?';
-
-    if ($stmt = $conn->prepare($query)){
-      $stmt->bind_param('s', $rsvp->email);
+      $stmt->bind_param('s', $obj->email);
       $stmt->execute();
 
       if (!$stmt->store_result()){
         echo 'Error Result = false';
       } else if ($stmt->num_rows == 0){
-        if ($rsvp->hasGuest == true){
-          $unknown_query = 'INSERT INTO ' . UNKNWNR . ' (email, firstName, lastName, postal, guestFirstName, guestLastName, guestEmail)
-          VALUES (?,?,?,?,?,?,?)';
+        return true;
+      } else {
+        return false;
+      }
+    }
+    //already registered message
+    $stmt->close();
+  }
 
-          $unknown_stmt = $conn->prepare($unknown_query);
+// *****
+// Inserts rsvp into Database
+// *****
 
-          $unknown_stmt->bind_param('sssssss', $rsvp->email, $rsvp->firstName, $rsvp->lastName, $rsvp->postal, $rsvp->guestFirstName, $rsvp->guestLastName, $rsvp->guestEmail);
-        } else {
-          $unknown_query= 'INSERT INTO ' . UNKNWNR . ' (email, firstName, lastName, postal)
-          VALUES (?,?,?,?)';
 
-          $unknown_stmt = $conn->prepare($unknown_query);
+// *****
+// Inserts Unknown RSVP into Unknown Table
+// *****
 
-          $unknown_stmt->bind_param('ssss', $rsvp->email, $rsvp->firstName, $rsvp->lastName, $rsvp->postal);
-        }
+  function dbUnknwnr($obj){
+    $conn = dbConnect();
+    $emailExists = emailExists($conn, UNKNWNR, $obj->email);
 
-      $unknown_stmt->execute();
+    if (!$emailExists){
+      // if email is alreayd in the DB (user has already registered)
+      include(BASEPATH .'/_inc/alerts/reg-msg.php');
+    } else {
+      if ($obj->hasGuest == true){
+        $unknown_query = 'INSERT INTO ' . UNKNWNR . ' (email, firstName, lastName, postal, guestFirstName, guestLastName, guestEmail)
+        VALUES (?,?,?,?,?,?,?)';
+
+        $unknown_stmt = $conn->prepare($unknown_query);
+
+        $unknown_stmt->bind_param('sssssss', $obj->email, $obj->firstName, $obj->lastName, $obj->postal, $obj->guestFirstName, $obj->guestLastName, $obj->guestEmail);
+      } else {
+        $unknown_query= 'INSERT INTO ' . UNKNWNR . ' (email, firstName, lastName, postal)
+        VALUES (?,?,?,?)';
+
+        $unknown_stmt = $conn->prepare($unknown_query);
+
+        $unknown_stmt->bind_param('ssss', $obj->email, $obj->firstName, $obj->lastName, $obj->postal);
+      }
+
+      if (!$unknown_stmt->execute()){
+          printf($unknown_stmt->error);
+      }
 
       if ($unknown_stmt->store_result()){
-        $path = '/_inc/alerts/unknown-msg.html'; // confirmation message
-        $alert = file_get_contents(BASEPATH . $path);
-        echo $alert;
+        //$path = '/_inc/alerts/unknown-msg.php'; // confirmation message
+        //$alert = file_get_contents(BASEPATH . $path);
+        //echo $alert;
+        include(BASEPATH .'/_inc/alerts/unknown-msg.php');
 
         //	On successful add to db, send email
-        $staffArgs = array (
-          'email' => $rsvp->email,
-          'firstName' => $rsvp->firstName,
-          'lastName' => $rsvp->lastName,
-          'postal' => $rsvp->postal
-        );
-
-        sendStaffEmailPM($staffArgs);
+        sendStaffEmailPM($obj);
 
         $unknown_stmt->close();
       } else {
         echo 'Error: ' . $unknown_stmt->error . '<br>' . $conn->error;
       }
-    } else {
-      // if email is alreayd in the DB (user has already registered)
-      $path = '/_inc/alerts/reg-msg.html';
-      $alert = file_get_contents(BASEPATH . $path);
-      echo $alert;
     }
-    //already registered message
-    $stmt->close();
-    }
+
   $conn->close();
 }// end of dbConnect();
 
@@ -224,9 +159,9 @@
     if ($del_stmt->store_result()){
       echo 'deleted from Unknown RSVPS';
 
-      rejectEmailPm($email);
-
       $del_stmt->close();
+    } else {
+      echo 'error ' . $del_stmt->error;
     }
 
     $stmt->close();
@@ -327,5 +262,104 @@
         exit();
       }
     }
+  }
+
+  function newInsert($obj){
+
+    global $rsvpType;
+
+    // if key value pair exists, set variable as the value
+    $gender = property_exists('Rsvp', 'gender') ? $obj->gender : ' ';
+    $category = property_exists('Rsvp', 'category') ? $obj->category : ' ';
+    $company = property_exists('Rsvp', 'company') ? $obj->company : ' ';
+    $guestOf = property_exists('Rsvp', 'guestOf') ? $obj->guestOf : ' ';
+
+    if ($obj->action != ''){
+      $verdict = $obj->action;
+    }
+    // Create connection
+    $conn = dbConnect();
+
+    $emailExists = emailExists($conn, DB_TABLE, $obj->email);
+
+    if (!$emailExists){
+      if (isset($verdict)){
+        if ($verdict != ''){
+          echo 'email already in db';
+        }
+      } else {
+        include(BASEPATH . '/_inc/alerts/reg-msg.php');
+      }
+    } else {
+      if (isset($verdict)){
+        if ($verdict === 'delete'){
+          $email = $obj->email;
+          delete_unknown($conn, $email);
+
+          rejectEmailPM($rsvp);
+          json_encode($obj);
+          return;
+        }
+      }
+
+      if ($obj->hasGuest == true){
+        // prepared SQL stmt to inster guest and plus one
+        $guest_query = 'INSERT INTO ' . DB_TABLE . '(email, firstName, lastName, postal, gender, category, company, guestOf, guestFirstName, guestLastName, guestEmail)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?)';
+
+        $rsvp_stmt = $conn->prepare($guest_query);
+
+        $rsvp_stmt->bind_param('sssssssssss', $obj->email, $obj->firstName, $obj->lastName, $obj->postal, $gender, $category, $company, $guestOf, $obj->guestFirstName, $obj->guestLastName, $obj->guestEmail);
+      } else {
+        // prepared SQL stmt to insert guest
+        $single_query = 'INSERT INTO ' . DB_TABLE . '(email, firstName, lastName, postal, gender, category, company, guestOf)
+        VALUES (?,?,?,?,?,?,?,?)';
+
+        $rsvp_stmt = $conn->prepare($single_query);
+
+        $rsvp_stmt->bind_param('ssssssss', $obj->email, $obj->firstName, $obj->lastName, $obj->postal, $gender, $category, $company, $guestOf);
+      }
+
+      if (!$rsvp_stmt->execute()){
+        printf($rsvp_stmt->error);
+      }
+
+      if ($rsvp_stmt->store_result()){
+        //	On successful add to db, send email
+        sendConfirmPm($obj);
+
+        if (isset($verdict)){
+          if ($verdict === 'approve'){
+            $email = $obj->email;
+            printf($obj->action . ': ' . $obj->email . '     ');
+            delete_unknown($conn, $email);
+            return;
+          }
+        }
+
+        if ($rsvpType === 'match' || $rsvpType === 'open'){
+          include(BASEPATH . '/_inc/alerts/conf-msg.php'); //
+        }
+
+        if ($rsvpType === 'capacity'){
+          include(BASEPATH . '/_inc/alerts/capacity-msg.php');
+
+          //	On successful add to db, send email
+          sendStaffEmailPM($obj);
+        }
+
+        $rsvp_stmt->close();
+      } else {
+        echo 'Error: ' . $rsvp_stmt->error . '<br>' . $conn->error;
+      } // end of $conn->query($sql) === TRU
+    }
+
+    if ($emailExists){
+
+    } else {
+    }
+
+  $conn->close();
+  // end of dbConnect();
   }
 ;?>

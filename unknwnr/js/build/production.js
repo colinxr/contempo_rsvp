@@ -9,7 +9,7 @@ $(document).ready(function() {
 		$(this).parent().parent().attr('id', 'activeRow');
 
 		var activeRow = $('#activeRow');
-				var alertBox = $('.alert');
+		 var alertBox = $('.alert');
 
 		//Creates the data object that holds the Unknown RSVP data from activeRow's TDs
 
@@ -45,7 +45,7 @@ $(document).ready(function() {
 
 		// Alert Notice Handler
 
-		alertBox.fadeIn('fast').fadeOut(3000);
+		alertBox.fadeIn('fast').fadeOut(2500);
 
 		});
 
@@ -58,7 +58,7 @@ $(document).ready(function() {
 	    	method: 'post',
 	    	data: {'rsvp' : json},
 	    	success: function(data){
-	    		console.log(json);
+	    		console.log(data);
 	    	},
 	    	error: function(xhr, textStatus, errorThrown) {
 		    	console.log('ajax loading error...');
