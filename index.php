@@ -9,26 +9,26 @@
 			<div class="col right">
 				<form action="validate.php" method="post" autocomplete="off">
 						<span class="input input--bfm">
-							<input class="input__field input__field--bfm" type="text" id="first-name"  name="first-name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
+							<input class="input__field input__field--bfm" type="text" id="first-name"  name="rsvp[first-name]" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
 							<label class="input__label input__label--bfm input__label--bfm-color" for="first-name">
 								<span class="input__label-content input__label-content--bfm">First Name</span>
 							</label>
 						</span>
 						<span class="input input--bfm">
-							<input class="input__field input__field--bfm" type="text" id="last-name" name="last-name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
+							<input class="input__field input__field--bfm" type="text" id="last-name" name="rsvp[last-name]" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
 							<label class="input__label input__label--bfm input__label--bfm-color" for="last-name">
 								<span class="input__label-content input__label-content--bfm">Last Name</span>
 							</label>
 						</span>
 						<span class="input input--bfm">
-							<input class="input__field input__field--bfm" type="email" id="email" name="email" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/ required>
+							<input class="input__field input__field--bfm" type="email" id="email" name="rsvp[email]" autocomplete]="off" autocorrect="off" autocapitalize="off" spellcheck="false"/ required>
 							<label class="input__label input__label--bfm input__label--bfm-color" for="email">
 								<span class="input__label-content input__label-content--bfm">Email</span>
 							</label>
 						</span>
 
 						<span class="input input--bfm">
-							<input class="input__field input__field--bfm" type="text" id="postal"  name="postal" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/ required>
+							<input class="input__field input__field--bfm" type="text" id="postal"  name="rsvp[postal]" autocomplete]="off" autocorrect="off" autocapitalize="off" spellcheck="false"/ required>
 							<label class="input__label input__label--bfm input__label--bfm-color" for="postal">
 								<span class="input__label-content input__label-content--bfm">Postal Code</span>
 							</label>
@@ -36,31 +36,31 @@
 
 						<span class="input input--bfm input__check">
 							<label class="input__label input__label--plus-one" for="plus-one">Bringing a Guest?</label>
-							<input type="checkbox" name="plus-one" id="plus-one">
+							<input type="checkbox" name="rsvp[plus-one]" id="plus-one">
 						</span>
 
 						<div class="guests">
 							<span class="input input--bfm">
-								<input class="input__field input__field--bfm" type="text" id="guest-firstName" name="guest-firstName" />
+								<input class="input__field input__field--bfm" type="text" id="guest-firstName" name="rsvp[guest-firstName]" />
 								<label class="input__label input__label--bfm input__label--bfm-color" for="guest-firstName">
 									<span class="input__label-content input__label-content--bfm">Guest's First Name</span>
 								</label>
 							</span>
 							<span class="input input--bfm">
-								<input class="input__field input__field--bfm" type="text" id="guest-lastName" name="guest-lastName" />
+								<input class="input__field input__field--bfm" type="text" id="guest-lastName" name="rsvp[guest-lastName]" />
 								<label class="input__label input__label--bfm input__label--bfm-color" for="guest-lastName">
 									<span class="input__label-content input__label-content--bfm">Guest's Last Name</span>
 								</label>
 							</span>
 							<span class="input input--bfm">
-								<input class="input__field input__field--bfm" type="email" id="guest-email" name="guest-email" />
+								<input class="input__field input__field--bfm" type="email" id="guest-email" name="rsvp[guest-email]" />
 								<label class="input__label input__label--bfm input__label--bfm-color" for="guest-email">
 									<span class="input__label-content input__label-content--bfm">Guest's Email</span>
 								</label>
 							</span>
 						</div>
 
-						<button class="btn btn-1 btn-1a" type="submit" name="submit" value="Submit">Submit</button>
+						<button class="btn btn-1 btn-1a" type="submit" name="rsvp[submit]" value="Submit">Submit</button>
 
 					</form>
 			</div>

@@ -27,7 +27,7 @@
 			$str_json->hasGuest = false;
 		}
 
-		newInsert($rsvp);
+		insertRsvp($rsvp);
 	};
 
 	?>

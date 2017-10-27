@@ -7,7 +7,7 @@ function sendConfirmPm($rsvp){//PostMark Email API
 
   $subject = '=?UTF-8?B?'.base64_encode(utf8_encode(SUBJECT_LINE)).'?=';
 
-  //$html_body = file_get_contents(BASEPATH . '/_inc/emails/email.html');
+  $html_body = file_get_contents(BASEPATH . '/_inc/emails/email.html');
 
   $body = '
     <html>
@@ -26,7 +26,7 @@ function sendConfirmPm($rsvp){//PostMark Email API
       </body>
       </html>';
 
-  $html_body = utf8_encode($body);
+  //$html_body = utf8_encode($body);
 
 
   $message = [
@@ -42,7 +42,7 @@ function sendConfirmPm($rsvp){//PostMark Email API
   $sendResult = $client->sendEmailBatch([$message]);
 }
 
-function sendStaffPM($rsvp){//PostMark Email API
+function sendStaffEmailPM($rsvp){//PostMark Email API
   $subject = '=?UTF-8?B?'.base64_encode(utf8_encode(STAFF_SUBJECT)).'?=';
 
   $html_body = '
