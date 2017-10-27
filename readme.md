@@ -6,16 +6,16 @@ This is a simple event tool
 
 ### Some requirements
 
-* Automatically approve guests whose emails are on our approve guestlist, add them to db table and send them a confirmation email
-* Pull in more information about the user from our guestlist and store in db table
+* Automatically approve guests whose emails are on our approve guest list, add them to db table and send them a confirmation email
+* Pull in more information about the user from our guest list and store in db table
 * Add unknown RSVPs to a separate table
-* Allow Contempo staff members to view unknown rsvps and either approve or deny them for the event
+* Allow Contempo staff members to view unknown RSVPs and either approve or deny them for the event
 * If desired, let anyone rsvp for an email
 * Create a reusable and maintainable codebase and front-end template
 
 ## How to Use
 
-#### 1. Clone the repo & intall dependencies
+#### 1. Clone the repo & install dependencies
 In Terminal, `cd` into the directory and run the following commands:
 - `npm install`
 - `composer install`
@@ -26,9 +26,9 @@ In Terminal, `cd` into the directory and run the following commands:
 
 #### 3. Update the config-sample.php file found in the inc directory
 - Add the appropriate database info
-- Update db table names to match the sql files editted previously
+- Update db table names to match the sql files edited previously
 - Update basepath to match url folder on server
-- Rpdate event confirmation emails, subject lines, hosts, emails, etc.
+- Update event confirmation emails, subject lines, hosts, emails, etc.
 - rename config.php
 
 #### 4. Edit Event Info
@@ -51,7 +51,7 @@ In Terminal, `cd` into the directory and run the following commands:
 
 ## Tests
 
-Make sure the event is functions as inteded with these manual test
+Make sure the event is functioning as intended with these manual test
 
 #### 1. Match: Single RSVP and Guest RSVPs
 - Are Match RSVPs functioning correctly? Added the the main dbTable, sent the appropriate email?
