@@ -53,10 +53,13 @@ In Terminal, `cd` into the directory and run the following commands:
 
 Make sure the event is functions as inteded with these manual test
 
-#### 1. Match: Single RSVP
-#### 2. Match: RSVP with Plus One
-#### 3. Unknown: Single RSVP
-#### 4. Unknown: RSVP with Plus One
-#### 5. Duplicate Submissions
-#### 6. Unknwnr: Approved
-#### 7. Unknwnr: Denied
+#### 1. Match: Single RSVP and Guest RSVPs
+- Are Match RSVPs functioning correctly? Added the the main dbTable, sent the appropriate email?
+#### 2. Unknown: Single RSVPs and Guest RSVPs
+- Are Unknown RSVPs being added to the Unknown dbTable? What confirmation message is displayed?
+#### 3. Duplicate Submissions
+- Duplicate entries should not be permitted. An 'Already Registered' confirmation screen should display.
+#### 4. Unknwnr: Approved
+- Approve someone from Unknwnr. Are they moved into main dbTable. What email is sent?
+#### 5. Unknwnr: Denied
+- Reject someone from Unknwnr. Are they removed from the Unknown dbTable? What email is sent?
