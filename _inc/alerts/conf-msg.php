@@ -1,4 +1,4 @@
-<p><strong>Great! Thank you for your RSVP, <?php echo $obj->firstName;?>! </strong></p>
+<p><strong>Great! Thank you for your RSVP, <?php printf($obj->firstName); ?>! </strong></p>
     <p>We've added you to the guest list and you will be receiving your confirmation email shortly.</p><br/>
 
  <!--  Calendar Event Info -->
