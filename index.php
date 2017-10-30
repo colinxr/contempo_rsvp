@@ -28,7 +28,7 @@
 						</span>
 
 						<span class="input input--bfm">
-							<input class="input__field input__field--bfm" type="text" id="postal"  name="rsvp[postal]" autocomplete]="off" autocorrect="off" autocapitalize="off" spellcheck="false"/ required>
+							<input class="input__field input__field--bfm" type="text" id="postal"  name="rsvp[postal]" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/ required>
 							<label class="input__label input__label--bfm input__label--bfm-color" for="postal">
 								<span class="input__label-content input__label-content--bfm">Postal Code</span>
 							</label>

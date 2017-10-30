@@ -19,7 +19,7 @@ include('email-postmark.php');
     $obj->postal = $postal;
     $obj->action = '';
 
-    if (isset($arr['plus-one'])){ // handles plus one inputs, used to set sql query
+    if (isset($arr['rsvp']['plus-one'])){ // handles plus one inputs, used to set sql query
       $guestFirstName = ucwords(strtolower($arr['rsvp']['guest-firstName']));// Formats data for any stray capitals in user form
       $guestLastName = ucwords(strtolower($arr['rsvp']['guest-lastName']));// Formats data for any stray capitals in user form
       $guestEmail = strtolower($arr['rsvp']['guest-email']);

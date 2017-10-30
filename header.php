@@ -4,9 +4,10 @@ error_reporting(E_ALL);
 ?>
 
 
-<!DOCTYPE>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
+
 	<title><?php
 		include 'config/config.php';
 		echo EVENT_NAME;
@@ -16,6 +17,9 @@ error_reporting(E_ALL);
  	<link rel="preload" as="font" href="/_inc/****.woff" type="font/woff" crossorigin />
 	<link rel="preload" as="image" href="imgs/****.jpg"  type="image/jpeg" />
 
+	<!-- Set character encoding for the document -->
+	<!-- Instruct Internet Explorer to use its latest rendering engine -->
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 

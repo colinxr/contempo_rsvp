@@ -33,9 +33,9 @@ class Rsvp {
     $emailMatch = false;
 
     global $gender;
-    global $category;
-    global $company;
-    global $guestOf;
+  	global $category;
+  	global $company;
+  	global $guestOf;
 
     // convert email string to all lowercase to make sure variable capitalization doesn't miss the email in wtf.csv
     $emailLower = strtolower($email);
@@ -44,10 +44,10 @@ class Rsvp {
       while (($data = fgetcsv($handle, 1500, ',')) !== FALSE){
         $row++;
         if ($data[3] == $emailLower){
-          $rsvp->gender = $data[4];
-          $rsvp->category = $data[5];
-          $rsvp->company = $data[6];
-          $rsvp->guestOf = $data[7];
+          $gender = $data[4];
+          $category = $data[5];
+          $company = $data[6];
+          $guestOf = $data[7];
 
           $emailMatch = true;
           fclose($handle);
