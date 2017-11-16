@@ -51,24 +51,27 @@ include('email-postmark.php');
 // Check if email is already in DB table
 // *****
 
-  function checkDuplicate($conn, $dbTable, $email){
-    // Query to check if email exists in Db Table
-    $query = 'SELECT id FROM ' . DB_TABLE . ' WHERE EMAIL=?';
+function checkDuplicate($conn, $dbTable, $email){
+  // Query to check if email exists in Db Table
+  $query = 'SELECT id FROM ' . $dbTable . ' WHERE EMAIL=?';
 
-    if ($stmt = $conn->prepare($query)){
-      $stmt->bind_param('s', $email);
-      $stmt->execute();
+  if ($stmt = $conn->prepare($query)){
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
 
-      if (!$stmt->store_result()){
-        echo 'Error Result = false';
-      } else if ($stmt->num_rows == 0){
+    if (!$stmt->store_result()) {
+      echo 'Error Result = false';
+    } else {
+      if ($stmt->num_rows == 0){
         return true;
       } else {
         return false;
       }
     }
-    $stmt->close();
+  } else {
+    return $conn->error;
   }
+}
 
 // *****
 // Inserts RSVP into Database
