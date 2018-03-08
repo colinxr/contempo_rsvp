@@ -1,6 +1,5 @@
 <?php
-
-require_once(BASEPATH . '/vendor/autoload.php');
+require_once('../vendor/autoload.php');
 use Postmark\PostmarkClient;
 
 function sendConfirmPm($rsvp){//PostMark Email API

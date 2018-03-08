@@ -29,10 +29,10 @@
 
 	if ($rsvpType === 'match' || $rsvpType === 'capacity') {
 
-		$gender = '';
+		$gender   = '';
 		$category = '';
-		$company = '';
-		$guestOf = '';
+		$company  = '';
+		$guestOf  = '';
 
 		$email = $rsvp->email;
 
