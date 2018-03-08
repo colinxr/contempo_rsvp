@@ -1,8 +1,8 @@
 <?php
 
 	require('../../config/config.php');
-	require('../../src/database.php');
-	require('../../src/rsvp-class.php');
+	require('../../app/database.php');
+	require('../../app/rsvp-class.php');
 
 	if (isset($_POST['rsvp'])){
 

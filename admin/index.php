@@ -44,7 +44,7 @@
     </header>
 
     <?php
-      require('../src/database.php');
+      require('../app/database.php');
 
       $dbTable = DB_TABLE;
 

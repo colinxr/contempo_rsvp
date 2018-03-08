@@ -10,31 +10,31 @@ var   sass = require('gulp-sass');
 
 // Lint Task
 gulp.task('lint', function() {
-    return gulp.src('js/*.js')
-      .pipe(jshint())
-      .pipe(jshint.reporter('default'));
+  return gulp.src('src/js/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
 });
 
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
-    return gulp.src('js/*.js')
-      .pipe(concat('all.js'))
-      .pipe(gulp.dest('dist'))
-      .pipe(rename('all.min.js'))
-      .pipe(uglify())
-      .pipe(gulp.dest('dist/js'));
+  return gulp.src('src/js/*.js')
+    .pipe(concat('all.js'))
+    .pipe(gulp.dest('dist'))
+    .pipe(rename('all.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('styles', function() {
-  return gulp.src('styles/**/*.scss')
+  return gulp.src(['src/scss/**/*.scss','src/css/*.css'])
     .pipe(sass())
-    .pipe(gulp.dest('css'))
+    .pipe(gulp.dest('dist/css'))
     .pipe(rename('style.css'))
 });
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch(['js/*.js', 'styles/**/*.scss'], ['lint', 'scripts', 'styles']);
+  gulp.watch(['src/js/*.js', 'src/styles/**/*.scss'], ['lint', 'scripts', 'styles']);
 });
 
 // Default Task

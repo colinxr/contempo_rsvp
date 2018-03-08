@@ -10,7 +10,7 @@
   header('Content-Disposition: attachment; filename="rsvps_' .date('j-m-y') . '.csv"');
 
   require('../../config/config.php');
-  require('../../src/database.php');
+  require('../../app/database.php');
 
   $dbTable = DB_TABLE;
 

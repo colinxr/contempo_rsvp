@@ -35,7 +35,7 @@
         <h1><?php echo EVENT_NAME; ?> RSVPs</h1>
 
         <?php
-          require(__DIR__ . '/../../src/database.php');
+          require(__DIR__ . '/../../app/database.php');
           upload_list();
         ?>
       </header>
