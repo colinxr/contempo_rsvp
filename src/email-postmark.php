@@ -1,5 +1,7 @@
 <?php
-require_once('../vendor/autoload.php');
+require_once __DIR__ . '/../config/config.php';
+require_once(BASEPATH . '/vendor/autoload.php');
+
 use Postmark\PostmarkClient;
 
 function sendConfirmPm($rsvp){//PostMark Email API
@@ -32,7 +34,7 @@ function sendConfirmPm($rsvp){//PostMark Email API
     'To' => $rsvp->email,
     'From' => EMAIL_FROM,
     'Subject' => $subject,
-    'HtmlBody' => $html_body
+    'HtmlBody' => $body
   ];
 
   $client = new PostmarkClient(CLIENT_API);
@@ -65,7 +67,7 @@ function sendStaffEmailPM($rsvp){//PostMark Email API
     'To' => EMAIL_FROM,
     'From' => STAFF_EMAIL_FROM,
     'Subject' => $subject,
-    'HtmlBody' => $html_body
+    'HtmlBody' => $body
   ];
 
   $client = new PostmarkClient(CLIENT_API);
@@ -101,7 +103,7 @@ function rejectEmailPm($rsvp){//PostMark Email API
     'To' => $rsvp->email,
     'From' => EMAIL_FROM,
     'Subject' => $subject,
-    'HtmlBody' => $html_body
+    'HtmlBody' => $body
   ];
 
   $client = new PostmarkClient(CLIENT_API);

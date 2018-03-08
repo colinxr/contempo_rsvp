@@ -4,7 +4,7 @@
 <div class="container">
 <div class="wrapper">
 	<div class="col left info">
-		<?php require '_inc/event-info.php'; ?>
+		<?php require 'event-info.php'; ?>
 	</div>
 
 	<div class="col right confirmation">
@@ -28,7 +28,6 @@
   }// end of rsvpType = open
 
 	if ($rsvpType === 'match' || $rsvpType === 'capacity') {
-
 		$gender   = '';
 		$category = '';
 		$company  = '';
@@ -36,15 +35,17 @@
 
 		$email = $rsvp->email;
 
-		if ($rsvp->checkEmail($email) === true) {
+		if ($rsvp->checkEmail($email) == true) {
 			$rsvp->gender = $gender;
 			$rsvp->category = $category;
 			$rsvp->company = $company;
 			$rsvp->guestOf = $guestOf;
 
     	insertRsvp($rsvp); //Insert RSVP Class into db table;
-		} else {
+		} else if ($rsvp->checkEmail($email) == false) {
 			dbUnknwnr($rsvp);
+		} else {
+			echo 'Please Upload an Event Invite List';
 		}
 	}// end of rsvpType = Match
 ?>

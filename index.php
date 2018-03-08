@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="wrapper">
 			<div class="col left info">
-				<?php include '_inc/event-info.php'; ?>
+				<?php include 'event-info.php'; ?>
 			</div>
 
 			<div class="col right">

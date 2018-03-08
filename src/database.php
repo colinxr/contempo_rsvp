@@ -1,9 +1,10 @@
 <?php
-include('email-postmark.php');
+  require_once __DIR__ . '/../config/config.php';
+  include(__DIR__ . '/email-postmark.php');
 
-// *****
-// Cleans form data and prepares RSVP class for use
-// *****
+  // *****
+  // Cleans form data and prepares RSVP class for use
+  // *****
 
   function formSanitize($arr, $obj) {
     //Get form info
@@ -33,9 +34,9 @@ include('email-postmark.php');
     return $obj; // return obj for use in other functions
   }
 
-// *****
-// Connects to Database
-// *****
+  // *****
+  // Connects to Database
+  // *****
 
   function dbConnect(){
     $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -47,35 +48,35 @@ include('email-postmark.php');
     return $mysqli;
   }
 
-// *****
-// Check if email is already in DB table
-// *****
+  // *****
+  // Check if email is already in DB table
+  // *****
 
-function checkDuplicate($conn, $dbTable, $email){
-  // Query to check if email exists in Db Table
-  $query = 'SELECT id FROM ' . $dbTable . ' WHERE EMAIL=?';
+  function checkDuplicate($conn, $dbTable, $email){
+    // Query to check if email exists in Db Table
+    $query = 'SELECT id FROM ' . $dbTable . ' WHERE EMAIL=?';
 
-  if ($stmt = $conn->prepare($query)){
-    $stmt->bind_param('s', $email);
-    $stmt->execute();
+    if ($stmt = $conn->prepare($query)){
+      $stmt->bind_param('s', $email);
+      $stmt->execute();
 
-    if (!$stmt->store_result()) {
-      echo 'Error Result = false';
-    } else {
-      if ($stmt->num_rows == 0){
-        return true;
+      if (!$stmt->store_result()) {
+        echo 'Error Result = false';
       } else {
-        return false;
+        if ($stmt->num_rows == 0){
+          return true;
+        } else {
+          return false;
+        }
       }
+    } else {
+      return $conn->error;
     }
-  } else {
-    return $conn->error;
   }
-}
 
-// *****
-// Inserts RSVP into Database
-// *****
+  // *****
+  // Inserts RSVP into Database
+  // *****
   function insertRsvp($obj){
 
     global $rsvpType;
@@ -162,9 +163,9 @@ function checkDuplicate($conn, $dbTable, $email){
   // end of dbConnect();
   }
 
-// *****
-// Inserts Unknown RSVP into Unknown Table
-// *****
+  // *****
+  // Inserts Unknown RSVP into Unknown Table
+  // *****
 
   function dbUnknwnr($obj){
     $conn = dbConnect();
@@ -211,9 +212,9 @@ function checkDuplicate($conn, $dbTable, $email){
   $conn->close();
 }// end of dbConnect();
 
-// *****
-// Removes unknown RSVP from unknown table
-// *****
+  // *****
+  // Removes unknown RSVP from unknown table
+  // *****
 
   function delete_unknown($conn, $email){
   	// Make sure entry is in unknown DB
@@ -249,9 +250,9 @@ function checkDuplicate($conn, $dbTable, $email){
     $stmt->close();
   } // End of delete_unknown();
 
-// *****
-// Show Entries in table, either RSVPs or Unknown RSVPS
-// *****
+  // *****
+  // Show Entries in table, either RSVPs or Unknown RSVPS
+  // *****
 
   function viewResults($dbTable){
     // Create connection
@@ -302,8 +303,10 @@ function checkDuplicate($conn, $dbTable, $email){
             </tr>
             <?php } ?>
             </tbody></table>
-      <?php } else {// If table has no unknown RSVPs display a message
-        echo 'No unknown RSVPs right now. Check back later.';
+      <?php } else { // If table has no unknown RSVPs display a message
+        echo '<div>';
+          echo 'No unknown RSVPs right now. Check back later.';
+        echo '</div>';
       }
       $stmt->close();
     }
@@ -346,11 +349,14 @@ function checkDuplicate($conn, $dbTable, $email){
     }
   }
 
+  // *****
+  // Upload Event List
+  // *****
 
   function upload_list() {
     $target_dir = BASEPATH . '/list/';
     echo $target_dir;
-    $target_file = $target_dir . basename($_FILES['fileToUpload']['name']);
+    $target_file = $target_dir . 'event-invites.csv';
 
     $uploadOk = 1;
     $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));

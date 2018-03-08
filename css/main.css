@@ -240,7 +240,8 @@ h4 {
 h5 {
   font-size: 14px;
   line-height: 41px;
-  margin-top: 0; }
+  margin-top: 0;
+  text-align: center; }
 
 p {
   color: #f2f2f2;
@@ -568,7 +569,6 @@ header img {
   color: #4a4a4a;
   padding: 0 20.5px 20.5px 20.5px;
   position: relative;
-  height: 328px;
   margin-top: 81px; }
   @media screen and (max-width: 1240px) {
     .confirmation {
@@ -582,23 +582,12 @@ header img {
     .confirmation {
       height: auto;
       max-width: 100%; } }
-  @media screen and (max-width: 640px) {
-    .confirmation {
-      max-width: 85%; } }
   @media screen and (max-width: 580px) {
     .confirmation {
       margin-top: 15px; } }
 
 .confirmation--footer {
-  position: absolute;
-  bottom: 25px;
-  text-align: center; }
-  @media screen and (max-width: 640px) {
-    .confirmation--footer {
-      bottom: 0;
-      margin-top: 13.5px;
-      position: relative;
-      text-align: left; } }
+  margin-top: 50px; }
 
 .confirmation--footer img {
   height: 30px;
@@ -622,3 +611,9 @@ header img {
 
 .brand {
   flex: 1; }
+
+.oldRow {
+  color: #999; }
+
+.oldRow .btn {
+  color: red; }

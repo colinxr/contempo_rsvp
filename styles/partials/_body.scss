@@ -104,7 +104,6 @@ header {
 	color: $font-color;
 	padding: 0 20.5px 20.5px 20.5px;
 	position: relative;
-	height: 328px ;
 	margin-top: 81px;
 
   @include big-desktop {
@@ -122,26 +121,13 @@ header {
 	   max-width: 100%;
 	}
 
-  @include big-phone {
-    max-width: 85%;
-  }
-
   @include phone {
     margin-top: 15px;
   }
 }
 
 .confirmation--footer {
-	position: absolute;
-	bottom: 25px;
-	text-align: center;
-
-  @include big-phone {
-		bottom: 0;
-		margin-top: 13.5px;
-		position: relative;
-		text-align: left;
-  }
+	margin-top: 50px;
 }
 
 .confirmation--footer {

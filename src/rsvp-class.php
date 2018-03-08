@@ -1,63 +1,71 @@
 <?php
 
-class Rsvp {
-  private $email;
-  private $firstName;
-  private $lastName;
-  private $postal;
-  private $gender;
-  private $category;
-  private $company;
-  private $guestOf;
-  private $guestFirstName;
-  private $guestLastName;
-  private $guestEmail;
-  private $action;
-  private $hasGuest = false;
+  class Rsvp {
+    private $email;
+    private $firstName;
+    private $lastName;
+    private $postal;
+    private $gender;
+    private $category;
+    private $company;
+    private $guestOf;
+    private $guestFirstName;
+    private $guestLastName;
+    private $guestEmail;
+    private $action;
+    private $hasGuest = false;
 
-  public function &__get($prop){
-    if (property_exists($this, $prop)){
-      return $this->$prop;
+    public function &__get($prop){
+      if (property_exists($this, $prop)){
+        return $this->$prop;
+      }
     }
-  }
 
-  public function __set($prop, $value){
-    if (property_exists($this, $prop)){
-      $this->$prop = $value;
+    public function __set($prop, $value){
+      if (property_exists($this, $prop)){
+        $this->$prop = $value;
+      }
     }
-  }
 
-  public function checkEmail($email){
-    //Check email and compare to list, if match, grab ancillary information
-    $row = 1;
-    $emailMatch = false;
+    public function checkEmail($email){
+      //Check email and compare to list, if match, grab ancillary information
+      $row = 1;
+      $emailMatch = false;
 
-    global $gender;
-  	global $category;
-  	global $company;
-  	global $guestOf;
+      global $gender;
+    	global $category;
+    	global $company;
+    	global $guestOf;
 
-    // convert email string to all lowercase to make sure variable capitalization doesn't miss the email in wtf.csv
-    $emailLower = strtolower($email);
+      // convert email string to all lowercase to make sure variable capitalization doesn't miss the email in wtf.csv
+      $emailLower = strtolower($email);
 
-    if (($handle = fopen(BASEPATH . '/wtf.csv', 'r')) !== FALSE){
-      while (($data = fgetcsv($handle, 1500, ',')) !== FALSE){
-        $row++;
-        if ($data[3] == $emailLower){
-          $gender = $data[4];
-          $category = $data[5];
-          $company = $data[6];
-          $guestOf = $data[7];
+      $event_list = BASEPATH . '/list/event-invites.csv';
 
-          $emailMatch = true;
-          fclose($handle);
-          return true;
+      if (!file_exists($event_list)) {
+        return 'Please Upload an Event List';
+      } else {
+        if (($handle = fopen($event_list, 'r')) !== FALSE){
+          while (($data = fgetcsv($handle, 1500, ',')) !== FALSE){
+            $row++;
+            if ($data[3] == $emailLower){
+              $gender = $data[4];
+              $category = $data[5];
+              $company = $data[6];
+              $guestOf = $data[7];
+
+              $emailMatch = true;
+              fclose($handle);
+              return true;
+            }
+          }
+        } else {
+          return false;
         }
       }
-    } else {
-      return false;
-    }
+
+
+    } // end of checkEmail();
   }
-}
 
 ;?>
