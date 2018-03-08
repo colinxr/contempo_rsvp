@@ -19,6 +19,7 @@ This is a simple event tool
 In Terminal, `cd` into the directory and run the following commands:
 - `npm install`
 - `composer install`
+- `gulp`
 
 #### 2. Rename the sql files
 - Replace the **** with corresponding event name, e.g. rsvp_coach_0917.
