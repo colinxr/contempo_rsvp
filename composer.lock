@@ -239,16 +239,16 @@
         },
         {
             "name": "wildbit/postmark-php",
-            "version": "2.3.1",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wildbit/postmark-php.git",
-                "reference": "ef270c6ec44831cde91bab4e53471af04f972974"
+                "reference": "10fbcc61216ddee5f944c3082d16a8c858a998ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wildbit/postmark-php/zipball/ef270c6ec44831cde91bab4e53471af04f972974",
-                "reference": "ef270c6ec44831cde91bab4e53471af04f972974",
+                "url": "https://api.github.com/repos/wildbit/postmark-php/zipball/10fbcc61216ddee5f944c3082d16a8c858a998ea",
+                "reference": "10fbcc61216ddee5f944c3082d16a8c858a998ea",
                 "shasum": ""
             },
             "require": {
@@ -269,7 +269,7 @@
                 "MIT"
             ],
             "description": "The officially supported client for Postmark (http://postmarkapp.com)",
-            "time": "2017-02-16T17:54:44+00:00"
+            "time": "2017-12-13T14:35:57+00:00"
         }
     ],
     "packages-dev": [],
