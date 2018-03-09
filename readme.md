@@ -33,7 +33,7 @@ In Terminal, `cd` into the directory and run the following commands:
 - rename config.php
 
 #### 4. Edit Event Info
-- Open inc/event-info.php
+- Open event-info.php
 - Add pertinent event info based off of invite design
 - Coordinate with art if required. Some times it's easier to include some of this info as an svg rather than html.
 
