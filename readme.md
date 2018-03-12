@@ -2,16 +2,17 @@
 
 ## an easy event management rsvp tool for Contempo Media.
 
-This is a simple event tool  
+This is a simple event management tool built for Contempo Media.
 
 ### Some requirements
 
-* Automatically approve guests whose emails are on our approve guest list, add them to db table and send them a confirmation email
+* Automatically approve guests whose emails are on our approved guest list, add them to db table and send them a confirmation email
 * Pull in more information about the user from our guest list and store in db table
 * Add unknown RSVPs to a separate table
-* Allow Contempo staff members to view unknown RSVPs and either approve or deny them for the event
+* Allow Contempo staff members to upload the approved guest list,
+* After uploading guest list, import that list into Mailchimp
+* Allow Contempo staff to view unknown RSVPs and either approve or deny them for the event
 * If desired, let anyone rsvp for an email
-* Create a reusable and maintainable codebase and front-end template
 
 ## How to Use
 
@@ -28,7 +29,7 @@ In Terminal, `cd` into the directory and run the following commands:
 #### 3. Update the config-sample.php file found in the config directory
 - Add the appropriate database info
 - Update db table names to match the sql files edited previously
-- Update basepath to match url folder on server
+- Update BASEPATH constant to match url folder on server
 - Update event confirmation emails, subject lines, hosts, emails, etc.
 - rename config.php
 
@@ -36,23 +37,22 @@ In Terminal, `cd` into the directory and run the following commands:
 - Log in to mailchimp and create a new list for the event
 - Add the correct Merge Fields to match the columns in the event list
 
-#### 4. Edit Event Info
+#### 5. Edit Event Info
 - Open event-info.php
 - Add pertinent event info based off of invite design
-- Coordinate with art if required. Some times it's easier to include some of this info as an svg rather than html.
+- Coordinate with art if required. Some times it's easier to include some of this info as an one svg rather than html.
 
-#### 5. Style page as neccessary
+#### 6. Style page as necessary
 - Open main.scss in the styles directory
 - Edit sass files as needed
-- In Terminal, run the `Gulp` command to compile sass into css
 
-#### 6. Update confirmation emails
--  In src/emails.php, make sure email functions are sending the appropriate copy to the guests and to staff
+#### 7. Update confirmation emails
+-  In app/email-postmark.php, ensure email functions are sending the appropriate copy to the guests and to staff
 - Is the correct staff members receiving the unknown notifications, if applicable?
 
-#### 7. Prepare list
-- Do the columns match the columns in validate.php?
-- Export csv as Windows CSV in Excel. If the file is not formatted this way, php will not be able to read it properly and the RSPV Match function will break.
+#### 8. Prepare list
+- Export the csv as Windows CSV in Excel. If the file is not formatted this way, php will not be able to read it properly and the RSVP Match function will break.
+- Make sure the csv columns match the columns in rsvp-class.php and app.php.
 
 ## Tests
 
@@ -68,7 +68,7 @@ Make sure the event is functioning as intended with these manual test
 #### 4. Duplicate Submissions
 - Duplicate entries should not be permitted. An 'Already Registered' confirmation screen should display.
 #### 5. Unknwnr: Approved
-- Approve someone from Unknwnr. Are they moved into main dbTable? 
+- Approve someone from Unknwnr. Are they moved into main dbTable?
 - What email is sent?
 #### 6. Unknwnr: Denied
 - Reject someone from Unknwnr. Are they removed from the Unknown dbTable?
