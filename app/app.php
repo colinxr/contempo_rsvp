@@ -440,6 +440,10 @@
         fclose($handle);
         $api_respsonse = batchSubscribe($final_data, MAILCHIMP_API);
 
+        // To Do
+        //
+        // How to handle $api_respsonse to provide feedback on the front-end???
+
         print_r($api_respsonse);
 
         echo 'Check Mailchimp in a few minutes to ensure the list has been imported.
