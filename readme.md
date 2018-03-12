@@ -25,12 +25,16 @@ In Terminal, `cd` into the directory and run the following commands:
 - Replace the **** with corresponding event name, e.g. rsvp_coach_0917.
 - Import into phpMyAdmin.
 
-#### 3. Update the config-sample.php file found in the inc directory
+#### 3. Update the config-sample.php file found in the config directory
 - Add the appropriate database info
 - Update db table names to match the sql files edited previously
 - Update basepath to match url folder on server
 - Update event confirmation emails, subject lines, hosts, emails, etc.
 - rename config.php
+
+#### 4. Set up the Mailchimp list
+- Log in to mailchimp and create a new list for the event
+- Add the correct Merge Fields to match the columns in the event list
 
 #### 4. Edit Event Info
 - Open event-info.php
@@ -54,13 +58,18 @@ In Terminal, `cd` into the directory and run the following commands:
 
 Make sure the event is functioning as intended with these manual test
 
-#### 1. Match: Single RSVP and Guest RSVPs
+#### 1. List Upload and Mailchimp import
+- Did the list Upload correctly? It should be in Admin/List/event-list.csv
+- Did the emails import in mailchimp? Import takes several minutes depending on the size of list.
+#### 2. Match: Single RSVP and Guest RSVPs
 - Are Match RSVPs functioning correctly? Added the the main dbTable, sent the appropriate email?
-#### 2. Unknown: Single RSVPs and Guest RSVPs
+#### 3. Unknown: Single RSVPs and Guest RSVPs
 - Are Unknown RSVPs being added to the Unknown dbTable? What confirmation message is displayed?
-#### 3. Duplicate Submissions
+#### 4. Duplicate Submissions
 - Duplicate entries should not be permitted. An 'Already Registered' confirmation screen should display.
-#### 4. Unknwnr: Approved
-- Approve someone from Unknwnr. Are they moved into main dbTable. What email is sent?
-#### 5. Unknwnr: Denied
-- Reject someone from Unknwnr. Are they removed from the Unknown dbTable? What email is sent?
+#### 5. Unknwnr: Approved
+- Approve someone from Unknwnr. Are they moved into main dbTable? 
+- What email is sent?
+#### 6. Unknwnr: Denied
+- Reject someone from Unknwnr. Are they removed from the Unknown dbTable?
+- What email is sent?
