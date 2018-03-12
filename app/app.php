@@ -438,17 +438,25 @@
         }
 
         fclose($handle);
-        $api_respsonse = batchSubscribe($final_data, MAILCHIMP_API);
+        $api_response = batchSubscribe($final_data, MAILCHIMP_API);
+        $json_response = json_decode($api_response);
 
-        // To Do
-        //
-        // How to handle $api_respsonse to provide feedback on the front-end???
+        echo 'Check Mailchimp in a few minutes to ensure the list has been imported.';
+        echo '</br>';
+        echo '</br>';
 
-        print_r($api_respsonse);
+        echo '<pre>';
+          echo 'id: ' . $json_response->id . '</br>';
+          echo 'status: ' . $json_response->status . '</br>';;
+          echo 'submitted at: ' . $json_response->submitted_at . '</br>';;
+          echo 'debug link: ';
+          print_r($json_response->_links[1]->href);
+        echo '</pre>';
+        echo '<br />';
+        echo '<br />';
 
-        echo 'Check Mailchimp in a few minutes to ensure the list has been imported.
-          </br>
-          </br>';
+        // print_r($json_response);
+
       } else {
         echo 'there\'s been an error';
       } // end of if ($handle = fopen() !== false)
@@ -514,10 +522,11 @@
         echo 'Sorry, your file was not uploaded';
       } else {
         if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file)) {
+          echo 'The file '. basename($_FILES['fileToUpload']['name']) .' has been uploaded.';
+          echo '<br/>';
+          echo '<br/>';
 
           mailchimpImport($target_file);
-
-          echo 'The file '. basename($_FILES['fileToUpload']['name']) .' has been uploaded.<br/>';
         } else {
           echo 'Sorry, there was an error uploading your file';
         }
