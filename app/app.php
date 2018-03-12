@@ -64,7 +64,7 @@
   // @param string $dbTable: database table name
   // @param string $email: RSVP email to query the db with
   //
-  // return boolean : returns true if $email is not in databes already
+  // return boolean : returns true if $email is not in database already
   // *****
 
   function checkDuplicate($conn, $dbTable, $email){

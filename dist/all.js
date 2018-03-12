@@ -82,9 +82,10 @@ if ( typeof define === 'function' && define.amd ) {
 ///////
 // Unknwnr approval
 ///////
+(function($) {
 $(document).ready(function() {
 	//approve click function
-	$('.btn').on('click', function() {
+	$('.btn-link').on('click', function() {
 
 		//Add the ID 'activeRow' to the TR which holds the button clicked
 		$(this).parent().parent().attr('id', 'activeRow');
@@ -125,7 +126,6 @@ $(document).ready(function() {
 		// Alert Notice Handler
 		alertBox.fadeIn('fast').fadeOut(2500);
 	});
-
 	// Function to sends JSON data object to process-data.php to submit to database.
 	function ajax_post(json) {
 		$.ajax({
@@ -142,10 +142,12 @@ $(document).ready(function() {
 		});
 	}
 }); // end of document ready function
+})(jQuery);
 
 ///////
 // RSVP Form Validation
 ///////
+(function($) {
 $(document).ready(function() {
 	var email = getQueryVariable('email');
 	if (email) {
@@ -161,8 +163,6 @@ $(document).ready(function() {
 	$('form').submit(function(e){
       submitForm();
   });
-});
-
 function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
   var vars = query.split('&');
@@ -193,3 +193,5 @@ function submitForm() {
 		$('form').submit();
 	}
 }
+});
+})(jQuery);

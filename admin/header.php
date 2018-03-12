@@ -22,9 +22,9 @@
 					<img src="../../imgs/sharp_logo_black.svg" class="navbar-brand">
 				</div>
         <ul class="nav navbar-nav navbar-right">
-    			<li><a href="<?php echo BASEPATH; ?>">Landing Page</a></li>
-    			<li><a href="<?php echo BASEPATH . '/unknwnr'; ?>">Unknown RSVPs</a></li>
-          <li><a href="<?php echo BASEPATH . '/list/'; ?>">Upload Invite List</a></li>
+    			<li><a href="/">Landing Page</a></li>
+    			<li><a href="/admin/unknown">Unknown RSVPs</a></li>
+          <li><a href="/admin/list/">Upload Invite List</a></li>
     		</ul>
 		</div>
 	</header>

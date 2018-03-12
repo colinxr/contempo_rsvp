@@ -1,6 +1,7 @@
 ///////
 // RSVP Form Validation
 ///////
+(function($) {
 $(document).ready(function() {
 	var email = getQueryVariable('email');
 	if (email) {
@@ -16,8 +17,6 @@ $(document).ready(function() {
 	$('form').submit(function(e){
       submitForm();
   });
-});
-
 function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
   var vars = query.split('&');
@@ -48,3 +47,5 @@ function submitForm() {
 		$('form').submit();
 	}
 }
+});
+})(jQuery);

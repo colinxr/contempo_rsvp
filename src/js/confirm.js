@@ -1,9 +1,10 @@
 ///////
 // Unknwnr approval
 ///////
+(function($) {
 $(document).ready(function() {
 	//approve click function
-	$('.btn').on('click', function() {
+	$('.btn-link').on('click', function() {
 
 		//Add the ID 'activeRow' to the TR which holds the button clicked
 		$(this).parent().parent().attr('id', 'activeRow');
@@ -44,7 +45,6 @@ $(document).ready(function() {
 		// Alert Notice Handler
 		alertBox.fadeIn('fast').fadeOut(2500);
 	});
-
 	// Function to sends JSON data object to process-data.php to submit to database.
 	function ajax_post(json) {
 		$.ajax({
@@ -61,3 +61,4 @@ $(document).ready(function() {
 		});
 	}
 }); // end of document ready function
+})(jQuery);

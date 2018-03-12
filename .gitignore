@@ -40,10 +40,9 @@ Thumbs.db
 config/config.php
 config/config-1ana1.php
 _inc/email/*.jpg
+mailchimp_curl_tests
 *.csv
 
 vendor
 node_modules
 unknwnr/node_modules
-
-

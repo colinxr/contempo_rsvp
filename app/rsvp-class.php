@@ -40,30 +40,25 @@
       // convert email string to all lowercase to make sure variable capitalization doesn't miss the email in wtf.csv
       $emailLower = strtolower($email);
 
-      $event_list = BASEPATH . '/list/event-invites.csv';
+      $event_list = BASEPATH . '/admin/list/event-invites.csv';
 
-      if (!file_exists($event_list)) {
-        return 'Please Upload an Event List';
-      } else {
-        if (($handle = fopen($event_list, 'r')) !== FALSE){
-          while (($data = fgetcsv($handle, 1500, ',')) !== FALSE){
-            $row++;
-            if ($data[3] == $emailLower){
-              $gender = $data[4];
-              $category = $data[5];
-              $company = $data[6];
-              $guestOf = $data[7];
+      if (($handle = fopen($event_list, 'r')) !== FALSE){
+        while (($data = fgetcsv($handle, 1500, ',')) !== FALSE){
+          $row++;
+          if ($data[3] == $emailLower){
+            $gender = $data[4];
+            $category = $data[5];
+            $company = $data[6];
+            $guestOf = $data[7];
 
-              $emailMatch = true;
-              fclose($handle);
-              return true;
-            }
+            $emailMatch = true;
+            fclose($handle);
+            return true;
           }
-        } else {
-          return false;
         }
+      } else {
+        return false;
       }
-
 
     } // end of checkEmail();
   }
