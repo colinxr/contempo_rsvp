@@ -403,11 +403,21 @@
         while(($data = fgetcsv($handle, 1500, ',')) !== false) {
           $row++;
 
+          // To Do
+          //
+          // If the column X includes instructions to import to mailchimp,
+          // prepare the data from the row to be imported into Mailchimp.
+          //
+          // if $data[8] === 'mailchimp import' {
+          //
+          // }
+          //
+
           $individual_data = array(
-            'apikey' => MAILCHIMP_API,
+            'apikey'        => MAILCHIMP_API,
             'email_address' => $data[3],
-            'status' => 'subscribed',
-            'merge_fields' => array(
+            'status'        => 'subscribed',
+            'merge_fields'  => array(
               'FNAME'   => $data[0],
               'LNAME'   => $data[1],
               'SEX'     => $data[4],
