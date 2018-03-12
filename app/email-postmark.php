@@ -37,7 +37,7 @@ function sendConfirmPm($rsvp){//PostMark Email API
     'HtmlBody' => $body
   ];
 
-  $client = new PostmarkClient(CLIENT_API);
+  $client = new PostmarkClient(POSTMARK_API);
 
   // Send an email:
   $sendResult = $client->sendEmailBatch([$message]);
@@ -70,7 +70,7 @@ function sendStaffEmailPM($rsvp){//PostMark Email API
     'HtmlBody' => $body
   ];
 
-  $client = new PostmarkClient(CLIENT_API);
+  $client = new PostmarkClient(POSTMARK_API);
 
   // Send an email:
   $sendResult = $client->sendEmailBatch([$message]);
@@ -106,7 +106,7 @@ function rejectEmailPm($rsvp){//PostMark Email API
     'HtmlBody' => $body
   ];
 
-  $client = new PostmarkClient(CLIENT_API);
+  $client = new PostmarkClient(POSTMARK_API);
 
   // Send an email:
   $sendResult = $client->sendEmailBatch([$message]);

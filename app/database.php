@@ -349,40 +349,110 @@
     }
   }
 
-  // *****
-  // Upload Event List
-  // *****
+  function mailchimpImport($file) {
+    $row = 2;
 
-  function upload_list() {
-    $target_dir = BASEPATH . '/list/';
-    echo $target_dir;
-    $target_file = $target_dir . 'event-invites.csv';
+    if (!file_exists($file)) {
+      return 'No Event List was found.';
+    } else {
+      if (($handle = fopen($file, 'r')) !== false) {
+        while(($data = fgetcsv($handle, 1500, ',')) !== false) {
+          $row++;
 
-    $uploadOk = 1;
-    $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+          $individual_data = array(
+            'apikey' => MAILCHIMP_API,
+            'email_address' => $data[3],
+            'status' => 'subscribed',
+            'merge_fields' => array(
+              'FNAME'   => $data[0],
+              'LNAME'   => $data[1],
+              'SEX'     => $data[4],
+              'VIPTYPE' => $data[5],
+              'COMPANY' => $data[6],
+              'GUESTOF' => $data[7],
+            )
+          );
 
-    if ($_POST['submit']) {
+          $memberId = md5(strtolower($data[3]));
+          $json = json_encode($individual_data);
+          // print_r($json);
 
-      if ($_FILES['fileToUpload']['size'] > 1000000) {
-        echo 'Sorry, the file is too large';
-        $uploadOk = 0;
-      }
-
-      if ($fileType !== 'csv') {
-        echo 'Sorry, only csv files are allowed';
-        $uploadOk = 0;
-      }
-
-      if ($uploadOk == 0) {
-        echo 'Sorry, your file was not uploaded';
-      } else {
-        if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file)) {
-          echo 'The file '. basename($_FILES['fileToUpload']['name']) .' has been uploaded.';
-        } else {
-          echo 'Sorry, there was an error uploading your file';
+          $final_data['operations'][] = array(
+            'method' => 'POST',
+            'path'   => 'lists/'. MAILCHIMP_LIST_ID .'/members',
+            'body'   => $json
+          );
         }
+
+        fclose($handle);
+        print_r( ($final_data['operations']));
+
+        $api_respsonse = batchSubscribe($final_data, MAILCHIMP_API);
+
+        print_r($api_respsonse);
+      } else {
+        echo 'there\'s been an error';
+      } // end of if ($handle = fopen() !== false)
+    } // end of if (!file_exists);
+  }
+
+  function batchSubscribe($data, $api_key) {
+    $auth          = base64_encode('user:' . $api_key);
+    $json_postData = json_encode($data);
+    $ch            = curl_init();
+    $dataCenter    = substr($api_key, strpos($api_key, '-') + 1);
+    $curlopt_url   = 'https://' . $dataCenter . '.api.mailchimp.com/3.0/batches/';
+
+    curl_setopt($ch, CURLOPT_URL, $curlopt_url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
+         'Authorization: Basic ' . $auth));
+    curl_setopt($ch, CURLOPT_USERAGENT, 'PHP-MCAPI/3.0');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json_postData);
+
+    $result = curl_exec($ch);
+    return $result;
+}
+
+// *****
+// Upload Event List
+// *****
+
+function upload_list() {
+  $target_dir = BASEPATH . '/admin/list/';
+  $target_file = $target_dir . 'event-invites.csv';
+
+  $uploadOk = 1;
+  $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+  if ($_POST['submit']) {
+
+    if ($_FILES['fileToUpload']['size'] > 1000000) {
+      echo 'Sorry, the file is too large';
+      $uploadOk = 0;
+    }
+
+    if ($fileType !== 'csv') {
+      echo 'Sorry, only csv files are allowed';
+      $uploadOk = 0;
+    }
+
+    if ($uploadOk == 0) {
+      echo 'Sorry, your file was not uploaded';
+    } else {
+      if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file)) {
+
+        mailchimpImport($target_file);
+
+        echo 'The file '. basename($_FILES['fileToUpload']['name']) .' has been uploaded.';
+      } else {
+        echo 'Sorry, there was an error uploading your file';
       }
     }
   }
+}
 
 ;?>
