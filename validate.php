@@ -10,7 +10,7 @@
 	<div class="col right confirmation">
 	<?php
 		require_once 'config/config.php';
-	       require 'app/database.php';
+	       require 'app/app.php';
 				 require 'app/rsvp-class.php';
 
 

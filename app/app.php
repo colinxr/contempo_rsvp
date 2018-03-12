@@ -4,6 +4,13 @@
 
   // *****
   // Cleans form data and prepares RSVP class for use
+  //
+  // @param array $arr: array of form data from homepage rsvp form
+  // @param object $obj: rsvp class object
+  //
+  // return object: transformed rsvp object with sanitized data, augmented with aditional info if
+  // plus one
+  //
   // *****
 
   function formSanitize($arr, $obj) {
@@ -36,6 +43,8 @@
 
   // *****
   // Connects to Database
+  //
+  // return mysqli
   // *****
 
   function dbConnect(){
@@ -50,6 +59,12 @@
 
   // *****
   // Check if email is already in DB table
+  //
+  // @param mysqli $conn: the database connection
+  // @param string $dbTable: database table name
+  // @param string $email: RSVP email to query the db with
+  //
+  // return boolean : returns true if $email is not in databes already
   // *****
 
   function checkDuplicate($conn, $dbTable, $email){
@@ -76,7 +91,12 @@
 
   // *****
   // Inserts RSVP into Database
+  //
+  // @param object $obj: the RSVP class object.
+  //
+  // return string : confirmation string with results of sql command
   // *****
+
   function insertRsvp($obj){
 
     global $rsvpType;
@@ -160,18 +180,21 @@
     }
 
   $conn->close();
-  // end of dbConnect();
   }
 
   // *****
   // Inserts Unknown RSVP into Unknown Table
+  //
+  // @param object $obj: the RSVP class object.
+  //
+  // return string : confirmation string with results of sql command
   // *****
 
   function dbUnknwnr($obj){
     $conn = dbConnect();
 
     if (!checkDuplicate($conn, UNKNWNR, $obj->email)){
-      // if email is alreayd in the DB (user has already registered)
+      // if email is already in the DB (user has already registered)
       include(BASEPATH .'/_inc/alerts/reg-msg.php');
     } else {
       if ($obj->hasGuest == true){
@@ -209,11 +232,16 @@
       }
     }
 
-  $conn->close();
-}// end of dbConnect();
+    $conn->close();
+  }
 
   // *****
   // Removes unknown RSVP from unknown table
+  //
+  // @param mixed $conn: the database table which we want to export.
+  // @param string $email: the unique email of the rsvp to be deleted
+  //
+  // return string : confirmation string with results of sql command
   // *****
 
   function delete_unknown($conn, $email){
@@ -248,10 +276,14 @@
     }
 
     $stmt->close();
-  } // End of delete_unknown();
+  }
 
   // *****
   // Show Entries in table, either RSVPs or Unknown RSVPS
+  //
+  // @param string $dbTable: the database table which we want to export.
+  //
+  // return mixed : returns results from SQL Query
   // *****
 
   function viewResults($dbTable){
@@ -315,6 +347,10 @@
 
   // *****
   // Generate CSV file from DB
+  //
+  // @param string $dbTable: the database table which we want to export.
+  //
+  // return mixed : generates new CSV file
   // *****
 
   function download_results($dbTable){
@@ -349,6 +385,14 @@
     }
   }
 
+  // *****
+  // Scrapes uploaded event guest list and prepares data to import into Mailchimp
+  //
+  // @param string $file: the location and file name of the event guest list on the server
+  //
+  // return mixed
+  // *****
+
   function mailchimpImport($file) {
     $row = 2;
 
@@ -375,26 +419,36 @@
 
           $memberId = md5(strtolower($data[3]));
           $json = json_encode($individual_data);
-          // print_r($json);
 
           $final_data['operations'][] = array(
-            'method' => 'POST',
-            'path'   => 'lists/'. MAILCHIMP_LIST_ID .'/members',
+            'method' => 'PUT',
+            'path'   => 'lists/'. MAILCHIMP_LIST_ID .'/members/' . $memberId,
             'body'   => $json
           );
         }
 
         fclose($handle);
-        print_r( ($final_data['operations']));
-
         $api_respsonse = batchSubscribe($final_data, MAILCHIMP_API);
 
         print_r($api_respsonse);
+
+        echo 'Check Mailchimp in a few minutes to ensure the list has been imported.
+          </br>
+          </br>';
       } else {
         echo 'there\'s been an error';
       } // end of if ($handle = fopen() !== false)
     } // end of if (!file_exists);
   }
+
+  // *****
+  // Automatically Subscriber event guests to our Mailchimp list
+  //
+  // @param array $data: array of operations to be posted to Mailchimp API
+  // @param string $api_key mailchimp api key, defined in config.php
+  //
+  // return mixed
+  // *****
 
   function batchSubscribe($data, $api_key) {
     $auth          = base64_encode('user:' . $api_key);
@@ -415,44 +469,46 @@
 
     $result = curl_exec($ch);
     return $result;
-}
+  }
 
-// *****
-// Upload Event List
-// *****
+  // *****
+  // Upload Event List
+  //
+  // return string : confirmation string
+  // *****
 
-function upload_list() {
-  $target_dir = BASEPATH . '/admin/list/';
-  $target_file = $target_dir . 'event-invites.csv';
+  function upload_list() {
+    $target_dir = BASEPATH . '/admin/list/';
+    $target_file = $target_dir . 'event-invites.csv';
 
-  $uploadOk = 1;
-  $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    $uploadOk = 1;
+    $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-  if ($_POST['submit']) {
+    if ($_POST['submit']) {
 
-    if ($_FILES['fileToUpload']['size'] > 1000000) {
-      echo 'Sorry, the file is too large';
-      $uploadOk = 0;
-    }
+      if ($_FILES['fileToUpload']['size'] > 1000000) {
+        echo 'Sorry, the file is too large';
+        $uploadOk = 0;
+      }
 
-    if ($fileType !== 'csv') {
-      echo 'Sorry, only csv files are allowed';
-      $uploadOk = 0;
-    }
+      if ($fileType !== 'csv') {
+        echo 'Sorry, only csv files are allowed';
+        $uploadOk = 0;
+      }
 
-    if ($uploadOk == 0) {
-      echo 'Sorry, your file was not uploaded';
-    } else {
-      if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file)) {
-
-        mailchimpImport($target_file);
-
-        echo 'The file '. basename($_FILES['fileToUpload']['name']) .' has been uploaded.';
+      if ($uploadOk == 0) {
+        echo 'Sorry, your file was not uploaded';
       } else {
-        echo 'Sorry, there was an error uploading your file';
+        if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file)) {
+
+          mailchimpImport($target_file);
+
+          echo 'The file '. basename($_FILES['fileToUpload']['name']) .' has been uploaded.<br/>';
+        } else {
+          echo 'Sorry, there was an error uploading your file';
+        }
       }
     }
   }
-}
 
 ;?>

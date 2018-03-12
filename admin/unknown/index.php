@@ -51,7 +51,7 @@
 	</div>
 
 		<?php
-      require('../../app/database.php');
+      require('../../app/app.php');
 
       $dbTable = UNKNWNR;
 

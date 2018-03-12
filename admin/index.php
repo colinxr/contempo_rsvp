@@ -17,7 +17,7 @@
     </header>
 
     <?php
-      require('../app/database.php');
+      require('../app/app.php');
 
       $dbTable = DB_TABLE;
 
