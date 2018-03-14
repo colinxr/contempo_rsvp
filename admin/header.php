@@ -23,6 +23,7 @@
 				</div>
         <ul class="nav navbar-nav navbar-right">
     			<li><a href="/">Landing Page</a></li>
+          <li><a href="/admin/">RSVPs</a></li>
     			<li><a href="/admin/unknown">Unknown RSVPs</a></li>
           <li><a href="/admin/list/">Upload Invite List</a></li>
     		</ul>

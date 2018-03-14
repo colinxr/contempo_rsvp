@@ -8,37 +8,33 @@
   // @param array $arr: array of form data from homepage rsvp form
   // @param object $obj: rsvp class object
   //
-  // return object: transformed rsvp object with sanitized data, augmented with aditional info if
-  // plus one
+  // return object: transformed rsvp object with sanitized data,
+  // augmented with aditional info if plus one
   //
   // *****
+  function formSanitize($arr) {
 
-  function formSanitize($arr, $obj) {
+    $data = array();
+
     //Get form info
-    $email = strtolower($arr['rsvp']['email']); //match with Email Lower column in wtf.csv
-    $firstName = ucwords(strtolower($arr['rsvp']['first-name'])); //stray capitals in user form
-    $lastName = ucwords(strtolower($arr['rsvp']['last-name'])); //stray capitals in user form
-    $postal = strtoupper($arr['rsvp']['postal']); // proper Postal Code form
+    $data['email']     = strtolower($arr['rsvp']['email']); //match with Email Lower column in wtf.csv
+    $data['firstName'] = ucwords(strtolower($arr['rsvp']['first-name'])); //stray capitals in user form
+    $data['lastName']  = ucwords(strtolower($arr['rsvp']['last-name'])); //stray capitals in user form
+    $data['postal']    = strtoupper($arr['rsvp']['postal']); // proper Postal Code form
 
-    //Define new Rsvp Class
-    $obj->email = $email;
-    $obj->firstName = $firstName;
-    $obj->lastName = $lastName;
-    $obj->postal = $postal;
-    $obj->action = '';
+    $data['hasGuest']       = false;
+    $data['guestFirstName'] = '';
+    $data['guestLastName']  = '';
+    $data['guestEmail']     = '';
 
-    if (isset($arr['rsvp']['plus-one'])){ // handles plus one inputs, used to set sql query
-      $guestFirstName = ucwords(strtolower($arr['rsvp']['guest-firstName']));// Formats data for any stray capitals in user form
-      $guestLastName = ucwords(strtolower($arr['rsvp']['guest-lastName']));// Formats data for any stray capitals in user form
-      $guestEmail = strtolower($arr['rsvp']['guest-email']);
-
-      $obj->guestFirstName = $guestFirstName;
-      $obj->guestLastName = $guestLastName;
-      $obj->guestEmail = $guestEmail;
-      $obj->hasGuest = true;
+    if (isset($arr['rsvp']['plus-one'])){
+      $data['hasGuest']       = true; // handles plus one inputs, used to set sql query
+      $data['guestFirstName'] = ucwords(strtolower($arr['rsvp']['guest-firstName']));// Formats data for any stray capitals in user form
+      $data['guestLastName']  = ucwords(strtolower($arr['rsvp']['guest-lastName']));// Formats data for any stray capitals in user form
+      $data['guestEmail']     = strtolower($arr['rsvp']['guest-email']);
     }
 
-    return $obj; // return obj for use in other functions
+    return $data; // return obj for use in other functions
   }
 
   // *****
@@ -97,7 +93,7 @@
   // return string : confirmation string with results of sql command
   // *****
 
-  function insertRsvp($obj){
+  function insertRsvp($obj) {
 
     global $rsvpType;
 
@@ -246,7 +242,6 @@
 
   function delete_unknown($conn, $email){
   	// Make sure entry is in unknown DB
-
     $query = 'SELECT ID FROM ' . UNKNWNR . ' WHERE EMAIL =?';
 
     $stmt = $conn->prepare($query);

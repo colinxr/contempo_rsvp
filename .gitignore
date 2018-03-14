@@ -42,6 +42,7 @@ config/config-1ana1.php
 _inc/email/*.jpg
 mailchimp_curl_tests
 *.csv
+*.sql
 
 vendor
 node_modules

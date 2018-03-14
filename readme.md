@@ -52,7 +52,7 @@ In Terminal, `cd` into the directory and run the following commands:
 
 #### 8. Prepare list
 - Export the csv as Windows CSV in Excel. If the file is not formatted this way, php will not be able to read it properly and the RSVP Match function will break.
-- Make sure the csv columns match the columns in rsvp-class.php and app.php.
+- Make sure the csv columns match the columns in rsvp.php and app.php.
 
 ## Tests
 

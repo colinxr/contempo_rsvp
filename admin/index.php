@@ -1,5 +1,5 @@
 <?php
-  require_once('../config/config.php');
+  require_once(__DIR__ . '/../app/admin.php');
   include('header.php');
 ?>
 
@@ -17,11 +17,8 @@
     </header>
 
     <?php
-      require('../app/app.php');
-
-      $dbTable = DB_TABLE;
-
-      viewResults($dbTable);
+      $admin = new Admin();
+      $admin->viewResults(DB_TABLE);
     ?>
 
   </div>

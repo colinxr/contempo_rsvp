@@ -16,7 +16,7 @@ function sendConfirmPm($rsvp){//PostMark Email API
         <title>Your Land Rover Event RSVP Confirmation</title>
       </head>
       <body>
-        <p>Hi '. $rsvp->firstName .',</p>
+        <p>Hi '. $rsvp->getFirstName() .',</p>
         <p>Thank you for your RSVP to our Land Rover event.</p>
         <p>If you would like to make changes to your RSVP please email <a href="mailto:event@sharpmagazine.com">event@sharpmagazine.com</a>.</p>
         <br />
@@ -31,7 +31,7 @@ function sendConfirmPm($rsvp){//PostMark Email API
 
 
   $message = [
-    'To' => $rsvp->email,
+    'To' => $rsvp->getEmail(),
     'From' => EMAIL_FROM,
     'Subject' => $subject,
     'HtmlBody' => $body
@@ -43,7 +43,7 @@ function sendConfirmPm($rsvp){//PostMark Email API
   $sendResult = $client->sendEmailBatch([$message]);
 }
 
-function sendStaffEmailPM($rsvp){//PostMark Email API
+function sendStaffEmailPM($rsvp) {//PostMark Email API
   $subject = '=?UTF-8?B?'.base64_encode(utf8_encode(STAFF_SUBJECT)).'?=';
 
   $html_body = '
@@ -55,10 +55,10 @@ function sendStaffEmailPM($rsvp){//PostMark Email API
 			<p>Privet Elena!</p>
 		  <p>Somebody who isn\'t on the invite list just RSVP\'d for the BFM Party. This is their info:</p><br/>
 
-		  <p>Name: '. $rsvp->firstName . ' ' . $rsvp->lastName .' </p>
-      <p>Email: '. $rsvp->email .'</p>
-      <p>Postal: '. $rsvp->postal .'</p>
-      <p>Plus One: '. $rsvp->guestFirstName .' ' . $rsvp->guestLastName .'</p>
+		  <p>Name: '. $rsvp->getFirstName() . ' ' . $rsvp->getLastName() .' </p>
+      <p>Email: '. $rsvp->getEmail() .'</p>
+      <p>Postal: '. $rsvp->getPostal() .'</p>
+      <p>Plus One: '. $rsvp->getGuestFirstName() .' ' . $rsvp->getGuestLastName() .'</p>
 
 		</body>
 		</html>';
@@ -67,7 +67,7 @@ function sendStaffEmailPM($rsvp){//PostMark Email API
     'To' => EMAIL_FROM,
     'From' => STAFF_EMAIL_FROM,
     'Subject' => $subject,
-    'HtmlBody' => $body
+    'HtmlBody' => $html_body
   ];
 
   $client = new PostmarkClient(POSTMARK_API);

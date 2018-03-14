@@ -1,5 +1,5 @@
 <?php
-  require_once(__DIR__ . '/../../config/config.php');
+  require(__DIR__ . '/../../app/admin.php');
 ?>
 
 <!DOCTYPE>
@@ -24,8 +24,9 @@
     		</div>
     		<ul class="nav navbar-nav navbar-right">
     			<li><a href="/">Landing Page</a></li>
-    			<li><a href="<?php echo BASEPATH . '/unknwnr'; ?>">Unknown RSVPs</a></li>
-          <li><a href="<?php echo BASEPATH . '/list/invtes.php'; ?>">Upload Invite List</a></li>
+          <li><a href="/admin/">RSVPs</a></li>
+    			<li><a href="/admin/unknown">Unknown RSVPs</a></li>
+          <li><a href="/admin/list">Upload Invite List</a></li>
     		</ul>
     	</div>
     </header>
@@ -35,8 +36,8 @@
         <h1><?php echo EVENT_NAME; ?> RSVPs</h1>
 
         <?php
-          require(__DIR__ . '/../../app/app.php');
-          upload_list();
+          $admin = new Admin();
+          $admin->upload_list();
         ?>
       </header>
     </div>
