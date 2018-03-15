@@ -1,6 +1,6 @@
 <?php
   require_once __DIR__ . '/../config/config.php';
-  include(__DIR__ . '/email-postmark.php');
+  include(__DIR__ . '/email.php');
 
   class DB {
 
@@ -121,7 +121,8 @@
         if (!$rsvp_stmt->store_result()){
           echo 'Error: ' . $rsvp_stmt->error . '<br>' . $conn->error;
         } else {
-          sendConfirmPm($obj);
+          $email = new Email();
+          $email->sendConfirmaion($obj);
 
           if (isset($verdict) && $verdict == 'approve'){
             printf($obj->getAction() . ': ' . $email . '     ');
@@ -129,15 +130,16 @@
             return;
           }
 
-          if ($rsvpType === 'match' || $rsvpType === 'open'){
+          if ($rsvpType === 'Match' || $rsvpType === 'Open'){
             include(BASEPATH . '/_inc/alerts/conf-msg.php'); //
           }
 
-          if ($rsvpType === 'capacity'){
+          if ($rsvpType === 'Capacity'){
             include(BASEPATH . '/_inc/alerts/capacity-msg.php');
 
             //	On successful add to db, send email
-            sendStaffEmailPM($obj);
+            $email = new Email();
+            $email->sendStaffEmail($obj);
           }
 
           $rsvp_stmt->close();
@@ -206,7 +208,8 @@
           include(BASEPATH .'/_inc/alerts/unknown-msg.php');
 
           //	On successful add to db, send email
-          sendStaffEmailPM($obj);
+          $email = new Email();
+          $email->sendStaffEmail($obj);
 
           $unknown_stmt->close();
         }

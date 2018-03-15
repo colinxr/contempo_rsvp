@@ -12,10 +12,10 @@
 	define( 'DB_COLLATE', '' );
 
 	// ** Event Tables - Changes for Specific Events, must match up with create-rsvp_**-table.sql &&  create-unknown_**-table.sql
-	define( 'DB_TABLE', 'rsvp_test');
-	define( 'UNKNWNR', 'unkonwn_test');
+	define( 'DB_TABLE', 'rsvp_test' );
+	define( 'UNKNWNR', 'unkonwn_test' );
 
-	define( 'BASEPATH', $_SERVER[DOCUMENT_ROOT] .'/test' );
+	define( 'BASEPATH', $_SERVER[DOCUMENT_ROOT] );
 
 	// ** Event Hosts
 	define( 'EVENT_HOSTS', 'Colin Rabyniuk' );
@@ -28,8 +28,8 @@
 	define( 'SUBJECT_LINE', 'Colin\'s Test Confirmation' );
 	define( 'STAFF_SUBJECT', 'Colin\'s Test: Unknown RSVP' );
 
-	define( 'MAILCHIMP_API', '**********'); // refer to Maichimp account - api key created Mar 12, 2018
-	define( 'MAILCHIMP_LIST_ID', '');
+	define( 'MAILCHIMP_API', '**********' ); // refer to Maichimp account - api key created Mar 12, 2018
+	define( 'MAILCHIMP_LIST_ID', '' );
 
 
 	//** set type of RSVP
@@ -40,4 +40,4 @@
 
 	$rsvpType = "Match";
 
-	; ?>
+?>

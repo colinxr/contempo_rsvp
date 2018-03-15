@@ -29,7 +29,7 @@
 			return;
 	  }// end of rsvpType = open
 
-		if ($rsvpType === 'match' || $rsvpType === 'capacity') {
+		if ($rsvpType === 'Match' || $rsvpType === 'Capacity') {
 			$event_list = BASEPATH . '/admin/list/event-invites.csv';
 			$email = $rsvp->getEmail();
 
