@@ -9,8 +9,8 @@
 <div class="details-large">
   <h2>Contempo RSVP OOP Rebuild System</h2>
 
-  <h4>Warning: This is the OOP Version </h4>
-  <h4>Make Sure you dont' want to be working on the main branch</h4>
+  <h4>Refer to Readme for instructions</h4>
+  <h4>Insert event info here</h4>
 
   <h4>Address Info</h4>
   <h5>Numbers</h5>
