@@ -1,3 +1,10 @@
+<?php
+	$fName 	= $_GET['fn'];
+	$lName 	= $_GET['ln'];
+	$email 	= $_GET['em'];
+	$postal = $_GET['po'];
+ ?>
+
 <?php require_once 'header.php' ;?>
 <body>
 	<div class="container">
@@ -9,26 +16,26 @@
 			<div class="col right">
 				<form action="validate.php" method="post" autocomplete="off">
 						<span class="input input--bfm">
-							<input class="input__field input__field--bfm" type="text" id="first-name"  name="rsvp[first-name]" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
+							<input class="input__field input__field--bfm" type="text" id="first-name"  name="rsvp[first-name]" value="<?php echo $fName; ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
 							<label class="input__label input__label--bfm input__label--bfm-color" for="first-name">
 								<span class="input__label-content input__label-content--bfm">First Name</span>
 							</label>
 						</span>
 						<span class="input input--bfm">
-							<input class="input__field input__field--bfm" type="text" id="last-name" name="rsvp[last-name]" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
+							<input class="input__field input__field--bfm" type="text" id="last-name" name="rsvp[last-name]" value="<?php echo $lName; ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required/>
 							<label class="input__label input__label--bfm input__label--bfm-color" for="last-name">
 								<span class="input__label-content input__label-content--bfm">Last Name</span>
 							</label>
 						</span>
 						<span class="input input--bfm">
-							<input class="input__field input__field--bfm" type="email" id="email" name="rsvp[email]" autocomplete]="off" autocorrect="off" autocapitalize="off" spellcheck="false"/ required>
+							<input class="input__field input__field--bfm" type="email" id="email" name="rsvp[email]" value="<?php echo $email; ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/ required>
 							<label class="input__label input__label--bfm input__label--bfm-color" for="email">
 								<span class="input__label-content input__label-content--bfm">Email</span>
 							</label>
 						</span>
 
 						<span class="input input--bfm">
-							<input class="input__field input__field--bfm" type="text" id="postal"  name="rsvp[postal]" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/ required>
+							<input class="input__field input__field--bfm" type="text" id="postal"  name="rsvp[postal]" value="<?php echo $postal; ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/ required>
 							<label class="input__label input__label--bfm input__label--bfm-color" for="postal">
 								<span class="input__label-content input__label-content--bfm">Postal Code</span>
 							</label>
