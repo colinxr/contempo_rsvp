@@ -1,16 +1,14 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+	ini_set('display_errors', 1);
+	error_reporting(E_ALL);
 ?>
 
+<?php include 'config/config.php'; ?>
 
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-	<title><?php
-		include 'config/config.php';
-		echo EVENT_NAME;
-	 ?> RSVP</title>
+	<title><?php echo EVENT_NAME; ?> RSVP</title>
 	 <!-- Preload & Prefetch Images and Fonts -≥ fast loading -->
 	<!-- <link rel="preload" as="font" href="_inc/****.woff" type="font/woff" crossorigin /> -->
  	<!-- <link rel="preload" as="font" href="_inc/****.woff" type="font/woff" crossorigin /> -->
