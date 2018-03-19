@@ -95,7 +95,7 @@
 
   function insertRsvp($obj) {
 
-    global $rsvpType;
+    global RSVP_TYPE;
 
     // if key value pair exists, set variable as the value
     $gender = property_exists('Rsvp', 'gender') ? $obj->gender : ' ';
@@ -154,11 +154,11 @@
           return;
         }
 
-        if ($rsvpType === 'match' || $rsvpType === 'open'){
+        if (RSVP_TYPE === 'match' || RSVP_TYPE === 'open'){
           include(BASEPATH . '/_inc/alerts/conf-msg.php'); //
         }
 
-        if ($rsvpType === 'capacity'){
+        if (RSVP_TYPE === 'capacity'){
           include(BASEPATH . '/_inc/alerts/capacity-msg.php');
 
           //	On successful add to db, send email

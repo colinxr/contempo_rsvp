@@ -11,8 +11,8 @@
 	<?php
 		require_once 'config/config.php';
 	       require 'app/app.php';
-				 require 'app/db.php';
-				 require 'app/rsvp.php';
+				 require 'app/db.class.php';
+				 require 'app/rsvp.class.php';
 
 		$submit = $_POST['rsvp']['submit'];
 
@@ -20,7 +20,7 @@
 
 		$rsvp = new Rsvp($formData); //Define new Rsvp Class
 
-	  if ($rsvpType === 'open') {
+	  if (RSVP_TYPE === 'open') {
 	  	if ($submit) {
 				$db = new DB();
 				$db->insertRsvp($rsvp);
@@ -29,7 +29,7 @@
 			return;
 	  }// end of rsvpType = open
 
-		if ($rsvpType === 'Match' || $rsvpType === 'Capacity') {
+		if (RSVP_TYPE === 'Match' || RSVP_TYPE === 'Capacity') {
 			$event_list = BASEPATH . '/admin/list/event-invites.csv';
 			$email = $rsvp->getEmail();
 

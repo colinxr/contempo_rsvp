@@ -1,6 +1,6 @@
 <?php
   require_once __DIR__ . '/../config/config.php';
-  include(__DIR__ . '/email.php');
+  include(__DIR__ . '/email.class.php');
 
   class DB {
 
@@ -61,7 +61,7 @@
 
     public function insertRsvp($obj) {
 
-      global $rsvpType;
+      global RSVP_TYPE;
 
       $email     = $obj->getEmail();
       $firstName = $obj->getFirstName();
@@ -130,11 +130,11 @@
             return;
           }
 
-          if ($rsvpType === 'Match' || $rsvpType === 'Open'){
+          if (RSVP_TYPE === 'Match' || RSVP_TYPE === 'Open'){
             include(BASEPATH . '/_inc/alerts/conf-msg.php'); //
           }
 
-          if ($rsvpType === 'Capacity'){
+          if (RSVP_TYPE === 'Capacity'){
             include(BASEPATH . '/_inc/alerts/capacity-msg.php');
 
             //	On successful add to db, send email

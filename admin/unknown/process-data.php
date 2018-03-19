@@ -1,7 +1,7 @@
 <?php
 
-	require_once('../../app/db.php');
-	require('../../app/rsvp.php');
+	require_once('../../app/db.class.php');
+	require('../../app/rsvp.class.php');
 
 	if (isset($_POST['rsvp'])){
 

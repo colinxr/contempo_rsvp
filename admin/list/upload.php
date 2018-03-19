@@ -1,5 +1,5 @@
 <?php
-  require(__DIR__ . '/../../app/admin.php');
+  require(__DIR__ . '/../../app/admin.class.php');
 ?>
 
 <!DOCTYPE>

@@ -38,6 +38,6 @@
 	//** Capacity => "After submit, page says we're at capacity, pushes email to unknown database",
 	//** Closed => "No Form"
 
-	$rsvpType = "Match";
+	define( 'RSVP_TYPE', 'Match');
 
 ?>
