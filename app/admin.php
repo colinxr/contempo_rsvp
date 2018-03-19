@@ -21,9 +21,7 @@
 
       if ($stmt = $conn->prepare($query)){
         $stmt->execute() or trigger_error($stmt->error, E_USER_ERROR);
-
         $stmt->store_result();
-
         $stmt->bind_result($id, $firstName, $lastName, $email, $postal, $guestFirstName, $guestLastName, $guestEmail);
 
         if ($stmt->num_rows > 0) {
@@ -59,11 +57,16 @@
                   echo '<input type="button" class="btn btn-link deny" value="Deny" /></td>';
                  }
               echo '</tr>';
-              }
-            echo '</tbody></table>';
-         } else { // If table has no unknown RSVPs display a message
+            }
+            echo '</tbody>';
+          echo '</table>';
+        } else { // If table has no unknown RSVPs display a message
           echo '<div>';
-            echo 'No unknown RSVPs right now. Check back later.';
+            if ($dbTable === UNKNWNR) {
+              echo '<th>No unknown RSVPs right now. Check back later.</th>';
+            } else {
+              echo 'No  RSVPs right now. Check back later.';
+            }
           echo '</div>';
         }
         $stmt->close();
@@ -84,7 +87,6 @@
       $conn = $db->dbConnect();
 
       $query = 'SELECT * from ' . $dbTable . ' ORDER BY ID DESC';
-
       $result = $conn->query($query);
 
       if (!$result){
@@ -98,7 +100,6 @@
         }
 
         $output = fopen('php://output', 'w');
-
         if ($output && $result){
           fputcsv($output, $headers);
 
@@ -236,7 +237,6 @@
       $fileType = strtolower($_FILES['fileToUpload']['type']);
 
       if ($_POST['submit']) {
-
         if ($_FILES['fileToUpload']['size'] > 1000000) {
           echo 'Sorry, the file is too large';
           $uploadOk = 0;
@@ -253,7 +253,7 @@
           echo 'Sorry, your file was not uploaded';
         } else {
           if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file)) {
-            echo 'The file '. basename($_FILES['fileToUpload']['name']) .' has been uploaded.';
+            echo '<p>The file '. basename($_FILES['fileToUpload']['name']) .' has been uploaded.</p>';
             echo '<br/>';
             echo '<br/>';
 
