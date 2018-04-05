@@ -15,7 +15,8 @@
 	define( 'DB_TABLE', 'rsvp_test' );
 	define( 'UNKNWNR', 'unkonwn_test' );
 
-	define( 'BASEPATH', $_SERVER[DOCUMENT_ROOT] );
+	define( 'BASE_URL', '/');
+	define( 'BASEPATH', $_SERVER['DOCUMENT_ROOT'] . BASE_URL );
 
 	// ** Event Hosts
 	define( 'EVENT_HOSTS', 'Colin Rabyniuk' );
