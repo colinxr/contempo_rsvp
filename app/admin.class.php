@@ -125,7 +125,7 @@
   // *****
 
     private function mailchimpImport($file) {
-      $row = 1;
+      $row = 2;
 
       if (!file_exists($file)) {
         return 'No Event List was found.';
@@ -134,29 +134,21 @@
           while(($data = fgetcsv($handle, 1500, ',')) !== false) {
             $row++;
 
-            // To Do
-            //
-            // If the column X includes instructions to import to mailchimp,
-            // prepare the data from the row to be imported into Mailchimp.
-            //
-            // if $data[8] === 'mailchimp import' {
-            //
-            // }
-            //
-
-            $individual_data = array(
-              'apikey'        => MAILCHIMP_API,
-              'email_address' => $data[3],
-              'status'        => 'subscribed',
-              'merge_fields'  => array(
-                'FNAME'   => $data[0],
-                'LNAME'   => $data[1],
-                'SEX'     => $data[4],
-                'VIPTYPE' => $data[5],
-                'COMPANY' => $data[6],
-                'GUESTOF' => $data[7],
-              )
-            );
+            if ($data[8] == 'import') {
+              $individual_data = array(
+                'apikey'        => MAILCHIMP_API,
+                'email_address' => $data[3],
+                'status'        => 'subscribed',
+                'merge_fields'  => array(
+                  'FNAME'   => $data[0],
+                  'LNAME'   => $data[1],
+                  'SEX'     => $data[4],
+                  'VIPTYPE' => $data[5],
+                  'COMPANY' => $data[6],
+                  'GUESTOF' => $data[7],
+                )
+              );
+            }
 
             $memberId = md5(strtolower($data[3]));
             $json = json_encode($individual_data);
@@ -166,11 +158,10 @@
               'path'   => 'lists/' . MAILCHIMP_LIST_ID . '/members/' . $memberId,
               'body'   => $json
             );
+          //
+            $api_response = $this->batchSubscribe($final_data, MAILCHIMP_API);
+            $json_response = json_decode($api_response);
           }
-
-          fclose($handle);
-          $api_response = $this->batchSubscribe($final_data, MAILCHIMP_API);
-          $json_response = json_decode($api_response);
 
           echo 'Check Mailchimp in a few minutes to ensure the list has been imported.';
           echo '</br>';
@@ -185,12 +176,11 @@
           echo '</pre>';
           echo '<br />';
           echo '<br />';
-
-          // print_r($json_response);
-
         } else {
           echo 'there\'s been an error';
         } // end of if ($handle = fopen() !== false)
+
+        fclose($handle);
       } // end of if (!file_exists);
     }
 
