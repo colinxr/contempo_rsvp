@@ -60,9 +60,6 @@
   // *****
 
     public function insertRsvp($obj) {
-
-      global RSVP_TYPE;
-
       $email     = $obj->getEmail();
       $firstName = $obj->getFirstName();
       $lastName  = $obj->getLastName();

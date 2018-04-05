@@ -94,9 +94,6 @@
   // *****
 
   function insertRsvp($obj) {
-
-    global RSVP_TYPE;
-
     // if key value pair exists, set variable as the value
     $gender = property_exists('Rsvp', 'gender') ? $obj->gender : ' ';
     $category = property_exists('Rsvp', 'category') ? $obj->category : ' ';
