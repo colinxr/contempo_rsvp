@@ -81,7 +81,7 @@
           printf($obj->getAction() . ': ' . $email . '     ');
           $this->delete_unknown($conn, $email);
 
-          rejectEmailPM($obj);
+          // rejectEmailPM($obj);
           json_encode($obj);
           return;
         }
@@ -118,14 +118,19 @@
         if (!$rsvp_stmt->store_result()){
           echo 'Error: ' . $rsvp_stmt->error . '<br>' . $conn->error;
         } else {
-          $email = new Email();
-          $email->sendConfirmaion($obj);
 
           if (isset($verdict) && $verdict == 'approve'){
             printf($obj->getAction() . ': ' . $email . '     ');
             $this->delete_unknown($conn, $email);
+
+            $email = new Email();
+            $email->sendConfirmation($obj);
+
             return;
           }
+
+          $email = new Email();
+          $email->sendConfirmation($obj);
 
           if (RSVP_TYPE === 'Match' || RSVP_TYPE === 'Open'){
             include(BASEPATH . '/_inc/alerts/conf-msg.php'); //

@@ -1,9 +1,10 @@
 <?php
-
 	require_once('../../app/db.class.php');
 	require('../../app/rsvp.class.php');
 
 	if (isset($_POST['rsvp'])){
+
+		var_dump($_POST['rsvp']);
 
 		//Decodes JSON object
 		$data = json_decode($_POST['rsvp'], true);

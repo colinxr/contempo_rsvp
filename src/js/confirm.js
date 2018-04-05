@@ -49,13 +49,15 @@ $(document).ready(function() {
 	function ajax_post(json) {
 		$.ajax({
 	  	url: 'process-data.php',
-	    method: 'post',
+	    method: 'POST',
 	    data: {'rsvp' : json},
 	    success: function(data){
 	    	console.log(data);
 	    },
 	    error: function(xhr, textStatus, errorThrown) {
 		  	console.log('ajax loading error...');
+				console.log(xhr.responseText);
+				console.log(textStatus);
 		    	return false;
 	    }
 		});

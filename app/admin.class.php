@@ -1,6 +1,6 @@
 <?php
   require_once __DIR__ . '/../config/config.php';
-  include(__DIR__ . '/db.php');
+  include(__DIR__ . '/db.class.php');
 
   class Admin {
 
@@ -18,6 +18,7 @@
       $conn = $db->dbConnect();
 
       $query = 'SELECT id, firstName, lastName, email, postal, guestFirstName, guestLastName, guestEmail FROM ' . $dbTable;
+
 
       if ($stmt = $conn->prepare($query)){
         $stmt->execute() or trigger_error($stmt->error, E_USER_ERROR);

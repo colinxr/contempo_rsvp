@@ -17,7 +17,7 @@
           <body>
             <p>Hi '. $rsvp->getFirstName() .',</p>
             <p>Thank you for your RSVP to the ' . EVENT_NAME . '.</p>
-            <p>If you would like to make changes to your RSVP please email <a href="' . EVENT_EMAIL . '">' . EVENT_EMAIL . ' </a>.</p>
+            <p>If you would like to make changes to your RSVP please email <a href="' . EMAIL_FROM . '">' . EMAIL_FROM . ' </a>.</p>
             <br />
             <p>Best,
             <br/>Peter Saltsman
