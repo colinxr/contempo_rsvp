@@ -26,25 +26,25 @@ In Terminal, `cd` into the directory and run the following commands:
 - Replace the **** with corresponding event name, e.g. rsvp_coach_0917.
 - Import into phpMyAdmin.
 
-#### 3. Update the config-sample.php file found in the config directory
-- Add the appropriate database info
+#### 3. Update the config-sample.php and .env.sample files found in the config directory
+- Add the appropriate database env info for local and prod
+- Update BASE_URL env to match url folder on local and prod
 - Update db table names to match the sql files edited previously
-- Update BASEPATH constant to match url folder on server
-- Update event confirmation emails, subject lines, hosts, emails, etc.
+- Update event email info
 - Rename to config.php
 
 #### 4. Edit Event Info
 - Open event-info.php
 - Add pertinent event info based off of invite design
 - Coordinate with art if required. Some times it's easier to include some of this info as an one svg rather than html.
-- Update Sponoso logos
+- Update Sponosor logos
 
 #### 5. Style page as necessary
 - Open main.scss in the styles directory
 - Edit sass files as needed
 
 #### 6. Update confirmation emails
--  In email.class.php, ensure email functions are sending the appropriate copy to the guests and to staff
+- In email.class.php, ensure email functions are sending the appropriate copy to the guests and to staff
 - work with Art to update assets in the inc/emails directory
 - are the correct staff members receiving the unknown notifications, if applicable?
 

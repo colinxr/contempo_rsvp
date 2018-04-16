@@ -38,12 +38,13 @@
 	define( 'STAFF_SUBJECT', 'Colin\'s Test: Unknown RSVP' );
 
 	//** set type of RSVP
-	//** "match" => "Email matches master lists",
-	//** "open" => "No email check",
-	//** capacity => "After submit, page says we're at capacity, pushes email to unknown database",
-	//** closed => "No Form"
+	//** "Match" => "Email matches master lists",
+	//** "Open" => "No email check",
+	//** Capacity => "After submit, page says we're at capacity, pushes email to unknown database",
+	//** Closed => "Form is Hidden and message saying we're full is displayed"
+	
 	$admin = new Admin();
-	define( 'RSVP_TYPE', $admin->fetch_rsvp_type());
+	define( 'RSVP_TYPE', $admin->fetch_rsvp_type() );
 	define( 'PARTNER_RSVP', false);
 
 	?>

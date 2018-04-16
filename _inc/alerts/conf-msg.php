@@ -2,20 +2,6 @@
   <p><strong>Great! Thank you for your RSVP, <?php printf($obj->getFirstName()); ?>! </strong></p>
       <p>We've added you to the guest list and you will be receiving your confirmation email shortly.</p><br/>
 
-   <!--  Calendar Event Info
-   <span class="addtocalendar atc-style-blue">
-    <var class="atc_event">
-      <var class="atc_date_start">05/25/2018 19:00:00</var>
-      <var class="atc_date_end">05/25/2018 23:00:00</var>
-      <var class="atc_timezone">America/Toronto</var>
-      <var class="atc_title">Sharp The Book For Men SS18 Toronto Launch Event </var>
-      <var class="atc_description">Celebrate the Launch of Sharp: The Book For Men with Sharp Magazine, presented by Genesis</var>
-      <var class="atc_location">11 Polson St</var>
-      <var class="atc_organizer">Sharp Magazine</var>
-      <var class="atc_organizer_email">event@sharpmagazine.com</var>
-    </var>
-  </span>-->
-
   <!-- Button code -->
   <div title="Add to Calendar" class="addeventatc">
     Add to Calendar
