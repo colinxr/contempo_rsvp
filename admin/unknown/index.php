@@ -1,5 +1,5 @@
 <?php
-  require_once('../../app/admin.class.php');
+  require_once('../../config/config.php');
   include('../header.php');
 ?>
 

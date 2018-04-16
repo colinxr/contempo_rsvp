@@ -1,6 +1,6 @@
 <?php
-	require_once('../../app/db.class.php');
-	require('../../app/rsvp.class.php');
+	require_once('../../config/config.php');
+	// require('../../app/rsvp.class.php');
 
 	if (isset($_POST['rsvp'])){
 

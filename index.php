@@ -5,76 +5,83 @@
 	$postal = $_GET['po'];
  ?>
 
-<?php require_once 'header.php' ;?>
+<?php
+	require_once 'header.php';
+	?>
 <body>
 	<div class="container">
-		<div class="wrapper">
-			<div class="col left info">
-				<?php include 'event-info.php'; ?>
-			</div>
+		<div class="col left img">
+		</div>
 
-			<div class="col right">
+		<div class="col right info">
+			<?php include 'event-info.php'; ?>
+
+			<?php if (RSVP_TYPE === 'Closed') : ?>
+				<?php include '_inc/alerts/capacity-msg.php'; ?>
+			<?php else : ?>
 				<form action="validate.php" method="post" autocomplete="off">
+				<span class="input input--bfm">
+					<input class="input__field input__field--bfm" type="text" id="first-name"  name="rsvp[first-name]" value="<?php echo $fName; ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required />
+					<label class="input__label input__label--bfm input__label--bfm-color" for="first-name">
+						<span class="input__label-content input__label-content--bfm">First Name</span>
+					</label>
+				</span>
+
+				<span class="input input--bfm">
+					<input class="input__field input__field--bfm" type="text" id="last-name" name="rsvp[last-name]" value="<?php echo $lName; ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required />
+					<label class="input__label input__label--bfm input__label--bfm-color" for="last-name">
+						<span class="input__label-content input__label-content--bfm">Last Name</span>
+					</label>
+				</span>
+
+				<span class="input input--bfm">
+					<input class="input__field input__field--bfm" type="email" id="email" name="rsvp[email]" value="<?php echo $email; ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required />
+					<label class="input__label input__label--bfm input__label--bfm-color" for="email">
+						<span class="input__label-content input__label-content--bfm">Email</span>
+					</label>
+				</span>
+
+				<span class="input input--bfm">
+					<input class="input__field input__field--bfm" type="text" id="postal"  name="rsvp[postal]" value="<?php echo $postal; ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required />
+					<label class="input__label input__label--bfm input__label--bfm-color" for="postal">
+						<span class="input__label-content input__label-content--bfm">Postal Code</span>
+					</label>
+				</span>
+
+				<span class="input input--bfm input__check">
+					<label class="input__label input__label--plus-one" for="plus-one">Bringing a Guest?</label>
+					<input type="checkbox" name="rsvp[plus-one]" id="plus-one">
+				</span>
+
+				<div class="guests">
 					<span class="input input--bfm">
-						<input class="input__field input__field--bfm" type="text" id="first-name"  name="rsvp[first-name]" value="<?php echo $fName; ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required />
-						<label class="input__label input__label--bfm input__label--bfm-color" for="first-name">
-							<span class="input__label-content input__label-content--bfm">First Name</span>
+						<input class="input__field input__field--bfm" type="text" id="guest-firstName" name="rsvp[guest-firstName]" />
+						<label class="input__label input__label--bfm input__label--bfm-color" for="guest-firstName">
+							<span class="input__label-content input__label-content--bfm">Guest's First Name</span>
 						</label>
 					</span>
 
 					<span class="input input--bfm">
-						<input class="input__field input__field--bfm" type="text" id="last-name" name="rsvp[last-name]" value="<?php echo $lName; ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required />
-						<label class="input__label input__label--bfm input__label--bfm-color" for="last-name">
-							<span class="input__label-content input__label-content--bfm">Last Name</span>
+						<input class="input__field input__field--bfm" type="text" id="guest-lastName" name="rsvp[guest-lastName]" />
+						<label class="input__label input__label--bfm input__label--bfm-color" for="guest-lastName">
+							<span class="input__label-content input__label-content--bfm">Guest's Last Name</span>
 						</label>
 					</span>
 
 					<span class="input input--bfm">
-						<input class="input__field input__field--bfm" type="email" id="email" name="rsvp[email]" value="<?php echo $email; ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required />
-						<label class="input__label input__label--bfm input__label--bfm-color" for="email">
-							<span class="input__label-content input__label-content--bfm">Email</span>
+						<input class="input__field input__field--bfm" type="email" id="guest-email" name="rsvp[guest-email]" />
+						<label class="input__label input__label--bfm input__label--bfm-color" for="guest-email">
+							<span class="input__label-content input__label-content--bfm">Guest's Email</span>
 						</label>
 					</span>
+				</div>
 
-					<span class="input input--bfm">
-						<input class="input__field input__field--bfm" type="text" id="postal"  name="rsvp[postal]" value="<?php echo $postal; ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required />
-						<label class="input__label input__label--bfm input__label--bfm-color" for="postal">
-							<span class="input__label-content input__label-content--bfm">Postal Code</span>
-						</label>
-					</span>
+				<button class="btn btn-1 btn-1a" type="submit" name="rsvp[submit]" value="Submit">Submit</button>
 
-					<span class="input input--bfm input__check">
-						<label class="input__label input__label--plus-one" for="plus-one">Bringing a Guest?</label>
-						<input type="checkbox" name="rsvp[plus-one]" id="plus-one">
-					</span>
+			</form>
+			<?php endif; ?>
 
-					<div class="guests">
-						<span class="input input--bfm">
-							<input class="input__field input__field--bfm" type="text" id="guest-firstName" name="rsvp[guest-firstName]" />
-							<label class="input__label input__label--bfm input__label--bfm-color" for="guest-firstName">
-								<span class="input__label-content input__label-content--bfm">Guest's First Name</span>
-							</label>
-						</span>
-
-						<span class="input input--bfm">
-							<input class="input__field input__field--bfm" type="text" id="guest-lastName" name="rsvp[guest-lastName]" />
-							<label class="input__label input__label--bfm input__label--bfm-color" for="guest-lastName">
-								<span class="input__label-content input__label-content--bfm">Guest's Last Name</span>
-							</label>
-						</span>
-
-						<span class="input input--bfm">
-							<input class="input__field input__field--bfm" type="email" id="guest-email" name="rsvp[guest-email]" />
-							<label class="input__label input__label--bfm input__label--bfm-color" for="guest-email">
-								<span class="input__label-content input__label-content--bfm">Guest's Email</span>
-							</label>
-						</span>
-					</div>
-
-					<button class="btn btn-1 btn-1a" type="submit" name="rsvp[submit]" value="Submit">Submit</button>
-
-				</form>
-			</div>
+			<img src="imgs/sponsor-logos.jpg" class="sponsor-logos"/>
 		</div>
 	</div>
 

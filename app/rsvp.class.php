@@ -150,7 +150,7 @@
       if (($handle = fopen($event_list, 'r')) !== FALSE){
         while (($data = fgetcsv($handle, 1500, ',')) !== FALSE){
           $row++;
-          if ($data[3] == $emailLower){
+          if ($data[6] == $emailLower){
             return true;
           }
         }
@@ -166,15 +166,16 @@
       $event_list = BASEPATH . '/admin/list/event-invites.csv';
 
       if (file_exists($event_list)) {
+        ini_set('auto_detect_line_endings', TRUE);
         if (($handle = fopen($event_list, 'r')) !== false) {
           while (($data = fgetcsv($handle, 1500, ',')) !== false) {
             $row++;
-            if ($data[3] == $this->getEmail()) {
-              $this->setGender($data[4]);
-              $this->setCategory($data[5]);
-              $this->setCompany($data[6]);
-              $this->setGuestOf($data[7]);
-            } // end of if ($data[3] ... )
+            if ($data[6] == $this->getEmail()) {
+              $this->setGender($data[7]);
+              $this->setCategory($data[8]);
+              $this->setCompany($data[3]);
+              $this->setGuestOf($data[0]);
+            } // end of if ($data[6] ... )
           } // end of while
         } // end of if $handle
         fclose($handle);

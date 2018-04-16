@@ -3,7 +3,22 @@
 ///////
 (function($) {
 $(document).ready(function() {
+	var column = $('.info');
+	// var columnHeight = column[0].scrollHeight
 	var email = getQueryVariable('email');
+
+	// resizeColumn();
+	//
+	// var resizeTimeout;
+	// $(window).resize(function(e) {
+	// 	clearTimeout(resizeTimeout);
+	//
+	// 	resizeTimeout = setTimeout(function() {
+	// 		console.log('resize');
+	// 		resizeColumn();
+	// 	}, 250);
+  // });
+
 	if (email) {
 		$('#email').val(email);
 	}
@@ -15,8 +30,20 @@ $(document).ready(function() {
 	});
 
 	$('form').submit(function(e){
-      submitForm();
+		submitForm();
   });
+
+function resizeColumn() {
+	var columnHeight = column[0].scrollHeight;
+	var vpHeight = $(window).height();
+
+	if (columnHeight > vpHeight && !column.hasClass('smaller')) {
+		column.addClass('smaller');
+	} else if (columnHeight < vpHeight && column.hasClass('smaller')){
+		column.removeClass('smaller');
+	}
+}
+
 function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
   var vars = query.split('&');

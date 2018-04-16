@@ -1,9 +1,8 @@
 <?php
   require_once __DIR__ . '/../config/config.php';
-  include(__DIR__ . '/db.class.php');
+  // include_once(__DIR__ . '/db.class.php');
 
   class Admin {
-
   // *****
   // Show Entries in table, either RSVPs or Unknown RSVPS
   //
@@ -134,23 +133,24 @@
           while(($data = fgetcsv($handle, 1500, ',')) !== false) {
             $row++;
 
-            if ($data[8] == 'import') {
-              $individual_data = array(
-                'apikey'        => MAILCHIMP_API,
-                'email_address' => $data[3],
-                'status'        => 'subscribed',
-                'merge_fields'  => array(
-                  'FNAME'   => $data[0],
-                  'LNAME'   => $data[1],
-                  'SEX'     => $data[4],
-                  'VIPTYPE' => $data[5],
-                  'COMPANY' => $data[6],
-                  'GUESTOF' => $data[7],
-                )
-              );
+            // $individual_data = new stdClass;
+            $individual_data = array();
+
+            if ($data[9] == 'import') {
+              $individual_data['apikey'] = MAILCHIMP_API;
+              $individual_data['email_address'] = $data[6];
+              $individual_data['status'] = 'subscribed';
+              $individual_data['merge_fields'] = array(
+                'GUESTOF' => $data[0],
+                'FNAME'   => $data[1],
+                'LNAME'   => $data[2],
+                'COMPANY' => $data[3],
+                'SEX'     => $data[7],
+                'VIPTYPE' => $data[8]
+                );
             }
 
-            $memberId = md5(strtolower($data[3]));
+            $memberId = md5(strtolower($data[6]));
             $json = json_encode($individual_data);
 
             $final_data['operations'][] = array(
@@ -158,7 +158,8 @@
               'path'   => 'lists/' . MAILCHIMP_LIST_ID . '/members/' . $memberId,
               'body'   => $json
             );
-          //
+
+
             $api_response = $this->batchSubscribe($final_data, MAILCHIMP_API);
             $json_response = json_decode($api_response);
           }
@@ -233,9 +234,11 @@
           $uploadOk = 0;
         }
 
-        if ($fileType !== 'text/csv') {
-          var_dump($_FILES['fileToUpload']);
-          var_dump($fileType);
+        if ($fileType !== 'text/csv' && $fileType !== 'application/vnd.ms-excel') {
+          echo '<pre>';
+            var_dump($_FILES['fileToUpload']);
+            var_dump($fileType);
+          echo '</pre>';
           echo 'Sorry, only csv files are allowed </br>';
           $uploadOk = 0;
         }
@@ -248,13 +251,112 @@
             echo '<br/>';
             echo '<br/>';
 
-            $this->mailchimpImport($target_file);
+            // $this->mailchimpImport($target_file);
           } else {
             echo 'Sorry, there was an error uploading your file';
           }
         }
       }
     }
+
+    // *****
+    // Fetch RSVP Type as specified in Admin DB Table
+    //
+    // return String : If value is defined in DB, return that, else return "Open"
+      public function fetch_rsvp_type() {
+        $db = new DB();
+        $conn = $db->dbConnect();
+
+        $val = 'RSVP_TYPE';
+        $sql = 'SELECT VALUE FROM ' . ADMIN_TABLE . ' WHERE SETTING=?';
+
+        $stmt = $conn->prepare($sql);
+
+        if (!$stmt) {
+          trigger_error($stmt->error, E_USER_ERROR);
+          return;
+        }
+
+        $stmt->bind_param('s', $val);
+        $stmt->execute();
+
+        if (!$stmt->execute()){
+          printf($stmt->error);
+          trigger_error($stmt->error, E_USER_ERROR);
+        }
+
+        $stmt->bind_result($rsvp_type);
+        $stmt->fetch();
+
+        // var_dump($rsvp_type);
+
+        return $rsvp_type;
+
+        $conn->close();
+      }
+
+      public function set_rsvp_type($str) {
+        $db = new DB();
+        $conn = $db->dbConnect();
+
+        $val = 'RSVP_TYPE';
+        $sql = 'INSERT into ' . ADMIN_TABLE . '
+                (SETTING, VALUE) VALUES (?,?)
+                ON DUPLICATE KEY UPDATE
+                SETTING = values(SETTING),
+                VALUE = values(VALUE)';
+
+        $stmt = $conn->prepare($sql);
+
+        if (!$stmt) {
+          trigger_error($conn->error, E_USER_ERROR);
+        }
+
+        $stmt->bind_param('ss', $val, $str);
+        $stmt->execute();
+
+        if (!$stmt->execute()) {
+          trigger_error($conn->error, E_USER_ERROR);
+        }
+
+        if (!$stmt->store_result()) {
+          trigger_error($stmt->error, E_USER_ERROR);
+        }
+
+        echo '<h3>The current RSVP Type is set to ' . $str . '</h3>';
+
+        $stmt->close();
+        $conn->close();
+
+      }
+
+      public function countRsvps(){
+        $db = new DB();
+        $conn = $db->dbConnect();
+
+        if ($result = $conn->query('SELECT * FROM '. DB_TABLE)) {
+          $row_count = $result->num_rows;
+
+          printf('<h5>There are a total of %d rsvps.</h5>', $row_count);
+
+           $result->close();
+        }
+        $conn->close();
+      }
+
+      public function countPlusOnes(){
+        $db = new DB();
+        $conn = $db->dbConnect();
+
+        if ($result = $conn->query("SELECT * from ". DB_TABLE ." WHERE guestFirstName<>''")) {
+          $row_count = $result->num_rows;
+
+          printf('<h5>There are a total of %d plus ones.</h5>', $row_count);
+
+           $result->close();
+        }
+        $conn->close();
+      }
 
   }
 ?>

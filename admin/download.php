@@ -9,8 +9,8 @@
   header('Content-Type: application/force-download');
   header('Content-Disposition: attachment; filename="rsvps_' .date('j-m-y') . '.csv"');
 
-  // require('../config/config.php');
-  require('../app/admin.class.php');
+  require('../config/config.php');
+  // require('../app/admin.class.php');
 
   $admin = new Admin();
   $admin->download_results(DB_TABLE);

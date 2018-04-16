@@ -1,8 +1,17 @@
 form {
-  width: 85%;
+  margin-top: 25px;
+  max-width: 100%;
+
+  @include big-phone {
+    margin-top: 0;
+  }
+
+  @include desktop {
+    max-width: 75%;
+  }
 
   @include big-desktop {
-    width: 100%;
+    max-width: 400px;
   }
 }
 
@@ -10,14 +19,19 @@ form {
 	position: relative;
 	z-index: 1;
 	display: inline-block;
-	margin: 9px 18px;
-	max-width: 100%;
-	width: calc(100% - 2em);
+	margin: 9px 0px;
+	width: 100%;
+  max-width: 400px;
+	width: 100%;
 	vertical-align: top;
 
   @include tablet {
     margin-left: 0;
   	width: 100%;
+  }
+
+  .smaller & {
+    margin: 4px 0;
   }
 }
 
@@ -136,10 +150,10 @@ form {
 .input__label--plus-one {
 	float: left;
 	font-size: 14px;
-	padding-left: 5px;
+	padding: 1px 15px 0 0;
+  width: auto;
 	/*text-shadow: 3px 3px 2px #333;*/
   @include tablet {
-    width: 50%;
   }
 }
 
@@ -156,6 +170,9 @@ form {
 	animation: anim-1 0.3s forwards;
 	color: $underlineActive;
 	text-shadow: none;
+  .smaller & {
+    padding-top: 39px;
+  }
 }
 
 .input__check {
@@ -164,7 +181,7 @@ form {
 }
 
 .input__check input[type="checkbox"] {
-	margin-top: 12px;
+	margin-top: -5px;
 }
 
 @-webkit-keyframes anim-1 {
@@ -220,7 +237,7 @@ form {
 	cursor: pointer;
 	padding: 10px 55px;
 	display: inline-block;
-	margin: 41px 20px;
+	margin: 41px 0px;
 	letter-spacing: 1px;
 	font-size: 13.5pt;
 	font-weight: 400;
@@ -228,7 +245,11 @@ form {
 	position: relative;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
-	transition: all 0.3s;
+	transition: background-color 0.3s;
+
+  .smaller & {
+    margin: 21px 0;
+  }
 }
 
 .btn:after {
@@ -243,13 +264,13 @@ form {
 /* Button 1a */
 .btn-1a:hover{
 	color: #fff;
-	background: #e2475b;
+	background: darken($underlineActive, 10%);
 	opacity: 1;
 }
 
 .btn-1a:active {
 	color: #f2f2f2;
-	background: #8b1625;
+	background: lighten($underlineActive, 10%);
 	opacity: 1;
 }
 

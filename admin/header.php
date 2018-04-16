@@ -1,3 +1,7 @@
+<?php
+	ini_set('display_errors', 1);
+	error_reporting(E_ALL);
+?>
 <!DOCTYPE>
 <html lang="en">
 <head>
@@ -19,10 +23,10 @@
 	<header class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-					<img src="../../imgs/sharp_logo_black.svg" class="navbar-brand">
+					<img src="../imgs/sharp_logo_black.svg" class="navbar-brand">
 				</div>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="<?php echo BASE_URL; ?>">Landing Page</a></li>
+    			<li><a href="<?php echo BASE_URL; ?>">Landing Page</a></li>
           <li><a href="<?php echo BASE_URL; ?>/admin/">RSVPs</a></li>
     			<li><a href="<?php echo BASE_URL; ?>/admin/unknown">Unknown RSVPs</a></li>
           <li><a href="<?php echo BASE_URL; ?>/admin/list/">Upload Invite List</a></li>

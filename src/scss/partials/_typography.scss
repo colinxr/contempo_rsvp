@@ -7,7 +7,7 @@
 	font-weight: normal;
 	font-style: normal;
 	font-variant: normal;
-	font-display: swap;
+	font-display: auto;
 }
 
 @font-face {
@@ -19,7 +19,7 @@
 	font-weight: normal;
 	font-style: normal;
 	font-variant: normal;
-	font-display: swap;
+	font-display: auto;
 }
 
 body {
@@ -62,7 +62,7 @@ body {
 	/*text-shadow: 3px 3px 2px #333;*/
 }
 
-strong { font-family: "Gotham-bold", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+strong { font-family: $font-stack; }
 
 h1,
 h2,
@@ -78,50 +78,54 @@ h6 {
 }
 
 h1 {
-	font-family: $font-stack;
-  font-size: 83px;
-  line-height: 88px;
-  margin-top: 20.5px;
-  margin-bottom: 0px;
+	font-family: $heading-stack;
+	font-size: 2.5em;
+	line-height: .9em;
+  margin-top: 10px;
+  margin-bottom: 15px;
 
-  @include big-desktop {
-    letter-spacing: 7px;
-  }
+	@include sm-tablet {
+		font-size: 2.75em;
+		line-height: .9em;
+	}
+
+	@include tablet {
+		font-size: 3em;
+		line-height: 1em;
+	}
 }
 
 h2 {
-  font-family: inherit;
-	font-weight: 600;
+  font-family: $heading-stack;
+	font-weight: 400;
 	font-style: inherit;
 	font-size: 21px;
 	line-height: 24px;
-	margin: 28px 0 ;
-	text-align: center;
+	margin: 28px 0 15px;
 }
 
 h3 {
   font-weight: 300;
-  font-size: 18px;
-  line-height: 36px;
-  margin-top: 28px;
+  font-size: 1.1em;
+  line-height: 16px;
+	margin-bottom: -5px;
+	margin-top: 5px;
 }
 
 h4 {
-	font-size: 14px;
+	font-size: .95em;
 	font-weight: 400;
-	line-height: 24px;
-	text-align: center;
+	line-height: 1.5em;
 
-  @include sm-tablet {
-    line-height: 21px;
-  }
+  // @include sm-tablet {
+  //   line-height: 1.4em;
+  // }
 }
 
 h5 {
 	font-size: 14px;
 	line-height: 41px;
 	margin-top: 0;
-	text-align: center;
 }
 
 p {

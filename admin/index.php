@@ -1,5 +1,5 @@
 <?php
-  require_once(__DIR__ . '/../app/admin.class.php');
+  require_once(__DIR__ . '/../config/config.php');
   include('header.php');
 ?>
 
@@ -14,10 +14,18 @@
             <input type='submit' value='Export' name='Export'>
           </form>
         </div>
+          <?php
+            $admin = new Admin();
+            $admin->countRsvps();
+            $admin->countPlusOnes();
+          ?>
+        <div>
+
+        </div>
     </header>
 
     <?php
-      $admin = new Admin();
+      // $admin = new Admin();
       $admin->viewResults(DB_TABLE);
     ?>
 

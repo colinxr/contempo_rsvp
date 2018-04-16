@@ -1,6 +1,5 @@
 <?php
   require('../../config/config.php');
-
   include('../header.php');
 ?>
 
@@ -17,6 +16,22 @@
       <input type="file" name="fileToUpload"></input><br />
       <input type="submit" name="submit" value="Upload"></input>
     </form>
+
+    <div>
+      <h3>Set RSVP Type</h3>
+      <p>The current RSVP Type is set to <?php echo RSVP_TYPE ?></p>
+
+      <form enctype="multipart/form-data" action="rsvp-type.php" method="POST">
+        <select name="rsvp_types" id="rsvp_types">
+          <option value="">Select RSVP TYpe</option>
+          <option value="Match">Match</option>
+          <option value="Open">Open</option>
+          <option value="Capacity">Capacity</option>
+          <option value="Closed">Closed</option>
+        </select>
+        <button type="submit" name="submit" >Submit</button>
+      </form>
+    </div>
 
   </div>
 

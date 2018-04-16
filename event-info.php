@@ -1,17 +1,18 @@
 <header>
-
   <h2>V.I.P. Invitation</h2>
 
-  <!--<a href="http://www.sharpmagazine.com" target="_blank"><img src="imgs/sharp_logo_white.svg" class="logo"></a>-->
-
+  <a href="http://www.sharpmagazine.com" target="_blank"><img src="imgs/sharp_logo_black.svg" class="logo"></a>
 </header>
 
-<div class="details-large">
-  <h2>Contempo RSVP OOP Rebuild System</h2>
+<div class="info__details">
+  <h1>Sharp: The Book For Men SS18 <br/>
+    Toronto Launch Event</h1>
 
-  <h4>Refer to Readme for instructions</h4>
-  <h4>Insert event info here</h4>
+  <div class="info__details__meta">
+    <h4>Wednesday, April 25, 2018</h4>
+    <h4>6:30PM - 10:30PM</h4>
 
-  <h4>Address Info</h4>
-  <h5>Numbers</h5>
+    <h4>11 Polson St</h4>
+    <h4>Toronto, ON</h4>
+  </div>
 </div>

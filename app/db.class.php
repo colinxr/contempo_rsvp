@@ -1,6 +1,6 @@
 <?php
   require_once __DIR__ . '/../config/config.php';
-  include(__DIR__ . '/email.class.php');
+  // include_once(__DIR__ . '/email.class.php');
 
   class DB {
 
@@ -50,7 +50,6 @@
         return $conn->error;
       }
     }
-
   // *****
   // Inserts RSVP into Database
   //
@@ -77,11 +76,13 @@
       $conn = $this->dbConnect();
 
       if ($this->checkDuplicate($conn, DB_TABLE, $email)) {
-        if (isset($verdict) && $verdict === 'delete'){
+        if (isset($verdict) && $verdict === 'delete') {
           printf($obj->getAction() . ': ' . $email . '     ');
+          $emailClass = new Email();
+          $emailClass->sendRejection($obj);
+
           $this->delete_unknown($conn, $email);
 
-          // rejectEmailPM($obj);
           json_encode($obj);
           return;
         }
@@ -132,16 +133,16 @@
           $email = new Email();
           $email->sendConfirmation($obj);
 
-          if (RSVP_TYPE === 'Match' || RSVP_TYPE === 'Open'){
+          // if (RSVP_TYPE === 'Capacity') {
+          //   include(BASEPATH . '/_inc/alerts/capacity-msg.php');
+          //
+          //   //	On successful add to db, send email
+          //   $email = new Email();
+          //   $email->sendStaffEmail($obj);
+          // }
+
+          if (RSVP_TYPE === 'Match' || RSVP_TYPE === 'Open' || PARTNER_RSVP === true) {
             include(BASEPATH . '/_inc/alerts/conf-msg.php'); //
-          }
-
-          if (RSVP_TYPE === 'Capacity'){
-            include(BASEPATH . '/_inc/alerts/capacity-msg.php');
-
-            //	On successful add to db, send email
-            $email = new Email();
-            $email->sendStaffEmail($obj);
           }
 
           $rsvp_stmt->close();
@@ -207,7 +208,9 @@
           //$path = '/_inc/alerts/unknown-msg.php'; // confirmation message
           //$alert = file_get_contents(BASEPATH . $path);
           //echo $alert;
-          include(BASEPATH .'/_inc/alerts/unknown-msg.php');
+          if (!RSVP_TYPE === 'Capacity') {
+            include(BASEPATH .'/_inc/alerts/unknown-msg.php');
+          }
 
           //	On successful add to db, send email
           $email = new Email();

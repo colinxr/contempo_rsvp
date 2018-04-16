@@ -1,5 +1,10 @@
 <?php
-  require(__DIR__ . '/../../app/admin.class.php');
+	ini_set('display_errors', 1);
+	error_reporting(E_ALL);
+?>
+
+<?php
+  require(__DIR__ . '/../../config/config.php');
 ?>
 
 <!DOCTYPE>
@@ -23,10 +28,10 @@
     			<img src="../imgs/sharp_logo_black.svg" class="navbar-brand">
     		</div>
     		<ul class="nav navbar-nav navbar-right">
-    			<li><a href="/">Landing Page</a></li>
-          <li><a href="/admin/">RSVPs</a></li>
-    			<li><a href="/admin/unknown">Unknown RSVPs</a></li>
-          <li><a href="/admin/list">Upload Invite List</a></li>
+					<li><a href="<?php echo BASE_URL; ?>">Landing Page</a></li>
+          <li><a href="<?php echo BASE_URL; ?>/admin/">RSVPs</a></li>
+    			<li><a href="<?php echo BASE_URL; ?>/admin/unknown">Unknown RSVPs</a></li>
+          <li><a href="<?php echo BASE_URL; ?>/admin/list/">Upload Invite List</a></li>
     		</ul>
     	</div>
     </header>

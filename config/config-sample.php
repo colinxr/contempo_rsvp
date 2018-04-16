@@ -1,4 +1,5 @@
 	<?php
+	require_once(__DIR__ . '/../app/classes.php');
 	// ** MySQL settings - You can get this info from your web host ** //
 
 	//** local MAMP database info
@@ -15,8 +16,7 @@
 	define( 'DB_TABLE', 'rsvp_test' );
 	define( 'UNKNWNR', 'unkonwn_test' );
 
-	define( 'BASE_URL', '/');
-	define( 'BASEPATH', $_SERVER['DOCUMENT_ROOT'] . BASE_URL );
+	define( 'BASEPATH', $_SERVER[DOCUMENT_ROOT] );
 
 	// ** Event Hosts
 	define( 'EVENT_HOSTS', 'Colin Rabyniuk' );
@@ -39,6 +39,8 @@
 	//** Capacity => "After submit, page says we're at capacity, pushes email to unknown database",
 	//** Closed => "No Form"
 
-	define( 'RSVP_TYPE', 'Match');
+	$admin = new Admin();
+	define( 'RSVP_TYPE', $admin->fetch_rsvp_type() );
+	define( 'PARTNER_RSVP', false);
 
 ?>
