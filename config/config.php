@@ -15,18 +15,6 @@
 	/** The Database Collate type. Don't change this if in doubt. */
 	define( 'DB_COLLATE', '');
 
-
-	// /** The name of the database for WordPress */
-	// define( 'DB_NAME', 'db398471106' );
-	// define( 'DB_USER', 'dbo398471106' );
-	// define( 'DB_PASS', 'o\0$6*\mes[,XjEL#1' );
-	// define( 'DB_HOST', 'db398471106.db.1and1.com' );
-	// define( 'DB_HOST_SLAVE', 'db398471106.db.1and1.com' );
-	// /** Database Charset to use in creating database tables. */
-	// define( 'DB_CHARSET', 'utf8');
-	// /** The Database Collate type. Don't change this if in doubt. */
-	// define( 'DB_COLLATE', '');
-
 	// ** Event Tables - Changes for Specific Events, must match up with create-rsvp_**-table.sql &&  create-unknown_**-table.sql
 	define( 'ADMIN_TABLE', 'rsvp_test_Admin' );
 	define( 'DB_TABLE', 'rsvp_test' );
