@@ -4,14 +4,14 @@
 /*!40101 SET NAMES utf8 */;
 
 --
--- Table structure for table `unknown_test`
+-- Table structure for table `unknown_****`
 --
 
 --
--- Table structure for table `unknown_test`
+-- Table structure for table `unknown_****`
 --
 
-CREATE TABLE IF NOT EXISTS `unknown_test` (
+CREATE TABLE IF NOT EXISTS `unknown_****` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `email` varchar(256) COLLATE utf8_unicode_ci NOT NULL,

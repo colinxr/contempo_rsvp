@@ -19,6 +19,7 @@
 *.rar
 *.tar
 *.zip
+*.phar
 
 # Logs and databases #
 ######################
@@ -37,12 +38,11 @@ Thumbs.db
 
 # Files in Project  #
 #####################
-config/config.php
-config/config-1ana1.php
 _inc/email/*.jpg
 mailchimp_curl_tests
 *.csv
-*.sql
+# *.sql
+*.env
 
 vendor
 node_modules

@@ -15,6 +15,18 @@
 	/** The Database Collate type. Don't change this if in doubt. */
 	define( 'DB_COLLATE', '');
 
+
+	// /** The name of the database for WordPress */
+	// define( 'DB_NAME', 'db398471106' );
+	// define( 'DB_USER', 'dbo398471106' );
+	// define( 'DB_PASS', 'o\0$6*\mes[,XjEL#1' );
+	// define( 'DB_HOST', 'db398471106.db.1and1.com' );
+	// define( 'DB_HOST_SLAVE', 'db398471106.db.1and1.com' );
+	// /** Database Charset to use in creating database tables. */
+	// define( 'DB_CHARSET', 'utf8');
+	// /** The Database Collate type. Don't change this if in doubt. */
+	// define( 'DB_COLLATE', '');
+
 	// ** Event Tables - Changes for Specific Events, must match up with create-rsvp_**-table.sql &&  create-unknown_**-table.sql
 	define( 'ADMIN_TABLE', 'rsvp_test_Admin' );
 	define( 'DB_TABLE', 'rsvp_test' );
@@ -37,15 +49,13 @@
 	define( 'SUBJECT_LINE', 'Colin\'s Test Confirmation' );
 	define( 'STAFF_SUBJECT', 'Colin\'s Test: Unknown RSVP' );
 
-
 	//** set type of RSVP
-	//** "Match" => "Email matches master lists",
-	//** "Open" => "No email check",
-	//** Capacity => "After submit, page says we're at capacity, pushes email to unknown database",
-	//** Closed => "No Form"
-
+	//** "match" => "Email matches master lists",
+	//** "open" => "No email check",
+	//** capacity => "After submit, page says we're at capacity, pushes email to unknown database",
+	//** closed => "No Form"
 	$admin = new Admin();
-	define( 'RSVP_TYPE', $admin->fetch_rsvp_type() );
+	define( 'RSVP_TYPE', $admin->fetch_rsvp_type());
 	define( 'PARTNER_RSVP', false);
 
-?>
+	?>

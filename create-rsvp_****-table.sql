@@ -4,14 +4,14 @@
 /*!40101 SET NAMES utf8 */;
 
 --
--- Table structure for table `rsvp_test`
+-- Table structure for table `rsvp_****`
 --
 
 --
--- Table structure for table `rsvp_test`
+-- Table structure for table `rsvp_****`
 --
 
-CREATE TABLE IF NOT EXISTS `rsvp_test` (
+CREATE TABLE IF NOT EXISTS `rsvp_****` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `DATE` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `email` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
