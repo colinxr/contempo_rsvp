@@ -49,8 +49,9 @@ In Terminal, `cd` into the directory and run the following commands:
 - are the correct staff members receiving the unknown notifications, if applicable?
 
 #### 7. Prepare list
-- Export the csv as Windows CSV in Excel. If the file is not formatted this way, php will not be able to read it properly and the RSVP Match function will break.
-- Make sure the csv columns match the columns in rsvp.class.php and db.class.php
+- Make sure the CSV columns match the columns in rsvp.class.php and db.class.php
+- Guest Of, First Name, Last Name, Company, Prof Level, Email, Email Lowercase, Gender, VIP Type
+- Lowercase Email field is essential as it ensures a perfect match when user submits the form
 
 #### 8. Set Partner RSVP
 - If partners want to invite guests but won't provide their emails, rename the Open directory to the name of the partner
