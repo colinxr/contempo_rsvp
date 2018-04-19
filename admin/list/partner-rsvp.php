@@ -43,9 +43,10 @@
         <?php
           if (isset($_POST['submit'])) {
             $admin = new Admin();
-            $new_rsvp_type = $_POST['rsvp_types'];
+            $partner_name = $_POST['partner-name'];
 
-            $admin->set_admin_setting('RSVP_TYPE', $new_rsvp_type);
+            $admin->create_partner_page($partner_name);
+            $admin->set_admin_setting('PARTNER_RSVP', 'TRUE');
           }
         ?>
       </header>
