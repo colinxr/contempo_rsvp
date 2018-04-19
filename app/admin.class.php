@@ -330,7 +330,9 @@
 
       public function create_partner_page($partner) {
 
-        $slug = implode('-', explode(' ', strtolower($partner)));
+        $slug = strtolower($partner);
+        $slug = preg_replace('/[^\w\s]/', '', $slug);
+        $slug = implode('-', explode(' ', $slug));
 
         $src = BASEPATH . '/open';
         $dest = BASEPATH . '/' . $slug;
