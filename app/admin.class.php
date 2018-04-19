@@ -328,7 +328,46 @@
 
       }
 
-      
+      public function create_partner_page($partner) {
+
+        $slug = implode('-', explode(' ', strtolower($partner)));
+
+        $src = BASEPATH . '/open';
+        $dest = BASEPATH . '/' . $slug;
+
+        echo $src . '<br />';
+        echo $dest . '<br />';
+
+        $this->copy_dir($src, $dest);
+
+      }
+
+      private function copy_dir($src, $dest) {
+        if (is_dir($src)) {
+          @mkdir($dest);
+
+          $d = dir($src);
+
+          var_dump($d);
+
+          while (FALSE !== ($entry = $d->read())) {
+            if ($entry == '.' || $entry == '..') {
+              continue;
+            }
+
+            $Entry = $src . '/' . $entry;
+
+            if (is_dir($Entry)) {
+              copy_dir($Entry, $dest . '/' . $entry);
+              continue;
+            }
+            copy($Entry, $dest . '/' . $entry);
+          }
+          $d->close();
+        } else {
+          copy($src, $dest);
+        }
+      }
 
       public function countRsvps() {
         $db = new DB();

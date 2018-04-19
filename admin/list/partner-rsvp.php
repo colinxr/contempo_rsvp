@@ -45,8 +45,7 @@
             $admin = new Admin();
             $partner_name = $_POST['partner-name'];
 
-            echo $partner_name;
-
+            $admin->create_partner_page($partner_name);
             $admin->set_admin_setting('PARTNER_RSVP', 'TRUE');
           }
         ?>
