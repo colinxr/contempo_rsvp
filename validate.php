@@ -5,13 +5,10 @@
 			</div>
 
 			<div class="col right info info--alert">
-
 				<?php include 'event-info.php'; ?>
 				<?php
 					require_once 'config/config.php';
-				       require 'app/app.php';
-							 // require 'app/db.class.php';
-							 // require 'app/rsvp.class.php';
+					require 'app/app.php';
 
 					$submit = $_POST['rsvp']['submit'];
 

@@ -23,7 +23,7 @@
 
       <form enctype="multipart/form-data" action="rsvp-type.php" method="POST">
         <select name="rsvp_types" id="rsvp_types">
-          <option value="">Select RSVP TYpe</option>
+          <option value="">Select RSVP Type</option>
           <option value="Match">Match</option>
           <option value="Open">Open</option>
           <option value="Capacity">Capacity</option>

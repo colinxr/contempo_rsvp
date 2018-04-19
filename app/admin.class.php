@@ -1,6 +1,5 @@
 <?php
   require_once __DIR__ . '/../config/config.php';
-  // include_once(__DIR__ . '/db.class.php');
 
   class Admin {
   // *****
@@ -339,7 +338,7 @@
 
           printf('<h5>There are a total of %d rsvps.</h5>', $row_count);
 
-           $result->close();
+          $result->close();
         }
         $conn->close();
       }
@@ -353,7 +352,7 @@
 
           printf('<h5>There are a total of %d plus ones.</h5>', $row_count);
 
-           $result->close();
+          $result->close();
         }
         $conn->close();
       }

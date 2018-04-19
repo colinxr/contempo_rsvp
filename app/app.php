@@ -1,6 +1,5 @@
 <?php
   require_once __DIR__ . '/../config/config.php';
-  // include(__DIR__ . '/email-postmark.php');
 
   // *****
   // Cleans form data and prepares RSVP class for use

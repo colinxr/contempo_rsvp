@@ -144,7 +144,6 @@
 
       // convert email string to all lowercase to make sure variable capitalization doesn't miss the email in wtf.csv
       $emailLower = strtolower($email);
-
       $event_list = BASEPATH . '/admin/list/event-invites.csv';
 
       if (($handle = fopen($event_list, 'r')) !== FALSE){

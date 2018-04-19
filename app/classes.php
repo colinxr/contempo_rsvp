@@ -3,5 +3,4 @@
   include 'rsvp.class.php';
   include 'admin.class.php';
   include 'email.class.php';
-
 ?>
