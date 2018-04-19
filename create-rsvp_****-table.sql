@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `rsvp_****` (
   `lastName` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   `postal` varchar(7) COLLATE utf8_unicode_ci NOT NULL,
   `gender` varchar(7) COLLATE utf8_unicode_ci NULL,
-  `category` varchar(7) COLLATE utf8_unicode_ci NULL,
+  `category` varchar(256) COLLATE utf8_unicode_ci NULL,
   `company` varchar(256) COLLATE utf8_unicode_ci NULL,
   `guestOf` varchar(256) COLLATE utf8_unicode_ci NULL,
   `guestFirstName` varchar(256) COLLATE utf8_unicode_ci NULL,
