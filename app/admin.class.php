@@ -262,11 +262,10 @@
     // Fetch RSVP Type as specified in Admin DB Table
     //
     // return String : If value is defined in DB, return that, else return "Open"
-      public function fetch_rsvp_type() {
+      public function fetch_admin_setting($setting) {
         $db = new DB();
         $conn = $db->dbConnect();
 
-        $val = 'RSVP_TYPE';
         $sql = 'SELECT VALUE FROM ' . ADMIN_TABLE . ' WHERE SETTING=?';
 
         $stmt = $conn->prepare($sql);
@@ -276,7 +275,7 @@
           return;
         }
 
-        $stmt->bind_param('s', $val);
+        $stmt->bind_param('s', $setting);
         $stmt->execute();
 
         if (!$stmt->execute()){
@@ -294,7 +293,7 @@
         $conn->close();
       }
 
-      public function set_rsvp_type($str) {
+      public function set_admin_setting($setting, $value) {
         $db = new DB();
         $conn = $db->dbConnect();
 
@@ -311,7 +310,7 @@
           trigger_error($conn->error, E_USER_ERROR);
         }
 
-        $stmt->bind_param('ss', $val, $str);
+        $stmt->bind_param('ss', $setting, $value);
         $stmt->execute();
 
         if (!$stmt->execute()) {
@@ -322,7 +321,7 @@
           trigger_error($stmt->error, E_USER_ERROR);
         }
 
-        echo '<h3>The current RSVP Type is set to ' . $str . '</h3>';
+        echo '<h3>The current RSVP Type is set to ' . $value . '</h3>';
 
         $stmt->close();
         $conn->close();

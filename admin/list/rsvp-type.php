@@ -45,7 +45,7 @@
             $admin = new Admin();
             $new_rsvp_type = $_POST['rsvp_types'];
 
-            $admin->set_rsvp_type($new_rsvp_type);
+            $admin->set_admin_setting('RSVP_TYPE', $new_rsvp_type);
           }
         ?>
       </header>

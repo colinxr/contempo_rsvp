@@ -1,8 +1,10 @@
 <?php
+	require_once(__DIR__ . '/../vendor/autoload.php');
+	require_once(__DIR__ . '/../app/classes.php');
+
 	$dotenv = new Dotenv\Dotenv(__DIR__);
 	$dotenv->load();
 
-	require_once(__DIR__ . '/../app/classes.php');
 	// ** MySQL settings - You can get this info from your web host ** //
 	/** The name of the database for WordPress */
 	define( 'DB_NAME', $_ENV['DB_NAME'] );
@@ -42,9 +44,9 @@
 	//** "Open" => "No email check",
 	//** Capacity => "After submit, page says we're at capacity, pushes email to unknown database",
 	//** Closed => "Form is Hidden and message saying we're full is displayed"
-	
+
 	$admin = new Admin();
-	define( 'RSVP_TYPE', $admin->fetch_rsvp_type() );
-	define( 'PARTNER_RSVP', false);
+	define( 'RSVP_TYPE', $admin->fetch_admin_setting('RSVP_TYPE') );
+	define( 'PARTNER_RSVP', $admin->fetch_admin_setting('PARTNER_RSVP') );
 
 	?>
