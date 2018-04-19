@@ -5,14 +5,14 @@
 </header>
 
 <div class="info__details">
-  <h1>Sharp: The Book For Men SS18 <br/>
-    Toronto Launch Event</h1>
+  <h1>Contempo RSVP<br/>
+    System Template</h1>
 
   <div class="info__details__meta">
-    <h4>Wednesday, April 25, 2018</h4>
-    <h4>6:30PM - 10:30PM</h4>
+    <h4>Enter date here</h4>
+    <h4>Time goes here</h4>
 
-    <h4>11 Polson St</h4>
-    <h4>Toronto, ON</h4>
+    <h4>Refer to Readme.md </h4>
+    <h4>for next steps</h4>
   </div>
 </div>
