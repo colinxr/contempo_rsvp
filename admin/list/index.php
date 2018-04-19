@@ -19,7 +19,7 @@
 
     <div>
       <h3>Set RSVP Type</h3>
-      <p>The current RSVP Type is set to <?php echo RSVP_TYPE ?></p>
+      <p>The current RSVP Type is set to <?php echo RSVP_TYPE; ?></p>
 
       <form enctype="multipart/form-data" action="rsvp-type.php" method="POST">
         <select name="rsvp_types" id="rsvp_types">
@@ -30,6 +30,18 @@
           <option value="Closed">Closed</option>
         </select>
         <button type="submit" name="submit" >Submit</button>
+      </form>
+    </div>
+
+    <div class="">
+      <h3>Create Partner Landing Page</h3>
+      <p>To create a new Partner Landing Page, simply enter the brand's name in the field below and hit submit.</p>
+      <p>A new landing page will be created at <?php echo BASE_URL; ?>/your-partner-name.</p>
+
+      <form enctype="multipart/form-data" action="partner-rsvp.php" method="POST">
+        <label for="partner-name">Partner Name</label>
+        <input type="text" id="partner-name" name="partner-name">
+        <button type="submit" name="submit">Submit</button>
       </form>
     </div>
 

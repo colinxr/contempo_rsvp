@@ -321,28 +321,30 @@
           trigger_error($stmt->error, E_USER_ERROR);
         }
 
-        echo '<h3>The current RSVP Type is set to ' . $value . '</h3>';
+        printf('<h3>%s has been set to %s</h3>', $setting, $value);
 
         $stmt->close();
         $conn->close();
 
       }
 
-      public function countRsvps(){
+      
+
+      public function countRsvps() {
         $db = new DB();
         $conn = $db->dbConnect();
 
         if ($result = $conn->query('SELECT * FROM '. DB_TABLE)) {
           $row_count = $result->num_rows;
 
-          printf('<h5>There are a total of %d rsvps.</h5>', $row_count);
+          sprintf('<h5>There are a total of %d rsvps.</h5>', $row_count);
 
           $result->close();
         }
         $conn->close();
       }
 
-      public function countPlusOnes(){
+      public function countPlusOnes() {
         $db = new DB();
         $conn = $db->dbConnect();
 
