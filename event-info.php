@@ -5,7 +5,6 @@
 </header>
 
 <div class="info__details">
-<<<<<<< HEAD
   <h1>Contempo RSVP<br/>
     System Template</h1>
 
