@@ -15,16 +15,5 @@
 
     <h4>Refer to Readme.md </h4>
     <h4>for next steps</h4>
-=======
-  <h1>Contempo RSVP <br/>
-    Template</h1>
-
-  <div class="info__details__meta">
-    <h4>Read README for instructions</h4>
-    <h4>date/time </br></br></h4>
-
-    <h4>address</h4>
-    <h4>city</h4>
->>>>>>> partner-page
   </div>
 </div>
