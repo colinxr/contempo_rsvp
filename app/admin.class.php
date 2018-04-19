@@ -262,11 +262,10 @@
     // Fetch RSVP Type as specified in Admin DB Table
     //
     // return String : If value is defined in DB, return that, else return "Open"
-      public function fetch_rsvp_type() {
+      public function fetch_admin_setting($setting) {
         $db = new DB();
         $conn = $db->dbConnect();
 
-        $val = 'RSVP_TYPE';
         $sql = 'SELECT VALUE FROM ' . ADMIN_TABLE . ' WHERE SETTING=?';
 
         $stmt = $conn->prepare($sql);
@@ -276,7 +275,7 @@
           return;
         }
 
-        $stmt->bind_param('s', $val);
+        $stmt->bind_param('s', $setting);
         $stmt->execute();
 
         if (!$stmt->execute()){
@@ -294,7 +293,7 @@
         $conn->close();
       }
 
-      public function set_rsvp_type($str) {
+      public function set_admin_setting($setting, $value) {
         $db = new DB();
         $conn = $db->dbConnect();
 
@@ -311,7 +310,7 @@
           trigger_error($conn->error, E_USER_ERROR);
         }
 
-        $stmt->bind_param('ss', $val, $str);
+        $stmt->bind_param('ss', $setting, $value);
         $stmt->execute();
 
         if (!$stmt->execute()) {
@@ -322,28 +321,69 @@
           trigger_error($stmt->error, E_USER_ERROR);
         }
 
-        echo '<h3>The current RSVP Type is set to ' . $str . '</h3>';
+        printf('<h3>%s has been set to %s</h3>', $setting, $value);
 
         $stmt->close();
         $conn->close();
 
       }
 
-      public function countRsvps(){
+      public function create_partner_page($partner) {
+
+        $slug = implode('-', explode(' ', strtolower($partner)));
+
+        $src = BASEPATH . '/open';
+        $dest = BASEPATH . '/' . $slug;
+
+        echo $src . '<br />';
+        echo $dest . '<br />';
+
+        $this->copy_dir($src, $dest);
+
+      }
+
+      private function copy_dir($src, $dest) {
+        if (is_dir($src)) {
+          @mkdir($dest);
+
+          $d = dir($src);
+
+          var_dump($d);
+
+          while (FALSE !== ($entry = $d->read())) {
+            if ($entry == '.' || $entry == '..') {
+              continue;
+            }
+
+            $Entry = $src . '/' . $entry;
+
+            if (is_dir($Entry)) {
+              copy_dir($Entry, $dest . '/' . $entry);
+              continue;
+            }
+            copy($Entry, $dest . '/' . $entry);
+          }
+          $d->close();
+        } else {
+          copy($src, $dest);
+        }
+      }
+
+      public function countRsvps() {
         $db = new DB();
         $conn = $db->dbConnect();
 
         if ($result = $conn->query('SELECT * FROM '. DB_TABLE)) {
           $row_count = $result->num_rows;
 
-          printf('<h5>There are a total of %d rsvps.</h5>', $row_count);
+          sprintf('<h5>There are a total of %d rsvps.</h5>', $row_count);
 
           $result->close();
         }
         $conn->close();
       }
 
-      public function countPlusOnes(){
+      public function countPlusOnes() {
         $db = new DB();
         $conn = $db->dbConnect();
 

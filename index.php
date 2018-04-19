@@ -15,7 +15,7 @@
 
 		<div class="col right info">
 			<?php include 'event-info.php'; ?>
-
+			
 			<?php if (RSVP_TYPE === 'Closed') : ?>
 				<?php include '_inc/alerts/capacity-msg.php'; ?>
 			<?php else : ?>

@@ -46,7 +46,7 @@
 	//** Closed => "Form is Hidden and message saying we're full is displayed"
 
 	$admin = new Admin();
-	define( 'RSVP_TYPE', $admin->fetch_rsvp_type() );
-	define( 'PARTNER_RSVP', false);
+	define( 'RSVP_TYPE', $admin->fetch_admin_setting('RSVP_TYPE') );
+	define( 'PARTNER_RSVP', $admin->fetch_admin_setting('PARTNER_RSVP') );
 
 	?>

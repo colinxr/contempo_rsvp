@@ -1,7 +1,7 @@
 <header>
   <h2>V.I.P. Invitation</h2>
 
-  <a href="http://www.sharpmagazine.com" target="_blank"><img src="imgs/sharp_logo_black.svg" class="logo"></a>
+  <a href="http://www.sharpmagazine.com" target="_blank"><img src="<?php echo BASE_URL; ?>/imgs/sharp_logo_black.svg" class="logo"></a>
 </header>
 
 <div class="info__details">
