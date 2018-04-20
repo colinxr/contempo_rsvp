@@ -146,81 +146,179 @@ $(document).ready(function() {
 }); // end of document ready function
 })(jQuery);
 
+(function($) {
+  $(document).ready(function() {
+
+    if ($('#js-partner-rsvp').length) {
+      var form = $('#js-partner-rsvp');
+
+      form.submit(function(e) {
+        e.preventDefault();
+
+        var value    = $('#js-partner-name').val();
+        var inputs   = form.find('input, button');
+        var data     = { partnerName : value };
+        var partner = JSON.stringify(data);
+        var url      = '/admin/list/partner-rsvp.php';
+
+        inputs.prop('disabled', true);
+
+        ajax_post(partner, url);
+
+        function ajax_post(partner) {
+      		$.ajax({
+      	  	url: url,
+      	    method: 'POST',
+      	    data: {'data' : partner},
+      		})
+          .done(function(resp, textStatus, xhr) {
+            console.log(textStatus);
+            alert(resp);
+            setTimeout(function() {
+              location.reload();  //Refresh page
+            }, 250);
+          })
+          .fail(function(xhr, textStatus, errorThrown) {
+            console.log('ajax loading error...');
+            console.log(xhr.responseText);
+            console.log(textStatus);
+              return false;
+          })
+          .always(function() {
+            inputs.prop('disabled', false);
+          });
+      	}
+      });
+    }
+  });
+})(jQuery);
+
 ///////
 // RSVP Form Validation
 ///////
 (function($) {
-$(document).ready(function() {
-	var column = $('.info');
-	// var columnHeight = column[0].scrollHeight
-	var email = getQueryVariable('email');
+	$(document).ready(function() {
+		var column = $('.info');
+		// var columnHeight = column[0].scrollHeight
+		var email = getQueryVariable('email');
 
-	// resizeColumn();
-	//
-	// var resizeTimeout;
-	// $(window).resize(function(e) {
-	// 	clearTimeout(resizeTimeout);
-	//
-	// 	resizeTimeout = setTimeout(function() {
-	// 		console.log('resize');
-	// 		resizeColumn();
-	// 	}, 250);
-  // });
+		// resizeColumn();
+		//
+		// var resizeTimeout;
+		// $(window).resize(function(e) {
+		// 	clearTimeout(resizeTimeout);
+		//
+		// 	resizeTimeout = setTimeout(function() {
+		// 		console.log('resize');
+		// 		resizeColumn();
+		// 	}, 250);
+	  // });
 
-	if (email) {
-		$('#email').val(email);
-	}
+		if (email) {
+			$('#email').val(email);
+		}
 
-	$('#plus-one').click(function () {
-		$('.guests').fadeToggle('fast','swing');
-		$('input[name="guest-name"]').attr("required", true);
-		$('input[name="guest-email"]').attr("required", true);
+		$('#plus-one').click(function() {
+			$('.guests').fadeToggle('fast','swing');
+			$('input[name="guest-name"]').attr("required", true);
+			$('input[name="guest-email"]').attr("required", true);
+		});
+
+		$('form').submit(function(e) {
+			submitForm();
+	  });
+
+		function resizeColumn() {
+			var columnHeight = column[0].scrollHeight;
+			var vpHeight = $(window).height();
+
+			if (columnHeight > vpHeight && !column.hasClass('smaller')) {
+				column.addClass('smaller');
+			} else if (columnHeight < vpHeight && column.hasClass('smaller')){
+				column.removeClass('smaller');
+			}
+		}
+
+		function getQueryVariable(variable) {
+		  var query = window.location.search.substring(1);
+		  var vars = query.split('&');
+		  for (var i=0;i<vars.length;i++) {
+		     var pair = vars[i].split('=');
+		     if(pair[0] == variable){
+		     	return pair[1];
+		     }
+		  }
+		  return(false);
+		}
+
+		function isValid() {
+			var email = $('#email').val();
+			var name = $('#name').val();
+			var postal = $('#postal').val();
+			if($('#plus-one').is(':checked')) {
+				var guestName = $('#guest-name').val();
+				var guestEmail = $('#guest-email').val();
+			}
+
+			// DO VALIDATION
+			return true;
+		}
+
+		function submitForm() {
+			if (isValid()) {
+				$('#js-rsvp-form').submit();
+			}
+		}
 	});
+})(jQuery);
 
-	$('form').submit(function(e){
-		submitForm();
+(function($) {
+  $(document).ready(function() {
+
+    if ($('#js-match-type').length) {
+      var form = $('#js-match-type');
+
+      form.submit(function(e) {
+        e.preventDefault();
+
+        var value    = $('#rsvp_types').val();
+        var inputs   = form.find('select, button');
+        var data     = { rsvpType : value };
+        var rsvpType = JSON.stringify(data);
+        var url      = '/admin/list/rsvp-type.php';
+
+        inputs.prop('disabled', true);
+
+        ajax_post(rsvpType, url);
+
+        function ajax_post(rsvpType) {
+      		$.ajax({
+      	  	url: url,
+      	    method: 'POST',
+      	    data: {'data' : rsvpType},
+      		})
+          .done(function(resp, textStatus, xhr) {
+            console.log(textStatus);
+            alert(resp);
+            setTimeout(function() {
+              location.reload();  //Refresh page
+            }, 250);
+          })
+          .fail(function(xhr, textStatus, errorThrown) {
+            console.log('ajax loading error...');
+            console.log(xhr.responseText);
+            console.log(textStatus);
+              return false;
+          })
+          .always(function() {
+            inputs.prop('disabled', false);
+          });
+      	}
+
+
+      });
+    }
+
+
   });
-
-function resizeColumn() {
-	var columnHeight = column[0].scrollHeight;
-	var vpHeight = $(window).height();
-
-	if (columnHeight > vpHeight && !column.hasClass('smaller')) {
-		column.addClass('smaller');
-	} else if (columnHeight < vpHeight && column.hasClass('smaller')){
-		column.removeClass('smaller');
-	}
-}
-
-function getQueryVariable(variable) {
-  var query = window.location.search.substring(1);
-  var vars = query.split('&');
-  for (var i=0;i<vars.length;i++) {
-     var pair = vars[i].split('=');
-     if(pair[0] == variable){
-     	return pair[1];
-     }
-  }
-  return(false);
-}
-
-function isValid() {
-	var email = $('#email').val();
-	var name = $('#name').val();
-	var postal = $('#postal').val();
-	if($('#plus-one').is(':checked')) {
-		var guestName = $('#guest-name').val();
-		var guestEmail = $('#guest-email').val();
-	}
-
-	// DO VALIDATION
-	return true;
-}
-
-function submitForm() {
-	if (isValid()) {
-		$('form').submit();
-	}
-}
-});
 })(jQuery);
