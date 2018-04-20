@@ -23,11 +23,10 @@
 	<?php
     $admin = new Admin();
 	  $admin->viewResults(UNKNWNR);
-
   ?>
+
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.map"></script> -->
-	<script type="text/javascript" src="../../dist/all.js"></script>
+	<script type="text/javascript" src="<?php echo BASE_URL; ?>/dist/all.js"></script>
 </body>
 </html>
