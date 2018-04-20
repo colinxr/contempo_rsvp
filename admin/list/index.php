@@ -52,7 +52,6 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
   <script type="text/javascript" src="<?php BASE_URL ?>/dist/all.js"></script>
   </body>
 </html>
