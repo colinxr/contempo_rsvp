@@ -1,4 +1,7 @@
 <?php
+	ini_set('display_errors', 1);
+	error_reporting(E_ALL);
+
   require('../../config/config.php');
   include('../header.php');
 ?>
@@ -21,7 +24,7 @@
       <h3>Set RSVP Type</h3>
       <p>The current RSVP Type is set to <?php echo RSVP_TYPE; ?></p>
 
-      <form enctype="multipart/form-data" action="rsvp-type.php" method="POST">
+      <form id="js-match-type">
         <select name="rsvp_types" id="rsvp_types">
           <option value="">Select RSVP Type</option>
           <option value="Match">Match</option>
@@ -29,7 +32,7 @@
           <option value="Capacity">Capacity</option>
           <option value="Closed">Closed</option>
         </select>
-        <button type="submit" name="submit" >Submit</button>
+        <button type="submit" name="submit">Submit</button>
       </form>
     </div>
 
@@ -38,7 +41,7 @@
       <p>To create a new Partner Landing Page, simply enter the brand's name in the field below and hit submit.</p>
       <p>A new landing page will be created at <?php echo BASE_URL; ?>/your-partner-name.</p>
 
-      <form enctype="multipart/form-data" action="partner-rsvp.php" method="POST">
+      <form action="partner-rsvp.php" method="POST">
         <label for="partner-name">Partner Name</label>
         <input type="text" id="partner-name" name="partner-name">
         <button type="submit" name="submit">Submit</button>
@@ -48,9 +51,8 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.map"></script>
   <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-  <!--<script type="text/javascript" src="../js/build/production.min.js"></script> -->
+  <script type="text/javascript" src="<?php BASE_URL ?>/dist/all.js"></script>
   </body>
 </html>

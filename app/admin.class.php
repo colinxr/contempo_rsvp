@@ -323,6 +323,8 @@
 
         printf('<h3>%s has been set to %s</h3>', $setting, $value);
 
+        return "<h3>the change has been made has been set to %s</h3>";
+
         $stmt->close();
         $conn->close();
 

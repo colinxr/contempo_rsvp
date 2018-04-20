@@ -15,11 +15,11 @@
 
 		<div class="col right info">
 			<?php include 'event-info.php'; ?>
-			
+
 			<?php if (RSVP_TYPE === 'Closed') : ?>
 				<?php include '_inc/alerts/capacity-msg.php'; ?>
 			<?php else : ?>
-				<form action="validate.php" method="post" autocomplete="off">
+				<form id="js-rsvp-form" action="validate.php" method="post" autocomplete="off">
 				<span class="input input--bfm">
 					<input class="input__field input__field--bfm" type="text" id="first-name"  name="rsvp[first-name]" value="<?php echo $fName; ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required />
 					<label class="input__label input__label--bfm input__label--bfm-color" for="first-name">
