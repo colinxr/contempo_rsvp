@@ -219,7 +219,6 @@
   //
   // return string : confirmation string
   // *****
-
     public function upload_list() {
       $target_dir = BASEPATH . '/admin/list/';
       $target_file = $target_dir . 'event-invites.csv';
@@ -261,6 +260,8 @@
     // *****
     // Fetch RSVP Type as specified in Admin DB Table
     //
+    // @param String $setting: the specific setting user wants to change
+    //
     // return String : If value is defined in DB, return that, else return "Open"
       public function fetch_admin_setting($setting) {
         $db = new DB();
@@ -286,17 +287,22 @@
         $stmt->bind_result($rsvp_type);
         $stmt->fetch();
 
-        // var_dump($rsvp_type);
-
         return $rsvp_type;
 
         $conn->close();
       }
 
+    // *****
+    // Set RSVP Type as specified in Admin DB Table
+    //
+    // @param String $setting: the specific setting the user wants to change
+    // @param String $value: the resulting value the user wants to change
+    //
+    // return String : Confirmation string
       public function set_admin_setting($setting, $value) {
         $db = new DB();
         $conn = $db->dbConnect();
-        
+
         $sql = 'INSERT into ' . ADMIN_TABLE . '
                 (SETTING, VALUE) VALUES (?,?)
                 ON DUPLICATE KEY UPDATE
@@ -320,14 +326,19 @@
           trigger_error($stmt->error, E_USER_ERROR);
         }
 
-        printf('The event %s has been set to %s', $setting, $value);
+        printf('The event %s has been set to %s. ', $setting, $value);
 
         $stmt->close();
         $conn->close();
       }
 
+    // *****
+    // Create new directory with user specified name
+    //
+    // @param String $partner: the name of the directory the user wishes to create
+    //
+    // return Bool : if directory is created return true
       public function create_partner_page($partner) {
-
         $slug = strtolower($partner);
         $slug = preg_replace('/[^\w\s]/', '', $slug);
         $slug = implode('-', explode(' ', $slug));
@@ -335,20 +346,26 @@
         $src = BASEPATH . '/open';
         $dest = BASEPATH . '/' . $slug;
 
-        echo $src . '<br />';
-        echo $dest . '<br />';
+        if (!$this->copy_dir($src, $dest)) return false;
 
-        $this->copy_dir($src, $dest);
-
+        return true;
       }
 
+    // *****
+    // Make a copy of specific directory
+    //
+    // @param String $src: the file path of the source directory
+    // @param String $dest: the file path of the final directory
+    //
+    // return Bool : if directory is created return true
       private function copy_dir($src, $dest) {
+        // if $dest already exists, return false
+        if (is_dir($dest)) return false;
+
+        // if $src exists then lets make the new desting
         if (is_dir($src)) {
           @mkdir($dest);
-
           $d = dir($src);
-
-          var_dump($d);
 
           while (FALSE !== ($entry = $d->read())) {
             if ($entry == '.' || $entry == '..') {
@@ -367,8 +384,14 @@
         } else {
           copy($src, $dest);
         }
+
+        return true;
       }
 
+    // *****
+    // Count nummber of rows in db table
+    //
+    // return string : prints a string with number of rows
       public function countRsvps() {
         $db = new DB();
         $conn = $db->dbConnect();
@@ -383,6 +406,10 @@
         $conn->close();
       }
 
+    // *****
+    // Count nummber of rows with plus ones in db table
+    //
+    // return string : prints a string with number of rows
       public function countPlusOnes() {
         $db = new DB();
         $conn = $db->dbConnect();

@@ -1,27 +1,27 @@
 (function($) {
   $(document).ready(function() {
 
-    if ($('#js-match-type').length) {
-      var form = $('#js-match-type');
+    if ($('#js-partner-rsvp').length) {
+      var form = $('#js-partner-rsvp');
 
       form.submit(function(e) {
         e.preventDefault();
 
-        var value    = $('#rsvp_types').val();
-        var inputs   = form.find('select, button');
-        var data     = { rsvpType : value };
-        var rsvpType = JSON.stringify(data);
-        var url      = '/admin/list/rsvp-type.php';
+        var value    = $('#js-partner-name').val();
+        var inputs   = form.find('input, button');
+        var data     = { partnerName : value };
+        var partner = JSON.stringify(data);
+        var url      = '/admin/list/partner-rsvp.php';
 
         inputs.prop('disabled', true);
 
-        ajax_post(rsvpType, url);
+        ajax_post(partner, url);
 
-        function ajax_post(rsvpType) {
+        function ajax_post(partner) {
       		$.ajax({
       	  	url: url,
       	    method: 'POST',
-      	    data: {'data' : rsvpType},
+      	    data: {'data' : partner},
       		})
           .done(function(resp, textStatus, xhr) {
             console.log(textStatus);
@@ -40,11 +40,7 @@
             inputs.prop('disabled', false);
           });
       	}
-
-
       });
     }
-
-
   });
 })(jQuery);

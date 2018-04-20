@@ -41,9 +41,9 @@
       <p>To create a new Partner Landing Page, simply enter the brand's name in the field below and hit submit.</p>
       <p>A new landing page will be created at <?php echo BASE_URL; ?>/your-partner-name.</p>
 
-      <form action="partner-rsvp.php" method="POST">
+      <form id="js-partner-rsvp">
         <label for="partner-name">Partner Name</label>
-        <input type="text" id="partner-name" name="partner-name">
+        <input type="text" id="js-partner-name" name="partner-name">
         <button type="submit" name="submit">Submit</button>
       </form>
     </div>
