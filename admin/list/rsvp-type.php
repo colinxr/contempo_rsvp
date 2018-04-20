@@ -4,9 +4,6 @@
 
   require(__DIR__ . '/../../config/config.php');
 
-
-	if (!$_POST['setting']) echo 'no setting';
-
 	if (isset($_POST['setting'])) {
 		$data = json_decode($_POST['setting'], true);
 

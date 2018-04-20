@@ -234,43 +234,38 @@ $(document).ready(function() {
       form.submit(function(e) {
         e.preventDefault();
 
-        // if (request) request.abort();
-
-        var value = $('#rsvp_types').val();
-
-        var inputs = form.find('select, button');
-        var data = {
-          rsvpType : value,
-
-        };
+        var value    = $('#rsvp_types').val();
+        var inputs   = form.find('select, button');
+        var data     = { rsvpType : value };
         var rsvpType = JSON.stringify(data);
+        var url      = '/admin/list/rsvp-type.php';
 
         inputs.prop('disabled', true);
 
-        ajax_post(rsvpType);
+        ajax_post(rsvpType, url);
 
         function ajax_post(rsvpType) {
       		$.ajax({
-      	  	url: '/admin/list/rsvp-type.php',
+      	  	url: url,
       	    method: 'POST',
       	    data: {'setting' : rsvpType},
-      	    success: function(resp, textStatus, xhr){
-      	    	console.log(textStatus);
-              alert(resp);
-              setTimeout(function() {
-                location.reload();  //Refresh page
-              }, 1500);
-      	    },
-      	    error: function(xhr, textStatus, errorThrown) {
-      		  	console.log('ajax loading error...');
-      				console.log(xhr.responseText);
-      				console.log(textStatus);
-      		    	return false;
-      	    },
-            // always: function() {
-            //   inputs.prop('disabled', false);
-            // }
-      		});
+      		})
+          .done(function(resp, textStatus, xhr) {
+            console.log(textStatus);
+            alert(resp);
+            setTimeout(function() {
+              location.reload();  //Refresh page
+            }, 250);
+          })
+          .fail(function(xhr, textStatus, errorThrown) {
+            console.log('ajax loading error...');
+            console.log(xhr.responseText);
+            console.log(textStatus);
+              return false;
+          })
+          .always(function() {
+            inputs.prop('disabled', false);
+          });
       	}
 
 

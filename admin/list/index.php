@@ -22,7 +22,7 @@
 
     <div>
       <h3>Set RSVP Type</h3>
-      <p>The current RSVP Type is set to <?php echo RSVP_TYPE; ?></p>
+      <p>The current RSVP Type is set to <strong><?php echo RSVP_TYPE; ?></strong></p>
 
       <form id="js-match-type">
         <select name="rsvp_types" id="rsvp_types">

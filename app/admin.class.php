@@ -296,8 +296,7 @@
       public function set_admin_setting($setting, $value) {
         $db = new DB();
         $conn = $db->dbConnect();
-
-        $val = 'RSVP_TYPE';
+        
         $sql = 'INSERT into ' . ADMIN_TABLE . '
                 (SETTING, VALUE) VALUES (?,?)
                 ON DUPLICATE KEY UPDATE
@@ -321,13 +320,10 @@
           trigger_error($stmt->error, E_USER_ERROR);
         }
 
-        printf('<h3>%s has been set to %s</h3>', $setting, $value);
-
-        return "<h3>the change has been made has been set to %s</h3>";
+        printf('The event %s has been set to %s', $setting, $value);
 
         $stmt->close();
         $conn->close();
-
       }
 
       public function create_partner_page($partner) {
