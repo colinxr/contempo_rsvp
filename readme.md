@@ -55,7 +55,7 @@ In Terminal, `cd` into the directory and run the following commands:
 
 #### 8. Set Partner RSVP
 - If partners want to invite guests but won't provide their emails, rename the Open directory to the name of the partner
-- change the PARTNER_RSVP constant to FALSE
+- change the PARTNER_RSVP constant to TRUE
 
 ## Tests
 
