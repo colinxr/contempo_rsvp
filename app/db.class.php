@@ -199,7 +199,7 @@
           //$path = '/_inc/alerts/unknown-msg.php'; // confirmation message
           //$alert = file_get_contents(BASEPATH . $path);
           //echo $alert;
-          if (!RSVP_TYPE === 'Capacity') {
+          if (RSVP_TYPE !== 'Capacity') {
             include(BASEPATH .'/_inc/alerts/unknown-msg.php');
           }
 
