@@ -20,6 +20,12 @@
     </div>
 	</div>
 
+  <?php
+    $admin = new Admin();
+    $admin->countRsvps(UNKNWNR);
+    $admin->countPlusOnes(UNKNWNR);
+   ?>
+
 	<?php
     $admin = new Admin();
 	  $admin->viewResults(UNKNWNR);

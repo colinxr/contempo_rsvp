@@ -14,10 +14,14 @@
             <input type='submit' value='Export' name='Export'>
           </form>
         </div>
+        <div>
+          <h4>Export Final List</h4>
+          <a href="export.php">Export List</a>
+        </div>
           <?php
             $admin = new Admin();
-            $admin->countRsvps();
-            $admin->countPlusOnes();
+            $admin->countRsvps(DB_TABLE);
+            $admin->countPlusOnes(DB_TABLE);
           ?>
         <div>
 

@@ -10,7 +10,7 @@
   // return mixed : returns results from SQL Query
   // *****
 
-    public function viewResults($dbTable){
+    public function viewResults($dbTable) {
       // Create connection
       $db = new DB();
       $conn = $db->dbConnect();
@@ -18,7 +18,7 @@
       $query = 'SELECT id, firstName, lastName, email, postal, guestFirstName, guestLastName, guestEmail FROM ' . $dbTable;
 
 
-      if ($stmt = $conn->prepare($query)){
+      if ($stmt = $conn->prepare($query)) {
         $stmt->execute() or trigger_error($stmt->error, E_USER_ERROR);
         $stmt->store_result();
         $stmt->bind_result($id, $firstName, $lastName, $email, $postal, $guestFirstName, $guestLastName, $guestEmail);
@@ -81,28 +81,28 @@
   // return mixed : generates new CSV file
   // *****
 
-    public function download_results($dbTable){
+    public function download_results($dbTable) {
       $db = new DB();
       $conn = $db->dbConnect();
 
       $query = 'SELECT * from ' . $dbTable . ' ORDER BY ID DESC';
       $result = $conn->query($query);
 
-      if (!$result){
+      if (!$result) {
         die('Could not fetch records');
       } else {
         $num_fields = mysqli_num_fields($result);
         $headers = array();
 
-        while ($field_info = mysqli_fetch_field($result)){
+        while ($field_info = mysqli_fetch_field($result)) {
           $headers[] = $field_info->name;
         }
 
         $output = fopen('php://output', 'w');
-        if ($output && $result){
+        if ($output && $result) {
           fputcsv($output, $headers);
 
-          while ($row = $result->fetch_array(MYSQLI_NUM)){
+          while ($row = $result->fetch_array(MYSQLI_NUM)) {
             fputcsv($output, array_values($row));
           }
 
@@ -113,6 +113,74 @@
         }
       }
     }
+
+  // *****
+  // Exports Final CSV for Seven Communications Check-in Software
+  //
+  // @param string $dbTable: the database table which we want to export.
+  //
+  // return mixed : generates new CSV file
+  // *****
+
+    public function export_final_list() {
+      $db = new DB();
+      $conn = $db->dbConnect();
+
+      $query = 'SELECT * FROM '. DB_TABLE .'
+        ORDER BY ID
+        DESC';
+      $result = $conn->query($query);
+
+      if (!$result) {
+        echo $result->error;
+        die('Could not fetch records');
+      } else {
+        $num_fields = mysqli_num_fields($result);
+        $headers = array('Unique ID', 'Guest ID', 'Guest', 'Contact', 'RSVP\'d', 'Registered', 'Guest Of', 'First Name', 'Last Name', 'Company', 'Prof Level', 'Guest Email', 'Gender', 'Category', 'Postal Code');
+
+        $output = fopen('php://output', 'w');
+        if ($output && $result) {
+          fputcsv($output, $headers);
+
+          $id = 0;
+          while ($row = $result->fetch_array(MYSQLI_NUM)) {
+            // var_dump($row);
+            $id++;
+            $row_meta['uID'] = $id;
+            $row_meta['GuestID'] = '0';
+            $row_meta['Guest'] = $row['guestFirstName'] !== '' ? '1' : '0';
+            $row_meta['Contact'] = '1';
+            $row_meta['rsvp\'d'] = '1';
+            $row_meta['registered'] = $row['guestFirstName'] !== '' ? '2' : '1';
+            $clean_row = array_merge($row_meta, $row);
+            fputcsv($output, array_values($clean_row));
+          }
+
+          while ($row2 = $result->fetch_array(MYSQLI_NUM)) {
+            var_dump($row2);
+            $id++;
+            $row_meta['uID'] = $id;
+            $row_meta['GuestID'] = 'tk';
+            $row_meta['Guest'] = '1';
+            $row_meta['Contact'] = '0';
+            $row_meta['rsvp\'d'] = '1';
+            $row_meta['registered'] = '';
+            $guest_row['firstName'] = $row2['guestFirstName'];
+            $guest_row['lastName'] = $row2['guestLastName'];
+            $guest_row['email'] = $row2['guestEmail'];
+
+            $clean_row = array_merge($row_meta, $guest_row);
+            fputcsv($output, array_values($clean_row));
+          }
+
+          fclose($output);
+          readfile($output);
+          unlink($output);
+          exit();
+        }
+      }
+    }
+
 
   // *****
   // Scrapes uploaded event guest list and prepares data to import into Mailchimp
@@ -279,7 +347,7 @@
         $stmt->bind_param('s', $setting);
         $stmt->execute();
 
-        if (!$stmt->execute()){
+        if (!$stmt->execute()) {
           printf($stmt->error);
           trigger_error($stmt->error, E_USER_ERROR);
         }
@@ -392,11 +460,11 @@
     // Count nummber of rows in db table
     //
     // return string : prints a string with number of rows
-      public function countRsvps() {
+      public function countRsvps($dbTable) {
         $db = new DB();
         $conn = $db->dbConnect();
 
-        if ($result = $conn->query('SELECT * FROM '. DB_TABLE)) {
+        if ($result = $conn->query('SELECT * FROM '. $dbTable)) {
           $row_count = $result->num_rows;
 
           sprintf('<h5>There are a total of %d rsvps.</h5>', $row_count);
@@ -410,11 +478,11 @@
     // Count nummber of rows with plus ones in db table
     //
     // return string : prints a string with number of rows
-      public function countPlusOnes() {
+      public function countPlusOnes($dbTable) {
         $db = new DB();
         $conn = $db->dbConnect();
 
-        if ($result = $conn->query("SELECT * from ". DB_TABLE ." WHERE guestFirstName<>''")) {
+        if ($result = $conn->query("SELECT * from ". $dbTable ." WHERE guestFirstName<>''")) {
           $row_count = $result->num_rows;
 
           printf('<h5>There are a total of %d plus ones.</h5>', $row_count);
