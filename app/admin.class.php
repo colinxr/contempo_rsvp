@@ -340,6 +340,7 @@
         $stmt = $conn->prepare($sql);
 
         if (!$stmt) {
+          // echo "fuck";
           trigger_error($stmt->error, E_USER_ERROR);
           return;
         }
@@ -459,38 +460,32 @@
     // *****
     // Count nummber of rows in db table
     //
+		// @param String $dbTable: the database table to query
+		// @param String $query: the kind of result you'd like to count, either 'rsvps' or 'plusOnes'
+		//
     // return string : prints a string with number of rows
-      public function countRsvps($dbTable) {
-        $db = new DB();
+			public function countResults($dbTable, $query) {
+				$db = new DB();
         $conn = $db->dbConnect();
 
-        if ($result = $conn->query('SELECT * FROM '. $dbTable)) {
-          $row_count = $result->num_rows;
+				if ($query == 'rsvps') {
+					$result = $conn->query('SELECT * FROM '. $dbTable);
+					$text = '<h5>There are a total of %d rsvps.</h5>';
+				}
 
-          sprintf('<h5>There are a total of %d rsvps.</h5>', $row_count);
+				if ($query == 'plusOnes') {
+					$result = $conn->query("SELECT * from ". $dbTable ." WHERE guestFirstName<>''");
+					$text = '<h5>There are a total of %d plus ones.</h5>';
+				}
 
-          $result->close();
-        }
-        $conn->close();
-      }
+				if ($result) {
+					$row_count = $result->num_rows;
+					printf($text, $row_count);
+					$result->close();
+				}
 
-    // *****
-    // Count nummber of rows with plus ones in db table
-    //
-    // return string : prints a string with number of rows
-      public function countPlusOnes($dbTable) {
-        $db = new DB();
-        $conn = $db->dbConnect();
-
-        if ($result = $conn->query("SELECT * from ". $dbTable ." WHERE guestFirstName<>''")) {
-          $row_count = $result->num_rows;
-
-          printf('<h5>There are a total of %d plus ones.</h5>', $row_count);
-
-          $result->close();
-        }
-        $conn->close();
-      }
+				$conn->close();
+			}
 
   }
 ?>
