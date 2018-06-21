@@ -2,15 +2,12 @@
 	require_once(__DIR__ . '/../vendor/autoload.php');
 	require_once(__DIR__ . '/../app/classes.php');
 
-	$dotenv = new Dotenv\Dotenv(__DIR__);
-	$dotenv->load();
-
 	// ** MySQL settings - You can get this info from your web host ** //
 	/** The name of the database for WordPress */
-	define( 'DB_NAME', $_ENV['DB_NAME'] );
-	define( 'DB_USER', $_ENV['DB_USER'] );
-	define( 'DB_PASS', $_ENV['DB_PASS'] );
-	define( 'DB_HOST', $_ENV['DB_HOST'] );
+	define( 'DB_NAME', 'RSVP' );
+	define( 'DB_USER', 'root' );
+	define( 'DB_PASS', 'root' );
+	define( 'DB_HOST', 'localhost' );
 	define( 'DB_HOST_SLAVE', 'localhost' );
 	/** Database Charset to use in creating database tables. */
 	define( 'DB_CHARSET', 'utf8');
@@ -22,18 +19,14 @@
 	define( 'DB_TABLE', 'rsvp_test' );
 	define( 'UNKNWNR', 'unknown_test' );
 
-	define( 'BASE_URL', $_ENV['BASE_URL'] );
+	define( 'BASE_URL', '/' );
 	define( 'BASEPATH', $_SERVER['DOCUMENT_ROOT'] . BASE_URL );
 
 	// ** Event Hosts
 	define( 'EVENT_HOSTS', 'Colin Rabyniuk' );
 	define( 'EVENT_NAME', 'Colin\'s Test' );
 
-	// ** Email confirmation settings
-	define( 'MAILCHIMP_API', $_ENV['MAILCHIMP_API'] );
-	define( 'MAILCHIMP_LIST_ID', $_ENV['MAILCHIMP_LIST_ID'] );
-
-	define( 'POSTMARK_API', $_ENV['POSTMARK_API'] );
+	define( 'POSTMARK_API', '2b22f2da-bcdf-413f-85c6-cc4412864d8d' );
 	define( 'EMAIL_FROM', 'event@sharpmagazine.com' ); 	// confirmation from email address
 	define( 'STAFF_EMAIL_FROM', 'colinxr@gmail.com' ); // Staff email from address
 	define( 'SUBJECT_LINE', 'Colin\'s Test Confirmation' );
