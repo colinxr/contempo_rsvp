@@ -11,7 +11,7 @@
         var inputs   = form.find('input, button');
         var data     = { partnerName : value };
         var partner = JSON.stringify(data);
-        var url      = '/admin/list/partner-rsvp.php';
+        var url      = 'partner-rsvp.php';
 
         inputs.prop('disabled', true);
 

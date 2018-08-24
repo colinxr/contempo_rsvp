@@ -11,7 +11,7 @@
         var inputs   = form.find('select, button');
         var data     = { rsvpType : value };
         var rsvpType = JSON.stringify(data);
-        var url      = '/admin/list/rsvp-type.php';
+        var url      = 'rsvp-type.php';
 
         inputs.prop('disabled', true);
 

@@ -22,17 +22,16 @@
 
   <?php
     $admin = new Admin();
-    $admin->countRsvps(UNKNWNR);
-    $admin->countPlusOnes(UNKNWNR);
-   ?>
+    $admin->countResults(DB_TABLE, 'rsvps');
+    $admin->countResults(DB_TABLE, 'plusOnes');
 
-	<?php
-    $admin = new Admin();
+
+    // $admin = new Admin();
 	  $admin->viewResults(UNKNWNR);
   ?>
 
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script type="text/javascript" src="<?php echo BASE_URL; ?>/dist/all.js"></script>
+	<script type="text/javascript" src="<?php echo BASE_URL; ?>/dist/js/all.min.js"></script>
 </body>
 </html>
