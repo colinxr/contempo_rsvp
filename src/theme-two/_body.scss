@@ -1,0 +1,358 @@
+
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: $bg-color;
+	// background-image: url('../../imgs/don-cheadle-bfm.jpg');
+	// background-position: left top;
+	// background-repeat: no-repeat;
+	// background-size: cover;
+}
+
+
+.wrapper {
+	display: block;
+
+	width: 95%;
+	margin: 0 auto;
+
+	@include big-phone {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		height: 100%;
+		overflow: scroll;
+	}
+
+	@include desktop {
+		width: 75%;
+	}
+}
+
+.column {
+	&--left {
+		text-align: center;
+		font-weight: bold;
+
+		header {
+			max-width: 300px;
+			margin: 75px auto 45px auto;
+
+			h3 { margin: 25px 0; }
+
+			.logo-wrap {
+				display: flex;
+				justify-content: space-around;
+				width: 75%;
+		    margin: 0 auto;
+
+				.s-logo { max-height: 67px; }
+				.sharp-logo { max-height: 55px; }
+			}
+		}
+
+		@include big-phone {
+			background-position: 75% center;
+			flex-basis: 50%;
+			height: 100vh;
+		}
+
+		@include tablet {
+			flex-basis: 55%;
+		}
+
+		@include desktop {
+			background-position: right center;
+		}
+	}
+
+	&--right {
+		box-shadow: -2px 0 5 0 lighten(#4a4a4a, 20%);
+		margin: 35px auto;
+		width: 90%;
+
+		.event-info {
+			&__header {
+				width: auto;
+				margin-bottom: 45px;
+			}
+
+			&__details {
+				@include desktop {
+					max-width: 85%;
+				}
+
+				&__meta {
+					margin-top: 45px;
+					margin-bottom: 20.5px;
+				}
+			}
+		}
+
+		form {
+		  max-width: 100%;
+
+		  @include big-phone {
+		    margin-top: 75px;
+		  }
+
+		  @include desktop {
+		    margin-top: 140px;
+		  }
+
+		  @include big-desktop {
+		    max-width: 400px;
+		  }
+		}
+
+		.sponsor-logos {
+			max-width: 400px;
+			width: 100%;
+			margin: 25px auto;
+		}
+
+		.confirmation {
+			background-color: #f2f2f2;
+			border-radius: 3px;
+			opacity: .85;
+			color: $font-color;
+			padding: 1px 20.5px;
+			position: relative;
+			margin-top: 25px;
+
+			&__footer {
+				margin-top: 50px;
+				margin-bottom: 10px;
+
+				img {
+					height: 30px;
+					margin: 0 10px;
+					width: auto;
+				 }
+			}
+
+			@include sm-tablet {
+				 height: auto;
+				 max-width: 100%;
+			}
+
+		  @include tablet {
+		    margin: 41px 0 41px;
+			}
+
+			@include desktop {
+				max-width: 75%;
+			}
+		}
+
+		@include big-phone {
+			flex-basis: 50%;
+			height: 100vh;
+			margin: 0;
+			overflow: scroll;
+			padding: 25px;
+			width: auto;
+		}
+
+		@include tablet {
+			flex-basis: 45%;
+		}
+
+	}
+}
+
+
+// .container {
+//
+// 	@include big-phone {
+// 		display: grid;
+// 		display: -ms-grid;
+// 		grid-template-columns: 1fr 1fr;
+// 		-ms-grid-columns: 1fr 1fr;
+// 		width: 100%;
+// 		height: 100%;
+// 		overflow: scroll;
+//
+// 		@supports not (display: grid) {
+// 			display: flex;
+// 		}
+// 	}
+//
+// 	@include tablet {
+// 		grid-template-columns: 55% 45%;
+// 		-ms-grid-columns: 55% 45%;
+// 	}
+// }
+//
+// .logos {
+// 	display: block;
+// 	margin: 0 auto;
+// 	width: 60%;
+// }
+//
+// .col {
+//   @include tablet {
+//     width: auto;
+//   }
+// }
+//
+// header {
+// 	width: auto;
+// 	margin-bottom: 45px;
+// }
+//
+// .launch-event {
+// 	margin-top: 13px;
+// 	width: 100%;
+// }
+//
+// .img {
+// 	background-image: url('../../imgs/SBFM_SR-4.jpg');
+// 	background-position: right center;
+// 	background-repeat: no-repeat;
+// 	background-size: cover;
+// 	// padding-top: 100%;
+// 	height: 67vh;
+//
+// 	@include big-phone {
+// 		background-position: 75% center;
+// 		height: 100vh;
+//
+// 		@supports not (display: grid) {
+// 			flex: 1;
+// 			flex-basis: 50%;
+// 		}
+// 	}
+//
+// 	@include tablet {
+// 		@supports not (display: grid) {
+// 			flex-basis: 55%;
+// 		}
+// 	}
+//
+// 	@include desktop {
+// 		background-position: right center;
+// 	}
+// }
+//
+// .info {
+// 	box-shadow: -2px 0 5 0 lighten(#4a4a4a, 20%);
+// 	margin: 35px auto;
+// 	width: 90%;
+//
+// 	@include big-phone {
+// 		margin: 0;
+// 		width: auto;
+// 		height: 100vh;
+// 		overflow: scroll;
+// 		padding: 25px;
+//
+// 		@supports not (display: grid) {
+// 			flex: 1;
+// 			flex-basis: 50%;
+// 		}
+//
+// 		@include tablet {
+// 			@supports not (display: grid) {
+// 				flex: 1;
+// 				flex-basis: 45%;
+// 			}
+// 		}
+// 	}
+//
+// 	@include sm-tablet {
+// 		padding: 25px 45px;
+// 	}
+//
+// 	.logo {
+// 		max-width: 300px;
+// 		width: 45%;
+// 	}
+//
+// 	&__details {
+// 		@include desktop {
+// 			max-width: 85%;
+// 		}
+//
+// 		&__meta {
+// 			margin-top: 45px;
+// 			margin-bottom: 20.5px;
+// 		}
+// 	}
+//
+// 	.sponsor-logos {
+// 		max-width: 400px;
+// 		width: 100%;
+// 		margin: 25px auto;
+// 	}
+//
+// 	&.smaller {
+// 		@include tablet {
+// 			.logo { width: 250px; }
+// 			h1 { font-size: 2.5em; line-height: 1.25em; }
+//
+// 			.info__details__meta { display: none; }
+// 		}
+// 	}
+// }
+//
+// .confirmation {
+// 	background-color: #f2f2f2;
+// 	border-radius: 3px;
+// 	opacity: .85;
+// 	color: $font-color;
+// 	padding: 1px 20.5px;
+// 	position: relative;
+// 	margin-top: 25px;
+//
+// 	&__footer {
+// 		margin-top: 50px;
+// 		margin-bottom: 10px;
+//
+// 		img {
+// 			height: 30px;
+// 			margin: 0 10px;
+// 			width: auto;
+// 		 }
+// 	}
+//
+// 	@include sm-tablet {
+// 		 height: auto;
+// 		 max-width: 100%;
+// 	}
+//
+//   @include tablet {
+//     margin: 41px 0 41px;
+// 	}
+//
+// 	@include desktop {
+// 		max-width: 75%;
+// 	}
+// }
+//
+//
+// .main {
+//   img { width: 25%; }
+// }
+//
+// .lower {
+// 	display: flex;
+// 	flex-wrap: wrap;
+// 	justify-content: space-evenly;
+// 	width: 100%;
+// }
+//
+// .lower {
+//   img {
+// 	   width: 100px;
+// 	   margin: 10px;
+//   }
+// }
+//
+// .brand { flex: 1; }

@@ -1,0 +1,24 @@
+$bg-color:        #fafafa;
+$font-color:      #4a4a4a;
+
+$fieldFocus:      #ec0044;
+$underlineActive: #061B9E;
+
+$font-stack: "Gotham-light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$heading-stack: "Playfair Display SC", serif;
+// $font-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$reg-phone-width: 580px;
+$big-phone-width: 640px;
+$sm-tablet-width: 780px;
+$tablet-width:    890px;
+$dt-width:        1020px;
+$reg-dt-width:    1100px;
+$big-dt-width:    1240px;
+
+@import "normalize";
+@import "mixins";
+@import "typography";
+@import "body";
+@import "form";
+@import "unknwnr";

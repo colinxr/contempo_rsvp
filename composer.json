@@ -1,6 +1,11 @@
 {
     "require": {
-        "wildbit/postmark-php": "^2.3",
-        "vlucas/phpdotenv": "^2.4"
-    }
+        "wildbit/postmark-php": "^2.3"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://packagist.org"
+        }
+    ]
 }

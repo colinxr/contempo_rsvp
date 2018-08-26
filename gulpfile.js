@@ -23,30 +23,57 @@ gulp.task('scripts', function() {
   return gulp.src('src/js/*.js')
 
     .pipe(concat('all.js'))
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('dist/js'))
     .pipe(rename('all.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('dist/js'))
     .pipe(livereload());
 });
 
-gulp.task('styles', function() {
-  return gulp.src(['src/scss/**/*.scss','src/css/*.css'])
+// gulp.task('styles', function() {
+//   return gulp.src(['src/scss/**/*.scss','src/css/*.css'])
+//     .pipe(
+//       sass({ outputStyle: 'compressed' })
+//       .on('error', function(e) { console.log(e); })
+//     )
+//     .pipe(prefixer())
+//     .pipe(gulp.dest('dist/css'))
+//     .pipe(rename('style.css'))
+//     .pipe(livereload());
+// });
+
+gulp.task('themeOne', function() {
+  return gulp.src('src/theme-one/*.scss')
     .pipe(
       sass({ outputStyle: 'compressed' })
       .on('error', function(e) { console.log(e); })
     )
     .pipe(prefixer())
+    .pipe(rename('theme-one.css'))
     .pipe(gulp.dest('dist/css'))
-    .pipe(rename('style.css'))
+    .pipe(livereload());
+});
+
+gulp.task('themeTwo', function() {
+  return gulp.src('src/theme-two/*.scss')
+    .pipe(
+      sass({ outputStyle: 'compressed' })
+      .on('error', function(e) { console.log(e); })
+    )
+    .pipe(prefixer())
+    .pipe(rename('theme-two.css'))
+    .pipe(gulp.dest('dist/css'))
     .pipe(livereload());
 });
 
 // Watch Files For Changes
 gulp.task('watch', function() {
   livereload.listen();
-  watch('src/scss/**/*.scss', function(e, cb) {
-    gulp.start('styles');
+  watch('src/theme-one/*.scss', function(e, cb) {
+    gulp.start('themeOne');
+  });
+  watch('src/theme-two/*.scss', function(e, cb) {
+    gulp.start('themeTwo');
   });
   livereload.listen();
   watch('src/js/*.js', function(e, cb) {
@@ -55,4 +82,4 @@ gulp.task('watch', function() {
 });
 
 // Default Task
-gulp.task('default', ['lint', 'scripts', 'styles', 'watch']);
+gulp.task('default', ['lint', 'scripts', 'themeOne', 'themeTwo', 'watch']);

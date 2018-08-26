@@ -4,7 +4,7 @@
 
 	// ** MySQL settings - You can get this info from your web host ** //
 	/** The name of the database for WordPress */
-	define( 'DB_NAME', 'RSVP' );
+	define( 'DB_NAME', 'db751061181' );
 	define( 'DB_USER', 'root' );
 	define( 'DB_PASS', 'root' );
 	define( 'DB_HOST', 'localhost' );
@@ -19,17 +19,18 @@
 	define( 'DB_TABLE', 'rsvp_test' );
 	define( 'UNKNWNR', 'unknown_test' );
 
-	define( 'BASE_URL', '/' );
+	define( 'BASE_URL', '/contempo_rsvp' );
 	define( 'BASEPATH', $_SERVER['DOCUMENT_ROOT'] . BASE_URL );
 
-	// ** Event Hosts
-	define( 'EVENT_HOSTS', 'Colin Rabyniuk' );
-	define( 'EVENT_NAME', 'Colin\'s Test' );
+	// ** Event info
+	// define( 'EVENT_THEME', 'Theme One');
+	define( 'EVENT_HOSTS', 'Sharp Magazine' );
+	define( 'EVENT_NAME', 'Sharp: The Book for Men Launch Event' );
 
 	define( 'POSTMARK_API', '2b22f2da-bcdf-413f-85c6-cc4412864d8d' );
 	define( 'EMAIL_FROM', 'event@sharpmagazine.com' ); 	// confirmation from email address
 	define( 'STAFF_EMAIL_FROM', 'colinxr@gmail.com' ); // Staff email from address
-	define( 'SUBJECT_LINE', 'Colin\'s Test Confirmation' );
+	define( 'SUBJECT_LINE', 'Your Sharp: The Book for Men Launch Event Confirmation' );
 	define( 'STAFF_SUBJECT', 'Colin\'s Test: Unknown RSVP' );
 
 	//** set type of RSVP
@@ -40,6 +41,7 @@
 
 	$admin = new Admin();
 	define( 'RSVP_TYPE', $admin->fetch_admin_setting('RSVP_TYPE') );
+	define( 'EVENT_THEME', $admin->fetch_admin_setting('EVENT_THEME') );
 	define( 'PARTNER_RSVP', $admin->fetch_admin_setting('PARTNER_RSVP') );
 
 	?>

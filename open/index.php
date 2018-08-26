@@ -84,7 +84,7 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/webshim/1.15.10/dev/polyfiller.js'></script>
-	<script type='text/javascript' src='<?php echo BASE_URL; ?>/dist/all.js'></script>
+	<script type='text/javascript' src='<?php echo BASE_URL; ?>/dist/js/all.js'></script>
 	<script>
 		(function() {
 			// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim

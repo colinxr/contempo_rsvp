@@ -1,0 +1,43 @@
+// Media Queries
+
+@mixin phone {
+  @media screen and (max-width: #{$reg-phone-width}) {
+    @content;
+  }
+}
+
+@mixin big-phone {
+  @media screen and (min-width: #{$big-phone-width}) {
+    @content;
+  }
+}
+
+@mixin sm-tablet {
+  @media screen and (min-width: #{$sm-tablet-width}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (min-width: #{$tablet-width}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: #{$dt-width}) {
+    @content;
+  }
+}
+
+@mixin reg-desktop {
+  @media screen and (min-width: #{$reg-dt-width}) {
+    @content;
+  }
+}
+
+@mixin big-desktop {
+  @media screen and (min-width: #{$big-dt-width}) {
+    @content;
+  }
+}

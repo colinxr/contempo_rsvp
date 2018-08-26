@@ -24,7 +24,16 @@
 	<meta name="theme-color" content="#4a4a4a">
 
 	<link rel="icon" href="imgs/favicon.png" type="image/x-icon" />
-	<link rel='stylesheet' href='dist/css/main.css' type='text/css' media='all' />
+
+	<?php
+		if (EVENT_THEME == 'Theme One') {
+			echo '<link rel="stylesheet" href="dist/css/theme-one.css" type="text/css" media="all" />';
+		} else {
+			echo '<link rel="stylesheet" href="dist/css/theme-two.css" type="text/css" media="all" />';
+		}
+
+	 ?>
+	<!-- <link rel='stylesheet' href='dist/css/main.css' type='text/css' media='all' /> -->
 	<link href="http://addtocalendar.com/atc/1.5/atc-style-blue.css" rel="stylesheet" type="text/css">
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-4193703-2"></script>
