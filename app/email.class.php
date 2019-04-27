@@ -17,7 +17,7 @@
           <body>
             <p>Hi '. $rsvp->getFirstName() .',</p>
             <p>Thank you for your RSVP to ' . EVENT_NAME . '.</p>
-            <p>If you would like to make changes to your RSVP please email <a href=mailto:"' . EMAIL_FROM . '">' . EMAIL_FROM . '</a>.</p>
+            <p>If you would like to make changes to your RSVP please email <a href="mailto:' . EMAIL_FROM . '">' . EMAIL_FROM . '</a>.</p>
             <p>The event details are here:</p>
             <p>Wednesday, April 25, 2018
             <br/>6:30PM - 10:30PM
@@ -28,9 +28,11 @@
             <br />
             <p>Best,
             <br/>Michael La Fave
-            <br/>Editorial and Creative Director
-            <br/>Sharp Magazine, Sharp: The Book For Men
-            <br/>Contempo Media
+            <br/>Editorial and Creative Director / Co-founder
+            <br/>Contempo Media Inc.
+            <br/>Sharp Magazine – Sharp: The Book for Men – S/magazine
+            <br/>SharpMagazine.com
+            <br/>SMagazineofficial.com
           </body>
           </html>';
 

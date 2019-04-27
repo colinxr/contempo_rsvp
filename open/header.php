@@ -9,10 +9,11 @@
 <html lang="en">
 <head>
 	<title><?php echo EVENT_NAME; ?> RSVP</title>
-	 <!-- Preload & Prefetch Images and Fonts -≥ fast loading -->
-	<!-- <link rel="preload" as="font" href="../_inc/****.woff" type="font/woff" crossorigin /> -->
- 	<!-- <link rel="preload" as="font" href="../_inc/****.woff" type="font/woff" crossorigin /> -->
-	<link rel="preload" as="image" href="../imgs/SBFM_SR-4.jpg" type="image/jpg" />
+	<!-- Preload & Prefetch Images and Fonts -≥ fast loading -->
+	<link rel="preload" as="font" href="dist/css/AkzidenzGroteskBE-LightEx.otf" type="font/otf" crossorigin />
+	 <link rel="preload" as="font" href="dist/css/AkzidenzGroteskBE-MDEx.otf" type="font/otf" crossorigin />
+ <link rel="preload" as="font" href="dist/css/AkzidenzGroteskBE-BoldEx.otf" type="font/otf" crossorigin />
+ <link rel="preload" as="image" href="imgs/SBFM_Film-3.jpg"  type="image/jpeg" />
 
 	<!-- Set character encoding for the document -->
 	<!-- Instruct Internet Explorer to use its latest rendering engine -->
@@ -29,7 +30,14 @@
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#4a4a4a">
 
-	<link rel='stylesheet' href='../dist/css/main.css' type='text/css' media='all' />
+	<?php
+		if (EVENT_THEME == 'Theme One') {
+			echo '<link rel="stylesheet" href="../dist/css/theme-one.css" type="text/css" media="all" />';
+		} else {
+			echo '<link rel="stylesheet" href="../dist/css/theme-two.css" type="text/css" media="all" />';
+		}
+
+	 ?>
 	<link href="http://addtocalendar.com/atc/1.5/atc-style-blue.css" rel="stylesheet" type="text/css">
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-4193703-2"></script>

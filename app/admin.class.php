@@ -15,13 +15,23 @@
       $db = new DB();
       $conn = $db->dbConnect();
 
-      $query = 'SELECT id, firstName, lastName, email, postal, guestFirstName, guestLastName, guestEmail FROM ' . $dbTable;
+      if ($dbTable != UNKNWNR) {
+        $query = 'SELECT id, firstName, lastName, email, postal, guestFirstName, guestLastName, guestEmail, gender, guestOf, company  FROM ' . $dbTable;
+      } else {
+        $query = 'SELECT id, firstName, lastName, email, postal, guestFirstName, guestLastName, guestEmail FROM ' . $dbTable;
+      }
+
 
 
       if ($stmt = $conn->prepare($query)) {
         $stmt->execute() or trigger_error($stmt->error, E_USER_ERROR);
         $stmt->store_result();
-        $stmt->bind_result($id, $firstName, $lastName, $email, $postal, $guestFirstName, $guestLastName, $guestEmail);
+
+        if ($dbTable != UNKNWNR) {
+          $stmt->bind_result($id, $firstName, $lastName, $email, $postal, $guestFirstName, $guestLastName, $guestEmail, $gender, $guestOf, $company);
+        } else {
+            $stmt->bind_result($id, $firstName, $lastName, $email, $postal, $guestFirstName, $guestLastName, $guestEmail);
+        }
 
         if ($stmt->num_rows > 0) {
           echo '<table class="table table-striped" id="rsvp-table">';
@@ -31,12 +41,17 @@
                 echo '<th>First Name</th>';
                 echo '<th>Last Name</th>';
                 echo '<th>Email</th>';
-                echo '<th>Postal</th>';
+                echo '<th>Instagram</th>';
                 echo '<th>Guest Name</th>';
                 echo '<th>Guest Email</th>';
                 if ($dbTable === UNKNWNR) {
                   echo '<th>Approve/Deny</th>';
-                 }
+                  echo '<th>Remove</th>';
+                } else {
+                  echo '<th>Gender</th>';
+                  echo '<th>Guest Of</th>';
+                  echo '<th>Company</th>';
+                }
               echo '</tr>';
             echo '</thead>';
             echo '<tbody>';
@@ -54,7 +69,12 @@
                 if ($dbTable === UNKNWNR) {
                   echo '<td><input type="button" id="' . $id . '" class="btn btn-link approve" value="Approve" />';
                   echo '<input type="button" class="btn btn-link deny" value="Deny" /></td>';
-                 }
+                  echo '<td><input type="button" class="js-remove-entry" value="delete" /></td>';
+                } else {
+                  echo '<td id="gender" class="value">' . $gender . '</td>';
+                  echo '<td id="guestOf" class="value">' . $guestOf . '</td>';
+                  echo '<td id="company" class="value">' . $company . '</td>';
+                }
               echo '</tr>';
             }
             echo '</tbody>';

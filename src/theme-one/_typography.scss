@@ -1,22 +1,31 @@
 @font-face {
-	font-family: 'Gotham-Light';
+	font-family: 'AkzidenzGroteskBE';
 
-	src: url('/_inc/Gotham-light-webfont.woff');
-	src: url('/_inc/Gotham-light-webfont.woff') format('woff');
+	src: url('AkzidenzGroteskBE-LightEx.otf') format('opentype');
 
-	font-weight: normal;
+	font-weight: 300;
 	font-style: normal;
 	font-variant: normal;
 	font-display: auto;
 }
 
 @font-face {
-	font-family: 'Gotham-Bold';
+	font-family: 'AkzidenzGroteskBE';
 
-	src: url('/_inc/Gotham-medium-webfont.woff');
-	src: url('/_inc/Gotham-medium-webfont.woff') format('woff');
+	src: url('AkzidenzGroteskBE-MdEx.otf') format('opentype');
 
-	font-weight: normal;
+	font-weight: 400;
+	font-style: normal;
+	font-variant: normal;
+	font-display: auto;
+}
+
+@font-face {
+	font-family: 'AkzidenzGroteskBE';
+
+	src: url('AkzidenzGroteskBE-BoldEx.otf') format('opentype');
+
+	font-weight: 600;
 	font-style: normal;
 	font-variant: normal;
 	font-display: auto;
@@ -81,16 +90,17 @@ h1 {
 	font-family: $heading-stack;
 	font-size: 2.5em;
 	line-height: .9em;
-  margin-top: 10px;
+	font-weight: 600;
+	margin-top: 0;
   margin-bottom: 15px;
 
 	@include sm-tablet {
-		font-size: 2.75em;
+		font-size: 2.2em;
 		line-height: .9em;
 	}
 
 	@include tablet {
-		font-size: 3em;
+		font-size: 2.5em;
 		line-height: 1em;
 	}
 }
@@ -100,26 +110,21 @@ h2 {
 	font-weight: 400;
 	font-style: inherit;
 	font-size: 21px;
+	margin-bottom: 5px;
 	line-height: 24px;
-	margin: 28px 0 15px;
 }
 
 h3 {
-  font-weight: 300;
+  font-weight: 600;
   font-size: 1.1em;
-  line-height: 16px;
-	margin-bottom: -5px;
-	margin-top: 5px;
+  line-height: 20px;
+	margin-bottom: 5px;
 }
 
 h4 {
 	font-size: .95em;
 	font-weight: 400;
 	line-height: 1.5em;
-
-  // @include sm-tablet {
-  //   line-height: 1.4em;
-  // }
 }
 
 h5 {

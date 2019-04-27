@@ -9,10 +9,6 @@
 
 body {
 	background-color: $bg-color;
-	// background-image: url('../../imgs/don-cheadle-bfm.jpg');
-	// background-position: left top;
-	// background-repeat: no-repeat;
-	// background-size: cover;
 }
 
 
@@ -29,27 +25,34 @@ body {
 	}
 }
 
-.column {
+.sponsor-logos {
+	text-align: center;
+	max-width: 400px;
+	display: block;
+	margin: 0 auto;
+}
 
+.column {
 	&--left {
-		background-image: url('../../imgs/SBFM_SR-4.jpg');
-		background-position: right center;
+		background-image: url('../../imgs/SBFM_Film-3.jpg');
+		background-position: left center;
 		background-repeat: no-repeat;
 		background-size: cover;
 		height: 67vh;
 
 		@include big-phone {
-			background-position: 75% center;
+			background-position: left center;
 			flex-basis: 50%;
 			height: 100vh;
 		}
 
 		@include tablet {
+			background-position: left 25%;
 			flex-basis: 55%;
 		}
 
 		@include desktop {
-			background-position: right center;
+			// background-position: left 25%;
 		}
 	}
 
@@ -61,24 +64,43 @@ body {
 		.event-info {
 			&__header {
 				width: auto;
-				margin-bottom: 45px;
+				margin-bottom: 35px;
+				border-bottom: 1px solid rgba($font-color, .4);
+				text-align: center;
+				padding-bottom: 15px;
+
+				&__logo {
+					margin: 0 auto;
+					width: 200px;
+
+				}
 			}
 
 			&__details {
-				@include desktop {
-					max-width: 85%;
-				}
+				text-align: center;
 
 				&__meta {
 					margin-top: 45px;
 					margin-bottom: 20.5px;
+					display: flex;
+					flex-direction: column;
+
+					.box {
+						width: 50%;
+						margin: 0 auto;
+						
+						& + .box { margin-top: 20px; }
+					}
 				}
+			}
+
+			@include desktop {
+				max-width: 85%;
+				margin: 0 auto;
 			}
 		}
 
-		.sponsors {
-			text-align: center;
-		}
+
 
 		.confirmation {
 			background-color: #f2f2f2;
@@ -111,6 +133,7 @@ body {
 
 			@include desktop {
 				max-width: 75%;
+				margin: 0 auto;
 			}
 		}
 

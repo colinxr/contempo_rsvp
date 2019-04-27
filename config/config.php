@@ -27,7 +27,7 @@
 	define( 'EVENT_HOSTS', 'Sharp Magazine' );
 	define( 'EVENT_NAME', 'Sharp: The Book for Men Launch Event' );
 
-	define( 'POSTMARK_API', '2b22f2da-bcdf-413f-85c6-cc4412864d8d' );
+	define( 'POSTMARK_API', '476f4535-b4e6-45cb-bf0b-5e0852c83965' );
 	define( 'EMAIL_FROM', 'event@sharpmagazine.com' ); 	// confirmation from email address
 	define( 'STAFF_EMAIL_FROM', 'colinxr@gmail.com' ); // Staff email from address
 	define( 'SUBJECT_LINE', 'Your Sharp: The Book for Men Launch Event Confirmation' );

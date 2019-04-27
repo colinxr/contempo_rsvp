@@ -5,30 +5,20 @@
   <!-- Button code -->
   <div title="Add to Calendar" class="addeventatc">
     Add to Calendar
-    <span class="start">05/02/2018 18:30:00</span>
-    <span class="end">05/02/2018 22:30:00</span>
+    <span class="start"></span>
+    <span class="end"></span>
     <span class="timezone">America/Toronto</span>
-    <span class="title">Sharp The Book For Men SS18 Vancouver Launch Event</span>
+    <span class="title"></span>
     <!-- <span class="description">Celebrate the Launch of Sharp: The Book For Men with Sharp Magazine, presented by Genesis</span> -->
-    <span class="location">11 Polson St</span>
-    <span class="organizer_email">event@sharpmagazine.com</span>
-    <span class="alarm_reminder">1440</span>
+    <span class="location"></span>
+    <span class="organizer_email"><?php echo EMAIL_FROM ?></span>
+    <span class="alarm_reminder"></span>
   </div>
 
   <div class='confirmation__footer'>
     <img src='<?php echo BASE_URL; ?>/imgs/sharp_logo_black.svg'>
   </div>
 
-
-  <!-- script for add to calendar -->
-  <!-- <script type="text/javascript">(function () {
-  	if (window.addtocalendar)if(typeof window.addtocalendar.start == "function")return;
-  	if (window.ifaddtocalendar == undefined) { window.ifaddtocalendar = 1;
-  	    var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
-  	    s.type = 'text/javascript';s.charset = 'UTF-8';s.async = true;
-  	    s.src = ('https:' == window.location.protocol ? 'https' : 'http')+'://addtocalendar.com/atc/1.5/atc.min.js';
-  	    var h = d[g]('body')[0];h.appendChild(s); }})();
-  </script> -->
   <script type="text/javascript" src="https://addevent.com/libs/atc/1.6.1/atc.min.js" async defer></script>
 
 </div>

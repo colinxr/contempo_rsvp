@@ -8,6 +8,7 @@ form {
 
   @include desktop {
     max-width: 75%;
+    margin: 0 auto;
   }
 
   @include big-desktop {
@@ -90,6 +91,7 @@ form {
 	height: 69px;
 	text-align: left;
 	pointer-events: none;
+  font-weight: 300;
 
 	/*text-shadow: 3px 3px 2px #333;*/
   &::before {
@@ -240,7 +242,7 @@ form {
 	margin: 41px 0px;
 	letter-spacing: 1px;
 	font-size: 13.5pt;
-	font-weight: 400;
+	font-weight: 300;
 	outline: none;
 	position: relative;
 	-webkit-transition: all 0.3s;
