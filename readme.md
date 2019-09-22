@@ -22,13 +22,14 @@ In Terminal, `cd` into the directory and run the following commands:
 - `composer install`
 - `gulp`
 
-#### 2. Rename the sql files
+#### 2. Open the create-rsvp-tables.sql and change the table names. 
+- Find the `****` inside of the table names and reaplce with 
 - Replace the **** with corresponding event name, e.g. rsvp_coach_0917.
 - Import into phpMyAdmin.
 
-#### 3. Update the config-sample.php and .env.sample files found in the config directory
-- Add the appropriate database env info for local and prod
-- Update BASE_URL env to match url folder on local and prod
+#### 3. Update config-sample.php
+- Add the appropriate database info for local and production
+- Update BASE_URL env to match url folder on local and production
 - Update db table names to match the sql files edited previously
 - Update event email info
 - Rename to config.php
@@ -36,16 +37,14 @@ In Terminal, `cd` into the directory and run the following commands:
 #### 4. Edit Event Info
 - Open event-info.php
 - Add pertinent event info based off of invite design
-- Coordinate with art if required. Some times it's easier to include some of this info as an one svg rather than html.
+- Go into _inc/alerts/conf-msg.php and update the event info for the Add-To-Calendar button. 
 - Update Sponosor logos
 
 #### 5. Style page as necessary
-- Open main.scss in the styles directory
-- Edit sass files as needed
+- There are two set themes for contempo events. Theme One is a two column layout, with an image on the left and the event info on the right. Theme Two is a one column layout with a full bleed background image. Decide which layout you want to use for the event 
 
-#### 6. Update confirmation emails
-- In email.class.php, ensure email functions are sending the appropriate copy to the guests and to staff
-- work with Art to update assets in the inc/emails directory
+#### 6. Update confirmation emails 
+- In email.class.php, update the event info in the email body 
 - are the correct staff members receiving the unknown notifications, if applicable?
 
 #### 7. Prepare list
