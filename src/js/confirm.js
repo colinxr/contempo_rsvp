@@ -18,8 +18,9 @@ $(document).ready(function() {
 			lastName   : activeRow.find('td:eq(2)').text(),
 			email 	   : activeRow.find('td:eq(3)').text(),
 			postal     : activeRow.find('td:eq(4)').text(),
-			guestName  : activeRow.find('td:eq(5)').text(),
-		  guestEmail : activeRow.find('td:eq(6)').text()
+			instagram  : activeRow.find('td:eq(5)').text(),
+			guestName  : activeRow.find('td:eq(6)').text(),
+		  	guestEmail : activeRow.find('td:eq(7)').text()
 		};
 
 	  //check if users clicked Approve or Deny

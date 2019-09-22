@@ -16,9 +16,9 @@
       $conn = $db->dbConnect();
 
       if ($dbTable != UNKNWNR) {
-        $query = 'SELECT id, firstName, lastName, email, postal, guestFirstName, guestLastName, guestEmail, gender, guestOf, company  FROM ' . $dbTable;
+        $query = 'SELECT id, firstName, lastName, email, postal, instagram, guestFirstName, guestLastName, guestEmail, gender, guestOf, company  FROM ' . $dbTable;
       } else {
-        $query = 'SELECT id, firstName, lastName, email, postal, guestFirstName, guestLastName, guestEmail FROM ' . $dbTable;
+        $query = 'SELECT id, firstName, lastName, email, postal, instagram, guestFirstName, guestLastName, guestEmail FROM ' . $dbTable;
       }
 
 
@@ -28,9 +28,9 @@
         $stmt->store_result();
 
         if ($dbTable != UNKNWNR) {
-          $stmt->bind_result($id, $firstName, $lastName, $email, $postal, $guestFirstName, $guestLastName, $guestEmail, $gender, $guestOf, $company);
+          $stmt->bind_result($id, $firstName, $lastName, $email, $postal, $instagram, $guestFirstName, $guestLastName, $guestEmail, $gender, $guestOf, $company);
         } else {
-            $stmt->bind_result($id, $firstName, $lastName, $email, $postal, $guestFirstName, $guestLastName, $guestEmail);
+            $stmt->bind_result($id, $firstName, $lastName, $email, $postal, $instagram, $guestFirstName, $guestLastName, $guestEmail);
         }
 
         if ($stmt->num_rows > 0) {
@@ -41,6 +41,7 @@
                 echo '<th>First Name</th>';
                 echo '<th>Last Name</th>';
                 echo '<th>Email</th>';
+                echo '<th>Postal</th>';
                 echo '<th>Instagram</th>';
                 echo '<th>Guest Name</th>';
                 echo '<th>Guest Email</th>';

@@ -27,12 +27,7 @@
 
             <br />
             <p>Best,
-            <br/>Michael La Fave
-            <br/>Editorial and Creative Director / Co-founder
-            <br/>Contempo Media Inc.
-            <br/>Sharp Magazine – Sharp: The Book for Men – S/magazine
-            <br/>SharpMagazine.com
-            <br/>SMagazineofficial.com
+            <br/>Sharp Magazine
           </body>
           </html>';
 

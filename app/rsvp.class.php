@@ -37,6 +37,11 @@
       return $this->data['postal'];
     }
 
+    public function setInstagram($value) {
+      $this->data['instagram'] = strtoupper($value);
+      return $this->data['instagram'];
+    }
+
     public function setGender($value) {
       $this->data['gender'] = strtoupper($value);
       return $this->data['gender'];
@@ -105,6 +110,9 @@
 
     public function getPostal() {
       return $this->data['postal'];
+    }
+    public function getInstagram() {
+      return $this->data['instagram'];
     }
     public function getGender() {
       return $this->data['gender'];

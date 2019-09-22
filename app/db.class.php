@@ -62,6 +62,7 @@
       $firstName = $obj->getFirstName();
       $lastName  = $obj->getLastName();
       $postal    = $obj->getPostal();
+      $instagram - $obj->getInstagram();
       $hasGuest  = $obj->getHasGuest();
 
       // if key value pair exists, set variable as the value
@@ -92,22 +93,22 @@
           $guestEmail     = $obj->getGuestEmail();
 
           // prepared SQL stmt to insert guest and plus one
-          $guest_query = 'INSERT INTO ' . DB_TABLE . '(email, firstName, lastName, postal, gender, category, company, guestOf, guestFirstName, guestLastName, guestEmail)
-          VALUES (?,?,?,?,?,?,?,?,?,?,?)';
+          $guest_query = 'INSERT INTO ' . DB_TABLE . '(email, firstName, lastName, postal, instagram, gender, category, company, guestOf, guestFirstName, guestLastName, guestEmail)
+          VALUES (?,?,?,?,?,?,?,?,?,?,?,?)';
 
           $rsvp_stmt = $conn->prepare($guest_query);
 
           if ($rsvp_stmt) {
-            $rsvp_stmt->bind_param('sssssssssss', $email, $firstName, $lastName, $postal, $gender, $category, $company, $guestOf, $guestFirstName, $guestLastName, $guestEmail);
+            $rsvp_stmt->bind_param('ssssssssssss', $email, $firstName, $lastName, $postal, $instagram, $gender, $category, $company, $guestOf, $guestFirstName, $guestLastName, $guestEmail);
           }
         } else {
           // prepared SQL stmt to insert guest
-          $single_query = 'INSERT INTO ' . DB_TABLE . '(email, firstName, lastName, postal, gender, category, company, guestOf)
-          VALUES (?,?,?,?,?,?,?,?)';
+          $single_query = 'INSERT INTO ' . DB_TABLE . '(email, firstName, lastName, postal, $instagram, gender, category, company, guestOf)
+          VALUES (?,?,?,?,?,?,?,?,?)';
 
           $rsvp_stmt = $conn->prepare($single_query);
           if ($rsvp_stmt) {
-            $rsvp_stmt->bind_param('ssssssss', $email, $firstName, $lastName, $postal, $gender, $category, $company, $guestOf);
+            $rsvp_stmt->bind_param('sssssssss', $email, $firstName, $lastName, $postal, $instagram, $gender, $category, $company, $guestOf);
           }
         }
 
@@ -158,6 +159,7 @@
       $firstName = $obj->getFirstName();
       $lastName  = $obj->getLastName();
       $postal    = $obj->getPostal();
+      $instagram = $obj->getInstagram();
       $hasGuest  = $obj->getHasGuest();
       $verdict   = $obj->getAction() ? $obj->getAction() : ' ';
 
@@ -172,20 +174,20 @@
           $guestLastName  = $obj->getGuestLastName();
           $guestEmail     = $obj->getGuestEmail();
 
-          $unknown_query = 'INSERT INTO ' . UNKNWNR . ' (email, firstName, lastName, postal, guestFirstName, guestLastName, guestEmail) VALUES (?,?,?,?,?,?,?)';
+          $unknown_query = 'INSERT INTO ' . UNKNWNR . ' (email, firstName, lastName, postal, instagram, guestFirstName, guestLastName, guestEmail) VALUES (?,?,?,?,?,?,?)';
 
           $unknown_stmt = $conn->prepare($unknown_query);
 
           if ($unknown_stmt) {
-            $unknown_stmt->bind_param('sssssss', $email, $firstName, $lastName, $postal, $guestFirstName, $guestLastName, $guestEmail);
+            $unknown_stmt->bind_param('ssssssss', $email, $firstName, $lastName, $postal, $instagram, $guestFirstName, $guestLastName, $guestEmail);
           }
         } else {
-          $unknown_query= 'INSERT INTO ' . UNKNWNR . ' (email, firstName, lastName, postal) VALUES (?,?,?,?)';
+          $unknown_query= 'INSERT INTO ' . UNKNWNR . ' (email, firstName, lastName, postal) VALUES (?,?,?,?,?)';
 
           $unknown_stmt = $conn->prepare($unknown_query);
 
           if ($unknown_stmt) {
-            $unknown_stmt->bind_param('ssss', $email, $firstName, $lastName, $postal);
+            $unknown_stmt->bind_param('sssss', $email, $firstName, $lastName, $postal, $instagram);
           }
         }
 
