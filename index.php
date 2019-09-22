@@ -55,6 +55,13 @@
 						</label>
 					</span>
 
+					<span class="input input--bfm">
+						<input class="input__field input__field--bfm" type="text" id="instagram"  name="rsvp[instagram]" value="<?php echo $instagram; ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required />
+						<label class="input__label input__label--bfm input__label--bfm-color" for="instagram">
+							<span class="input__label-content input__label-content--bfm">Instagram</span>
+						</label>
+					</span>
+
 					<span class="input input--bfm input__check">
 						<label class="input__label input__label--plus-one" for="plus-one">Bringing a Guest?</label>
 						<input type="checkbox" name="rsvp[plus-one]" id="plus-one">
